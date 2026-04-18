@@ -1,0 +1,5002 @@
+[
+  {
+    "id": "puzzle_001",
+    "fen": "r1bq1bnr/p2ppkp1/1pp2p2/4P2p/7P/NP6/PRPPP1P1/2BQKBNR w K - 0 8",
+    "solution": [
+      "e5f6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_002",
+    "fen": "2bqkbnr/2ppp3/pr5p/np3Np1/P3P3/5Q1P/1P1PBPP1/RNB2K1R b k - 2 12",
+    "solution": [
+      "b5a4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_003",
+    "fen": "rn1q1knr/p1ppb2p/b3ppp1/1p6/2BPP3/PPP2PP1/1Q5P/RNB1K1NR w KQ - 4 11",
+    "solution": [
+      "g1h3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_004",
+    "fen": "rnb1kbnr/1q1p2pp/1pp1p2P/p4p2/1P1PPP2/2P5/P1Q1K1P1/RNB2BNR b kq - 1 11",
+    "solution": [
+      "f8b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_005",
+    "fen": "rnb1kbnr/p2pq3/1pp2ppp/3P4/P1P2p1B/RQ3P2/1P2P1PP/1N2KB1R b Kkq c3 0 12",
+    "solution": [
+      "c6d5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_006",
+    "fen": "rnbqk1nr/1ppp1pp1/4p2p/p7/3P4/b3PQ2/PPP2PPP/RNB1KBNR w KQkq - 1 5",
+    "solution": [
+      "b2a3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_007",
+    "fen": "r2q1b1r/Bb1pkp1p/n1p2n2/1p2p1p1/P3P2P/3P2PR/1PPNNP2/R2QKB2 b Q - 0 11",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_008",
+    "fen": "1rb1kbnr/pppp1p1p/2q5/1B2p1p1/1n1P3P/4PPP1/PPPBN3/RN1QK2R b KQk - 6 10",
+    "solution": [
+      "b4a6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_009",
+    "fen": "r3kbnr/p1qnp1p1/1P3pb1/2Pp3p/N4P2/3P4/P1Q1P1PP/R1B1KBNR b KQkq - 2 10",
+    "solution": [
+      "g6f5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_010",
+    "fen": "rnbq1bnr/p2ppkp1/2p5/1p3p2/P3P2p/1PP2N1P/3P1PP1/RNBQKB1R w KQ - 0 7",
+    "solution": [
+      "a4b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_011",
+    "fen": "2bqk2r/rpppbppn/p1n5/4p2p/PP1P3P/4P3/2PN1PP1/R1B1KBNR b KQk a3 0 9",
+    "solution": [
+      "e7b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_012",
+    "fen": "r1bqkb1r/1pppp2p/6pn/p1Q2p2/1nP1PN2/3PB3/PP1K1PPP/RN3B1R b kq - 3 10",
+    "solution": [
+      "h6g8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_013",
+    "fen": "rnbqkbnr/1ppp1p2/p3p3/6pp/P3P3/3P1P2/1PPQ2PP/RNB1KBNR b KQkq - 1 5",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_014",
+    "fen": "r1bqkbnr/p1pppp1p/n7/1p4p1/6P1/BP1P4/P1P1PPBP/RN1QK1NR b KQkq - 0 5",
+    "solution": [
+      "a8b8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_015",
+    "fen": "rnb1q1nr/ppppp1bp/4kp2/6p1/P6P/2P1PP1R/RP1P2P1/1NBQKBN1 w - - 3 8",
+    "solution": [
+      "h4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_016",
+    "fen": "rnb1kbnr/1p1pp1p1/2p2p2/p6p/PP4P1/2q2P2/2PPP1BP/RNBQK1NR w KQkq - 2 9",
+    "solution": [
+      "d2c3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_017",
+    "fen": "rnbqkb1r/3ppppp/ppp2n2/6N1/6P1/7B/PPPPPP1P/RNBQK2R w KQkq - 2 5",
+    "solution": [
+      "a2a3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_018",
+    "fen": "rnb1kb1r/ppq1pp1p/3p1np1/2p5/P3PP2/3P3P/1PP3P1/RNBQKBNR w KQkq - 1 6",
+    "solution": [
+      "g1e2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_019",
+    "fen": "r3k1nr/2p4p/p1nqb2b/1p1pppp1/2P5/5P1P/PPNPP1PR/R1BQKBN1 b Qkq - 1 13",
+    "solution": [
+      "b5b4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_020",
+    "fen": "rnbqkb1r/pp1p1ppp/2p4n/4p3/6P1/N1P5/PPQPPP1P/R1B1KBNR w KQkq - 0 5",
+    "solution": [
+      "g1h3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_021",
+    "fen": "1rbqkbr1/2pp1ppp/4p3/pp1nP3/5n2/P2P1PPN/1PP3BP/RN1Q2KR w - - 0 12",
+    "solution": [
+      "g3f4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_022",
+    "fen": "rnbqk2r/p2pn3/1ppb4/4pPpp/2P5/1P1PP2N/P4P1P/RNBQKBR1 w Qkq g6 0 12",
+    "solution": [
+      "f5g6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_023",
+    "fen": "1nbqkbnr/rpp2ppp/3p3B/p7/2N1pP2/3P2P1/PPP1P2P/RQ2KBNR b KQk - 2 8",
+    "solution": [
+      "g7h6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_024",
+    "fen": "rnb2bn1/1p2pk1r/1Q3ppp/2Pp4/p3P1P1/2N5/PPPK1P1P/1RB2BNR b - - 0 13",
+    "solution": [
+      "d5d4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_025",
+    "fen": "rn2kb1r/p2ppp1p/1q5n/1pp1P1p1/4b3/3P3N/PPP2PPP/RNBQKBR1 w Qkq - 1 8",
+    "solution": [
+      "d3e4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_026",
+    "fen": "rn2k1nr/pb1pp1b1/2p3pp/R4P2/3qP2P/1PNP1N2/2PK1P2/2BQ1B1R b kq - 0 13",
+    "solution": [
+      "d4c3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_027",
+    "fen": "rn3bnr/pbq2pp1/2pkp3/1p1P3P/1PP1B3/P7/3PKP1P/RNBQ2NR b - - 0 13",
+    "solution": [
+      "c7c8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_028",
+    "fen": "1rbq1bnr/Qpp1p2p/4k1p1/3pnp2/8/2P2P1N/PP1PB1PP/RNB1K2R w KQ - 0 9",
+    "solution": [
+      "a7b8"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_029",
+    "fen": "2bqkbnr/1ppppppp/2n5/r7/2B1P3/p4N1P/PPPPQPP1/RNB1K2R b KQk - 1 6",
+    "solution": [
+      "a3b2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_030",
+    "fen": "2bq1b1r/1ppkpp1p/r1n5/3n2p1/pPPp2PP/B1NKPP2/P2P3R/R2Q1BN1 b - - 1 12",
+    "solution": [
+      "c6a5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_031",
+    "fen": "r3kbnr/ppnb1p1p/3pp1p1/2p3q1/2PP1P2/BP6/PQ1NPKPP/R4BNR w k - 3 11",
+    "solution": [
+      "f4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_032",
+    "fen": "rnbq1b1r/1pppkppn/4p2p/p7/8/NP3PP1/P1PPP2P/R1BQKBNR w KQ - 3 7",
+    "solution": [
+      "a3c4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_033",
+    "fen": "rnbqk2r/3pbn1p/8/1pp1Qpp1/pPP4B/4P3/PN3PPP/R3KBNR w KQkq b6 0 13",
+    "solution": [
+      "g1f3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_034",
+    "fen": "r3kbnr/p1q1pppp/nPp1b3/8/2PpPP2/7P/RP1P1KP1/1NBQNB1R w kq - 1 13",
+    "solution": [
+      "b6c7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_035",
+    "fen": "r2qkb1r/p1pppppp/np5n/8/4b1Q1/1P4P1/P1PP1P1P/RNB1KBNR w KQkq - 1 6",
+    "solution": [
+      "g4e4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_036",
+    "fen": "rnbqkbnr/pp1p4/1Rp1p1p1/5p1p/6PP/8/PPPPPP2/RNBQK1NB b Qkq - 1 8",
+    "solution": [
+      "d8b6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_037",
+    "fen": "rnb1kb1B/pp1ppp1p/2p3p1/4q3/3P4/PP1K1P2/2P1P1PP/RN1Q1BNR b - - 4 9",
+    "solution": [
+      "e5h8"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_038",
+    "fen": "rnbqkbnr/1ppp2p1/5p1p/p7/1P1Pp3/2P5/P2NPPPP/R1BQKBNR b KQkq - 0 6",
+    "solution": [
+      "a5b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_039",
+    "fen": "1nq1kbnr/r3p1p1/bp1p1p1p/p1p5/8/P1PPPP1P/1PQKB1PR/RNB3N1 w k - 0 11",
+    "solution": [
+      "c2a4"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_040",
+    "fen": "r1bq1bnr/p1pkppp1/np5p/3p4/P1P1P1P1/1P5P/2QP1P2/RNB1KBNR w KQ - 0 8",
+    "solution": [
+      "c4d5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_041",
+    "fen": "1rbqkb2/ppppp2r/5npp/5p2/1P4P1/1nNPK2N/P1P1PPBP/1RBQ3R w - - 7 10",
+    "solution": [
+      "a2b3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_042",
+    "fen": "rnbqk1nr/p2pbp1p/2p5/1p2p1p1/4PP1P/2P3K1/PP1P2P1/RNB2BNR w kq - 1 10",
+    "solution": [
+      "f4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_043",
+    "fen": "rnbqk2r/pp1p1ppp/2p4n/4p3/1bP5/N5PN/PP1PPP1P/R1BQKB1R w KQkq - 0 5",
+    "solution": [
+      "a3c2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_044",
+    "fen": "r1q1kbnr/pp2pppp/n1pp4/7P/1P2P3/7b/PBPP1PP1/RN1QKBNR w KQkq - 0 6",
+    "solution": [
+      "g2h3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_045",
+    "fen": "rnbqkb1r/1pp1pp1p/6pn/p2p4/6P1/2P1P2N/PP1P1P1P/RNBQKB1R w KQkq d6 0 5",
+    "solution": [
+      "d1a4"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_046",
+    "fen": "rnb1kb1r/1ppq3p/p3pppn/2N5/3pPPQP/P2P4/1PP3P1/R1B1KBNR b KQkq f3 0 11",
+    "solution": [
+      "f8c5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_047",
+    "fen": "2bqk2r/prpp1pbp/n3p2n/1p4p1/2P2P1N/P3P2P/1P1P2P1/RNBQKBR1 w Qk - 1 9",
+    "solution": [
+      "f4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_048",
+    "fen": "r1bqkb1r/p1pn1ppp/4p2n/1p1p4/2P2PQP/N3P1P1/PP1P4/R1B1KBNR b KQkq - 0 8",
+    "solution": [
+      "h6g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_049",
+    "fen": "2bq1bnr/r2p1kpp/ppn2p2/2p1p3/PP2PP1P/2N5/2PP2P1/R1BQKBNR b KQ - 0 9",
+    "solution": [
+      "c6b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_050",
+    "fen": "r3kbr1/p1pp1ppp/b1n2q2/3npP2/p7/1P1P1N1P/R1P1K1PR/1NBQ4 b q - 0 12",
+    "solution": [
+      "h7h6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_051",
+    "fen": "r3kbr1/pp2pppp/n1pq3n/3pB3/1P2N3/P1PP3b/4PPBP/RN1QK1R1 w Q - 3 13",
+    "solution": [
+      "e5d6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_052",
+    "fen": "rnbk1b1r/p1q2ppp/4p3/2Bp4/Pp4P1/1PPPn3/4KP1P/RN1Q1BNR b - g3 0 11",
+    "solution": [
+      "b4c3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_053",
+    "fen": "rnbqk2r/1p2p1bp/2p3pP/p2p1p2/5P2/1PP4P/P1QPP3/RNB1KBNR b KQkq - 1 8",
+    "solution": [
+      "g7h6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_054",
+    "fen": "rnb1kbnr/pp2p1pp/1q1p4/5p2/PPp2P2/R1P3PN/3PP2P/1NBQKB1R b Kkq - 1 7",
+    "solution": [
+      "b8a6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_055",
+    "fen": "r2q1knr/pb1np2p/2p4b/1pPp1pN1/QP6/2N5/P2PPPPP/R1B1KB1R w KQ - 4 10",
+    "solution": [
+      "g5e6"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_056",
+    "fen": "r1bqkb1r/p1ppppp1/7p/1p1nB1N1/4P3/2PP4/PP3PPP/R1Q1KBNn w Qkq - 0 10",
+    "solution": [
+      "f1e2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_057",
+    "fen": "rnbq1bnr/p3pk1p/1ppp2p1/5p2/3P1N2/PP3P2/2P1P1PP/RNBQKB1R w KQ - 1 7",
+    "solution": [
+      "f4h3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_058",
+    "fen": "r1bqkbnr/1ppppp1p/8/6pP/pn2P3/N7/P1PP1PP1/R1BQKBNR w KQkq g6 0 6",
+    "solution": [
+      "h5g6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_059",
+    "fen": "rnbqk1nr/pp1p1pp1/1b5p/4p3/1pP1P3/N7/P2P1PPP/RQB1KBNR b KQkq - 2 7",
+    "solution": [
+      "b4a3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_060",
+    "fen": "r1bqkb1r/p2pppp1/n7/1ppn3p/4PP2/P2P2PN/1PP4P/RNBQKB1R w KQkq h6 0 7",
+    "solution": [
+      "e4d5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_061",
+    "fen": "1nbq1bnr/rppkp2p/3p4/p4pN1/PPP5/N7/3PPPPP/1RBQKBR1 b - - 0 13",
+    "solution": [
+      "a5b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_062",
+    "fen": "r1b1kb1r/1pqppp1p/p1n4n/2p2Pp1/1P6/3PP2N/P1PB2PP/RNQ1KB1R w KQk - 1 9",
+    "solution": [
+      "b4c5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_063",
+    "fen": "rnb2bnr/pp1k4/2p1p1pp/1N3p2/3p3q/3PP2P/PPPK1PP1/R1Q2BNR b - - 3 10",
+    "solution": [
+      "c6b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_064",
+    "fen": "r1bqk1nr/ppppb3/B4pNp/8/3np1P1/4PP1P/P1PP4/RNBQK2R w KQkq - 1 12",
+    "solution": [
+      "g6h8"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_065",
+    "fen": "rnbq1knr/p1p1ppbp/1p6/3p1Pp1/6P1/N2P3P/PPP1P3/R1BQKBNR b KQ - 0 6",
+    "solution": [
+      "b8a6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_066",
+    "fen": "r1bqkbnr/p1p1p2p/1pnp2p1/5p2/1BPP4/N5P1/PP2PP1P/2RQKBNR b Kkq - 0 8",
+    "solution": [
+      "c6b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_067",
+    "fen": "1r1qkb1r/pbpppp1p/2n2n2/1p4p1/1P2P1PP/B2P1P2/P1P5/RN1QKBNR w KQk - 1 8",
+    "solution": [
+      "h4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_068",
+    "fen": "r1bqkb1r/ppppp1pp/n4p2/8/4n2P/P4NP1/RPPPPP2/1NBQKB1R b Kkq - 1 5",
+    "solution": [
+      "a8b8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_069",
+    "fen": "r1bqkbnr/2pp1ppp/p1n1p3/1p6/8/NP3N2/P1PPPPPP/R1BQKB1R b KQkq - 2 5",
+    "solution": [
+      "b5b4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_070",
+    "fen": "rnbqkb1r/2pp1pp1/p3p2p/1p3P2/2PPPn2/7P/PP2Q1P1/RNB1KBNR w KQkq - 1 9",
+    "solution": [
+      "c1f4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_071",
+    "fen": "rn1k1br1/p1pp1p1p/Q3pnp1/1p6/1q3P2/P1P2KPN/1B1PP2P/RN3B1R w - - 0 13",
+    "solution": [
+      "a3b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_072",
+    "fen": "rn2kbnr/3bp2p/1qpp2p1/p4p1P/1pPP1B2/5NP1/PP1QPP2/RN2KB1R w KQkq - 2 11",
+    "solution": [
+      "e1d1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_073",
+    "fen": "rnbk2nr/3p2pp/2p1pb2/pp2qp2/P1BP1P2/NPP1P3/R3N1PP/2BQK2R b K - 6 13",
+    "solution": [
+      "h7h6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_074",
+    "fen": "rnb1kbnr/1p1p4/1q2ppp1/pPp4p/P4P2/2N5/2PPP1PP/R1BQKBNR b KQkq - 0 9",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_075",
+    "fen": "1n3bnr/r1qkpppp/1pp1b3/p5P1/2Pp1P2/3P4/PP1NP1BP/RNBQK2R b - - 2 12",
+    "solution": [
+      "c7f4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_076",
+    "fen": "rn1qkbnr/1p2ppp1/p1p1b2p/3p4/1P6/2N1P3/PBPP1PPP/R2QKBNR b KQkq - 3 6",
+    "solution": [
+      "h8h7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_077",
+    "fen": "rn1qkbnr/p1p1p1pp/b7/1pPp4/1P3pP1/2Q5/P2PPP1P/RNB1KBNR w KQ d6 0 8",
+    "solution": [
+      "c1a3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_078",
+    "fen": "1rbqkbnr/1p1pp1p1/p4p2/1np4p/3PP2P/5N2/PPPNKPP1/R1BQ1B1R w k - 1 9",
+    "solution": [
+      "d4c5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_079",
+    "fen": "rnbqk1r1/p2pn1bp/2p1p1p1/1p3p2/1P3PPP/P1R5/R1PPP1B1/1NBQ1KN1 b q - 1 11",
+    "solution": [
+      "g7c3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_080",
+    "fen": "1rbqkb1r/p1ppp1pp/1p5n/n4p2/3P1P2/P4N1P/1PPBP1P1/RN1QKB1R w KQk - 0 8",
+    "solution": [
+      "d4d5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_081",
+    "fen": "rnbqk2r/1pp1bp1p/5np1/PN1pp3/P2P4/2P3PP/4PP2/R1BQKBNR b KQq - 1 9",
+    "solution": [
+      "f6g8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_082",
+    "fen": "r1bqk3/pppp1p2/4p1pr/1Bbn3p/3PP1P1/Pn5N/RPPBQP1P/1N2K2R w Kq - 10 12",
+    "solution": [
+      "d2h6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_083",
+    "fen": "r1b1kbnr/pp1ppppp/n1p5/8/PQP2q2/8/1P2PPPP/RNB1KBNR w KQkq - 2 8",
+    "solution": [
+      "c1f4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_084",
+    "fen": "rn2kb1r/pbppqp1p/1p5n/6p1/1P1p4/5P1P/PBPNP1P1/R1QK1BNR b kq - 1 8",
+    "solution": [
+      "e7b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_085",
+    "fen": "rnb2b1r/p2pp1pp/1qp2pk1/1p6/2PP1P1P/2n5/PPNBP1PR/1R1QKBN1 b - f3 0 10",
+    "solution": [
+      "c3d1"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_086",
+    "fen": "rn1qkbnr/1p4p1/2p1p3/p2N3p/P3p1PP/7B/1PPP1P2/R1BQ1KN1 b kq a3 0 9",
+    "solution": [
+      "d8d5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_087",
+    "fen": "rnb1kbnr/1p2q2p/2ppp1p1/p4Q2/1P1P4/B4N2/P1PKPPPP/RN3B1R w kq - 0 9",
+    "solution": [
+      "f5g4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_088",
+    "fen": "r2qkbnr/npp1ppp1/p6p/3p4/P5P1/7P/RPPPP1PR/1NBQKBN1 w kq - 1 7",
+    "solution": [
+      "a4a5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_089",
+    "fen": "r1bk1b1r/p2pnp1p/Q1p5/4p1q1/p2P4/2N2PP1/RPP1PK1P/2B2B1R b - - 0 11",
+    "solution": [
+      "g5h5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_090",
+    "fen": "r2qkbnr/pp2pppp/n2p4/2p5/P1R5/5P1b/1PPPP1PP/1NBQKBNR b Kkq - 5 6",
+    "solution": [
+      "h3f5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_091",
+    "fen": "r1bq1bnr/p1ppk1pp/4p3/1p3p2/3nP2P/1PPP1PP1/P7/RNBQKBNR b KQ e3 0 7",
+    "solution": [
+      "d4c6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_092",
+    "fen": "1nbk1bnr/rp1p3p/p3pp2/2pP2p1/4N3/N5P1/PqP1PP1P/R1BQKB1R w KQ - 4 10",
+    "solution": [
+      "c1b2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_093",
+    "fen": "1nbqkbr1/2p2p1p/rp2pn2/3p2p1/p2P1P2/4PNPP/PPP1K3/RNBQ1B1R w - - 0 11",
+    "solution": [
+      "f4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_094",
+    "fen": "rn1qkbnr/2pppppp/ppb5/8/P4B2/2PPPP2/1P4PP/RN1QKBNR b KQkq a3 0 7",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_095",
+    "fen": "r1bqkb1r/4pp1p/pppp3n/1N1P2p1/4PPP1/8/PPP4P/1R1QK1NR b Kkq f3 0 11",
+    "solution": [
+      "a6b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_096",
+    "fen": "rnq1kb2/p1p1pppr/1p1p3n/5b1p/3P3P/4PN2/PPPKBPP1/RNBQ3R w q - 6 8",
+    "solution": [
+      "e2b5"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_097",
+    "fen": "2rqkbnr/p1p1p2p/bp4p1/3pNp2/3nPP1P/3P4/PPP1Q1P1/R1B1KBNR w KQk d6 0 9",
+    "solution": [
+      "e1d2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_098",
+    "fen": "r1bq2nr/1pppkppp/2n5/p2Pp3/5PP1/8/PbPQP2P/RNB1KBNR w KQ - 1 7",
+    "solution": [
+      "c1b2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_099",
+    "fen": "r1bq1bnr/1ppkpppp/8/p2p4/1n3P2/NP1P2P1/P1P1P2P/R1BQKBNR w KQ - 1 8",
+    "solution": [
+      "f1h3"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_100",
+    "fen": "rnbqkb1r/1ppp3p/4p1pn/p5p1/PP2P3/6P1/1BPP1P1P/RN1QKB1R b KQkq - 0 7",
+    "solution": [
+      "h8g8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_101",
+    "fen": "1nbqkbnr/r3p1pp/2pp1p2/ppP5/3PP3/7P/PP2KPP1/RNBQ1BNR w k b6 0 7",
+    "solution": [
+      "c5d6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_102",
+    "fen": "rn3b1r/p2pk1pp/b3pp1n/1pp5/2P4N/5PPB/P1PPP2P/RNBQK2R b KQ - 0 10",
+    "solution": [
+      "b5c4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_103",
+    "fen": "r1b1q1nr/ppp1k1p1/2n5/3ppp1p/4P3/NPP2PPP/P2P2B1/R1BQK1NR b Q - 2 11",
+    "solution": [
+      "d5e4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_104",
+    "fen": "2b1kbnr/r1pp2p1/n3pp2/1pqN2p1/pPP5/5PP1/PB1PP2P/R3KBNR b KQk - 1 12",
+    "solution": [
+      "a6b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_105",
+    "fen": "rnb1kbnr/pppp1pp1/3q3p/4p3/Q1P1P3/7P/PPKPNPP1/RNB2B1R w q - 3 9",
+    "solution": [
+      "e2g1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_106",
+    "fen": "r1bqkbnr/2p1p2p/p7/np1p1pp1/5P2/1PN1K1P1/P1PPP2P/1RB1QBNR w kq d6 0 9",
+    "solution": [
+      "f4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_107",
+    "fen": "r1bqkb1r/ppppp2p/n4ppn/8/P2P4/2N2N2/1PP1PPPP/R2QKB1R b KQkq - 1 5",
+    "solution": [
+      "a6b4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_108",
+    "fen": "rnbk2nr/ppqp1p1p/2p3p1/2b1p3/N7/7N/PPQPPPPP/R1B1KB1R w KQ - 6 10",
+    "solution": [
+      "a4c5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_109",
+    "fen": "r1bqkb1r/1p2pppB/2pp1n1p/p1n5/5P1P/2P1P1P1/PP1P4/RNBQK1NR w KQkq - 1 8",
+    "solution": [
+      "h7c2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_110",
+    "fen": "rnbq1bnr/2pk3p/1p1pp3/p3PpB1/1P1P4/3B1Q1N/P1P2PPP/RN2K2R w KQ - 2 9",
+    "solution": [
+      "g5d8"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_111",
+    "fen": "r1bqkbnr/ppp1pp1p/n7/6p1/P1Pp4/N6P/1P1PPPP1/R1BQKBNR b Qkq c3 0 6",
+    "solution": [
+      "a8b8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_112",
+    "fen": "rnbqkb1r/pppp1p2/4pnpp/8/PP3P2/N7/2PPP1PP/R1BQKBNR w KQkq - 2 5",
+    "solution": [
+      "a3b5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_113",
+    "fen": "rnbqkbnr/1p1pppp1/p6p/2p5/2P1P3/5NP1/PP1P1P1P/RNBQKB1R w KQkq - 0 5",
+    "solution": [
+      "f3e5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_114",
+    "fen": "rnbqkb1r/ppppnpp1/7p/8/4p3/P4P2/NPPPP1PP/R1BQKBNR w KQkq - 0 5",
+    "solution": [
+      "f3e4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_115",
+    "fen": "r1bqkb1r/pppppp1p/5np1/2n5/P1PP1B2/8/1P2PPPP/RN1QKBNR w KQkq - 3 5",
+    "solution": [
+      "d4c5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_116",
+    "fen": "rn1qkbnr/2p1ppp1/1p1p2Pp/pP3b2/2P5/P7/3PPP1P/RNBQKBNR w KQkq - 1 8",
+    "solution": [
+      "g6f7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_117",
+    "fen": "rnbqkbr1/p1p2ppp/1p3n2/3pp3/PPP2P2/7N/3PP1PP/RNBQKB1R b KQq - 1 6",
+    "solution": [
+      "f6d7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_118",
+    "fen": "rnb4r/pppkppbp/3q4/6p1/2Pp2n1/P6B/NP1PPP1P/1RBQK1NR w K - 2 9",
+    "solution": [
+      "h3g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_119",
+    "fen": "rnbqk1n1/pppp2pr/8/4pp1p/4P3/bPN5/2PPBPPP/R1BQ1KNR b q - 1 6",
+    "solution": [
+      "a3c1"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_120",
+    "fen": "rnb1kb1r/1p1pp1p1/7n/p1p1q2p/4N1p1/1P3N2/P1PPPP1P/R1BQKB1R b Qkq - 3 9",
+    "solution": [
+      "e5e6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_121",
+    "fen": "bq1nkbnr/r1pN2p1/p7/4ppPp/8/P4P1P/1PPPPK2/1RBQ1BNR w k e6 0 12",
+    "solution": [
+      "d7b8"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_122",
+    "fen": "rnbk1bnr/1ppp3p/4p1pP/1p2p1q1/8/3P4/PPP1PPP1/R1BQKB1R w KQ - 0 9",
+    "solution": [
+      "c1g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_123",
+    "fen": "rnb1k2r/2pp1pqp/4p2n/pp6/3P1P1p/1R3N2/PbPBP1P1/RN1QKB2 w kq - 2 13",
+    "solution": [
+      "a2a3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_124",
+    "fen": "rnbqkbnr/p1ppp2p/8/1p3pp1/2P5/5PPP/PPQPP3/RNB1KBNR b KQkq - 0 5",
+    "solution": [
+      "c8a6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_125",
+    "fen": "r1b1kbnr/p1p1pppp/n7/3P4/p2P2q1/P7/1P2PP1P/RNB1KBNR b KQkq d3 0 7",
+    "solution": [
+      "a8b8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_126",
+    "fen": "r1bqkb1r/pn1pppp1/npp4Q/7p/1PP4N/3P3P/P3PPPR/RNB1KB2 b Qq - 1 11",
+    "solution": [
+      "g7h6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_127",
+    "fen": "rn1q1b1r/pppk1p2/3pb3/4p1pp/4nPP1/PPB4P/2PPN3/RN1QKB1R b KQ - 0 10",
+    "solution": [
+      "g5f4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_128",
+    "fen": "rnbqkb1r/1pp1pp1p/3p1n2/p5p1/3P2P1/N4P1P/PPP1P3/R1BQKBNR b KQkq - 1 5",
+    "solution": [
+      "a5a4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_129",
+    "fen": "rnbqkb1r/p3n1p1/1p2pp1p/1P1p4/P7/3p4/R1PQPPPP/1NB1KBNR w Kkq - 0 10",
+    "solution": [
+      "c2d3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_130",
+    "fen": "r1bqkb1r/p1pp1p2/2n1pnpp/1p6/2PPP3/N4NP1/PP1B1P1P/R1Q1KB1R w KQkq - 1 9",
+    "solution": [
+      "a3b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_131",
+    "fen": "1r1qk1nr/p1pnp1b1/4bpp1/1p1p3p/2PPPPP1/N4N1P/PPQ5/R1B1KB1R w KQk - 0 13",
+    "solution": [
+      "c2b3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_132",
+    "fen": "r1b1kb1r/4npp1/p6p/Rppp4/1n1pP1PN/2P5/1P3P1P/1NBQKBR1 w kq - 0 13",
+    "solution": [
+      "c3b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_133",
+    "fen": "r1b1kbnr/ppqpppp1/2n5/2p5/5P1p/N2PB3/PPP1P1PP/R2QKBNR b KQkq - 1 6",
+    "solution": [
+      "c7a5"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_134",
+    "fen": "1rbq1b1r/n1ppp1pp/p3kn1B/1p2Pp2/5P2/3P1N2/PPP1K1PP/RNQ2B1R b - - 3 11",
+    "solution": [
+      "g7h6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_135",
+    "fen": "1n1qkb1r/rp4pp/p4p1n/P1ppp2b/1PP1P1P1/7P/R2PBP2/1NBQ1KNR w k - 0 11",
+    "solution": [
+      "g4h5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_136",
+    "fen": "2rqk1nr/ppp1pp2/n2pb2b/6p1/P1NPP1Bp/5PP1/1PP4P/1RBQ1KNR b k d3 0 11",
+    "solution": [
+      "e6c4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_137",
+    "fen": "1nbqkbnr/4p2p/rppp2p1/p4P2/P7/3P3B/1PPBPP1P/RN2QKNR w k - 0 11",
+    "solution": [
+      "d3d4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_138",
+    "fen": "rnb1kbnr/ppqppp2/2p4p/6pP/1PP5/8/P2PPPP1/RNBQKBNR w KQkq g6 0 5",
+    "solution": [
+      "h5g6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_139",
+    "fen": "r1bqk1nr/p2ppp1p/2n3pb/2pN4/2p5/BP5P/P2PPPP1/R2QKBNR w KQkq - 4 7",
+    "solution": [
+      "b3c4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_140",
+    "fen": "rnbq1b1r/2p1k1pp/1pp2n2/p3p3/4PPp1/1N1P4/PPPK3P/R1BQ2NR b - - 1 9",
+    "solution": [
+      "f6e4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_141",
+    "fen": "rnbqkbnr/2p3p1/4p3/pP3pP1/PP2pP1p/7N/3P1K1P/RNBQ2RB b kq - 0 13",
+    "solution": [
+      "e4e3"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_142",
+    "fen": "rnbq1bnr/1ppp1k1p/8/p4pp1/4p3/P1P2PP1/1PQPPK1P/RNB2BNR w - - 1 7",
+    "solution": [
+      "f3e4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_143",
+    "fen": "rn1qkb1r/1b1ppp1p/p1p3p1/1p1n4/PP1PP3/5P2/2PB2PP/RN1QKBNR w KQkq - 0 8",
+    "solution": [
+      "e4d5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_144",
+    "fen": "rnb1kbnr/2p1pp2/1p5p/p2P4/qN4pP/P1P2P2/1P1P2P1/RNBQKBR1 b Qq - 2 11",
+    "solution": [
+      "a4d1"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_145",
+    "fen": "1nbq2n1/1r1pk3/2pb1ppr/Q3N2p/P7/2P5/1P1PPPPP/RNBK1BR1 b - - 0 13",
+    "solution": [
+      "d8a5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_146",
+    "fen": "rnbqkbnr/p1ppp1pp/8/1p3p2/8/1PP4N/P2PPPPP/RNBQKBR1 w Qkq - 4 5",
+    "solution": [
+      "b3b4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_147",
+    "fen": "r1bqkbnr/2ppp3/ppn3pp/4p3/4P2P/N1P5/PP1P1PPR/R1BK1BN1 b kq - 1 8",
+    "solution": [
+      "g8f6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_148",
+    "fen": "rnbqkbn1/1pppppp1/p6r/8/P1P2P1p/8/1P1PP1PP/RNBQKBNR w KQq - 0 5",
+    "solution": [
+      "a4a5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_149",
+    "fen": "rn1qkbn1/pbpp1ppr/1p6/4p3/1P1P3p/6PB/P1P1PP1P/RNBQK1NR w KQq e6 0 7",
+    "solution": [
+      "c1a3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_150",
+    "fen": "rnbqkb1r/pp1ppppp/2p5/8/1P1P1n2/N4N2/P1P1PPPP/R1BQKB1R w KQkq - 2 5",
+    "solution": [
+      "c1f4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_151",
+    "fen": "1nbqkb1r/rpp1pppp/p2p3n/5Q2/8/1P2P2N/P1PP1PPP/RNB1KB1R b KQk - 4 5",
+    "solution": [
+      "c8f5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_152",
+    "fen": "rnbq1bn1/ppp2k1r/4pppp/3p4/P5P1/2P1P2P/RP1P1PR1/1NBQKBN1 b - - 0 8",
+    "solution": [
+      "b8c6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_153",
+    "fen": "rnb1kbnr/pp2p3/3p3p/1qp1Npp1/8/N1BP4/PPP1PPPP/R1Q1KB1R w KQkq - 2 8",
+    "solution": [
+      "a3b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_154",
+    "fen": "rn2kb1r/1bpp2pp/p4n2/2p1pp2/1P3q2/P1N2NP1/3PP2P/R1BQKB1R b KQkq - 1 10",
+    "solution": [
+      "f4f3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_155",
+    "fen": "rnbqkb1r/1pp1p1pp/3p3n/p1P2p2/6P1/8/PP1PPP1P/RNBQKBNR w KQkq a6 0 5",
+    "solution": [
+      "c5d6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_156",
+    "fen": "r2qkbnr/ppp1p1pp/B4p2/3p4/3NP1b1/8/PPPP1PPP/RNBQK1R1 b Qkq - 0 5",
+    "solution": [
+      "g4d1"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_157",
+    "fen": "rn1qkbnr/p3pppp/2p5/1B1p4/3P2b1/2P1P3/PP1B1PPP/RN1QK1NR b KQkq - 0 5",
+    "solution": [
+      "g4d1"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_158",
+    "fen": "rnb1kb1r/1p1ppppp/1q6/1pp4n/8/1P2PP1P/P1PP1KP1/RNB1Q1NR b kq - 2 7",
+    "solution": [
+      "g7g5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_159",
+    "fen": "rnbqk1nr/p1p1p2p/1p1p1ppb/8/2P4P/4PP2/PP1PN1P1/RNBQKB1R w KQkq - 0 6",
+    "solution": [
+      "d1a4"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_160",
+    "fen": "r1bqk2r/pp3p1p/N1p1p1p1/2b5/P1Pp1PnP/2R5/1P1PP1P1/1RBQKBN1 b kq - 0 12",
+    "solution": [
+      "b7a6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_161",
+    "fen": "rn1qkb1r/pbpppp1p/7n/1p4p1/2P5/P4PP1/1P1PP2P/RNBQKBNR w KQkq - 1 5",
+    "solution": [
+      "c4b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_162",
+    "fen": "r1b1kbnr/ppp1pppp/1n4q1/3p3N/3PP3/4B3/PPP1QPPP/RN2KB1R b KQkq - 6 7",
+    "solution": [
+      "g6f6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_163",
+    "fen": "1rbqkbnr/p3pp2/2n5/1ppp2p1/QPP5/3N1P1P/P2PPK2/RNB2B1R w - - 1 12",
+    "solution": [
+      "c4b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_164",
+    "fen": "rn1qkb1r/2pbp1pp/pp1p1p2/5n2/PPP4P/2N5/1B1PPPPR/R2QKBN1 b Qkq a3 0 8",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_165",
+    "fen": "rnb2bnr/ppppk1pp/5q2/4pp2/2P5/1Q2P2N/PP1PKPPP/RNB2B1R b - - 4 5",
+    "solution": [
+      "b8a6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_166",
+    "fen": "rnbqkb1r/1p2pp1p/p2n2p1/2pP4/5P2/N7/PPQPPNPP/1RB1KB1R w Kkq - 4 10",
+    "solution": [
+      "c2c5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_167",
+    "fen": "r2qk2r/p1p1ppbp/5n2/1P1p3P/1n4p1/N4N1b/PP1PPPBR/R1BQK3 b kq - 3 13",
+    "solution": [
+      "h3g2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_168",
+    "fen": "rnb3nr/1p1qbk2/p1p2pp1/3pp2p/P3P1N1/5PK1/NPPP2PP/R1BQ1B1R w - h6 0 11",
+    "solution": [
+      "g4e3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_169",
+    "fen": "r1bqk2r/pp2bpp1/3Pn3/4p1Np/P3PP2/2n5/1PP1Q1PP/RNB1KB1R w KQkq - 1 12",
+    "solution": [
+      "b2c3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_170",
+    "fen": "1rbqkb1r/2pppp1p/ppn2n2/1N4p1/2P3PP/4PB2/PP1PQP2/R1B1K1NR b KQk h3 0 9",
+    "solution": [
+      "a6b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_171",
+    "fen": "1n1qk2r/r2p1pp1/1pp4p/pBbPp3/P3nPP1/NPP4N/2Q4P/R1B1K2R w KQk - 1 13",
+    "solution": [
+      "c2e4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_172",
+    "fen": "r2qkb1r/p1pppppp/b1n2n2/8/1pN5/4PN2/PPPP1PPP/R1BQKBR1 w Qkq - 0 6",
+    "solution": [
+      "c4e5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_173",
+    "fen": "r2qkbnr/p1p1p1pb/np1p3p/5p2/6PP/2NP1P1N/PPPBP1B1/R2QK2R w KQkq f6 0 9",
+    "solution": [
+      "h1f1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_174",
+    "fen": "r1b1kb1r/pp1ppppp/n6n/2p5/1q5P/1QP3P1/PP1PPP1R/RNB1KBN1 b Qkq - 2 6",
+    "solution": [
+      "b4a5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_175",
+    "fen": "rnbqk1nr/1pp2p1p/3pp2b/p1P3B1/3P3P/4P3/PP3PP1/RN1QKBNR b KQkq - 0 9",
+    "solution": [
+      "h6g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_176",
+    "fen": "rnbqk2r/1p1p2pp/pN1bp2n/P1p2pP1/5P2/8/1PPPP2P/R1BQKBNR b KQkq f3 0 9",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_177",
+    "fen": "r1bqkbr1/pppp2pn/n4p1p/4p3/2PP4/1P2P3/P2B1PPP/RN1QKBNR b KQq - 0 8",
+    "solution": [
+      "e5e4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_178",
+    "fen": "1rqnk2r/1bppb1pp/p3pp1n/P1P5/1p6/NP4PP/3PPP2/1RBQKBNR b Kk - 0 13",
+    "solution": [
+      "b7h1"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_179",
+    "fen": "rnbk1bnr/pp4pp/1qp1p3/3p1p2/2PP3P/3QP1P1/PP3P2/RNBK1BNR w - - 2 8",
+    "solution": [
+      "h1h3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_180",
+    "fen": "r1bqkbnr/p1pppppp/np6/7Q/4P3/2NP4/PPP2PPP/R1B1KBNR w KQkq - 1 5",
+    "solution": [
+      "h5b5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_181",
+    "fen": "rnb1kbnr/p1qpp2p/1pp2p2/6p1/2BPP3/5P2/PPP1K1PP/RNBQ2NR w kq - 1 6",
+    "solution": [
+      "h2h3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_182",
+    "fen": "1rbqkbnr/pppp1n2/4pppp/8/1P2P3/2PB1N2/P2P1PPP/RNBQK2R w KQk - 2 9",
+    "solution": [
+      "b4b5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_183",
+    "fen": "r3kbnr/pbpp4/2n1p1pp/1B3pq1/P4Q2/N3P3/1PPP1PPP/R1B1K2R b KQkq - 1 9",
+    "solution": [
+      "b7c8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_184",
+    "fen": "rnbqkb1r/1p5p/p1pp1p2/2P1p1p1/Pn4P1/1P3P1N/3PP2P/RNB1KB1R w KQkq - 0 12",
+    "solution": [
+      "c5d6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_185",
+    "fen": "rn1qkbnr/p3pp1p/2pp2p1/1p6/3PPB2/2N4b/PPP1BPPP/R2QK2R w KQkq - 0 7",
+    "solution": [
+      "e2g4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_186",
+    "fen": "r1bk1bnr/1pp5/2n1pppp/p1Pp2PP/3P4/PP5N/3KPP1q/RNBQ1B1R b - - 0 13",
+    "solution": [
+      "h2f4"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_187",
+    "fen": "rnb1k1nr/pppp1ppp/8/4p1q1/1b6/P1N3PP/1PPPPPBR/R1BQK1N1 w Qkq - 1 7",
+    "solution": [
+      "a3b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_188",
+    "fen": "rnbq1bnr/pp2k3/4p1pp/3p1pP1/P1p5/NPP1P3/3P1P1P/1RBQKBNR w K d6 0 11",
+    "solution": [
+      "g5h6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_189",
+    "fen": "rnb2bnr/p2pp3/1q2kp1p/1pp3p1/2P4N/NP5P/PB1PPPP1/R2QKBR1 w Q - 4 9",
+    "solution": [
+      "h4g6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_190",
+    "fen": "3qkbnr/r1p1pppp/p1b5/np1p3P/1PP4R/N4NP1/P1QPPP2/R1B1KB2 w Qk - 2 10",
+    "solution": [
+      "b4a5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_191",
+    "fen": "rnb1kb1r/2pp1p1p/pp2p1pn/8/q7/2N1P1PP/PPPP1P1R/1RBQKBN1 b kq - 0 8",
+    "solution": [
+      "a4b4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_192",
+    "fen": "rn1qkb2/1b1p3r/1pp1p2n/p5pp/3Pp3/P4PKP/1PP3P1/RNBQ1BNR w q - 0 13",
+    "solution": [
+      "c1g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_193",
+    "fen": "rnb1kbnr/2q1pp2/1pp5/p2p2pp/PP6/3R3P/2PPPPP1/1NBQKBNR b Kkq - 1 12",
+    "solution": [
+      "b6b5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_194",
+    "fen": "r1bqkbnr/pppp3p/6p1/4pp2/1nP1PP2/N5P1/PP1P3P/R1BQKBNR w KQkq e6 0 6",
+    "solution": [
+      "e4f5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_195",
+    "fen": "rnbqkbnr/1p2pppp/8/p1pp4/2PP1P2/4P3/PP2N1PP/RNBQKB1R b KQkq c3 0 5",
+    "solution": [
+      "f7f6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_196",
+    "fen": "rnb1k1nr/1pppqppp/p2b4/4p3/2N2P2/3P4/PPPQP1PP/R1B1KBNR b KQkq - 5 5",
+    "solution": [
+      "e7h4"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_197",
+    "fen": "r1bqkbnr/p2ppp1p/2p3p1/1p6/1n6/P1PQP3/1P1P1PPP/RNB1KBNR b KQkq - 1 6",
+    "solution": [
+      "b4d3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_198",
+    "fen": "rnbqk2r/pppp1ppp/4N3/8/8/2N5/PPPPP1PP/R1BQKB1n b Qkq - 0 6",
+    "solution": [
+      "d7e6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_199",
+    "fen": "rnb1kbnr/p1p2ppp/qp1pp3/8/1PP1PPP1/3P1N1P/7Q/RNB1KB1R w KQkq - 2 12",
+    "solution": [
+      "a1a6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_200",
+    "fen": "r1bqkbnr/pp1np3/2p2pp1/3p2Np/3P4/PP6/R1P1PPPP/1NBQKB1R b Kkq - 0 7",
+    "solution": [
+      "f6g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_201",
+    "fen": "r1bqkbnr/p1npp1p1/5p2/1pp4p/3P2P1/1P5P/PBP1PPBR/RN1QK1N1 b Qkq - 3 7",
+    "solution": [
+      "a8b8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_202",
+    "fen": "rnb1k1nr/Np3ppp/2ppp3/p1b5/2PP4/4BPP1/PPq1PK1P/2R2BNR b kq - 1 11",
+    "solution": [
+      "c2b2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_203",
+    "fen": "r1bqk2r/pp2n2p/2pBpp1b/6p1/2PPP1P1/5N1B/PP3P1P/RN1QK2R b KQkq - 1 12",
+    "solution": [
+      "d8d6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_204",
+    "fen": "1rbqk1nr/1pp1p1bp/2n2pp1/p2p3Q/2P4P/P1N1P3/1P1P1PP1/1RB1KBNR b Kk - 2 10",
+    "solution": [
+      "c6d4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_205",
+    "fen": "1nbqkbnr/2pppp1p/rp4p1/p7/5P2/2PP1N2/PP1BP1PP/RN1QKB1R b KQk - 2 5",
+    "solution": [
+      "b8c6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_206",
+    "fen": "r1q2bnr/p1pkpppp/3p2Q1/1b2n3/PpP2P1P/1P1P3R/4P1P1/RNB1KBN1 b Q - 2 12",
+    "solution": [
+      "f7g6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_207",
+    "fen": "rn2kb1r/1ppqp1pp/p6n/3p1p2/b3PP2/1PPP4/3NK2P/R1BQ1BNR b kq - 3 12",
+    "solution": [
+      "a4b5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_208",
+    "fen": "r1b1k1nr/3p1p2/n4bp1/p1p1N1qp/p1P1P1P1/4Q2P/PP1P1PB1/R1B2K1R b kq - 2 13",
+    "solution": [
+      "g5e5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_209",
+    "fen": "rnb1kbnr/p2p1p2/1qp1p2p/3N2p1/Qp1P4/4BPP1/PPP1P2P/R3KBNR b KQkq - 0 10",
+    "solution": [
+      "c6d5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_210",
+    "fen": "rn2kbnr/pp2p2p/1q3p2/2pP1bp1/1P3PP1/7N/P1PP3P/RNBQKB1R b KQkq - 0 7",
+    "solution": [
+      "f5g6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_211",
+    "fen": "rnbqkb1r/pp3p1p/2ppp1p1/5P1n/2P5/1P2N2P/P2PP1P1/R1BQKBNR w KQkq - 1 9",
+    "solution": [
+      "f5g6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_212",
+    "fen": "2bqkb2/r2npppr/1ppp4/4n2p/7K/1P3P2/P1PPP1PP/RNQ2BNR w - - 0 11",
+    "solution": [
+      "h4g5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_213",
+    "fen": "rnbq1bnr/2pk2pp/pp1p4/4pp2/3P1B2/1PN3P1/P1P1PPBP/R2QK1NR w KQ f6 0 7",
+    "solution": [
+      "g2a8"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_214",
+    "fen": "rnbq1bnr/1pp1p1p1/3p1pk1/p5p1/1P1PP1PP/2P2P2/P7/RN1QKBNR w KQ - 0 9",
+    "solution": [
+      "g1e2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_215",
+    "fen": "rnbqkbnr/1p2p3/3p2p1/p1p2p1p/1P6/B2PPQPN/P1P2P1P/RN2KB1R b KQkq - 1 7",
+    "solution": [
+      "a5b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_216",
+    "fen": "r1bq1bn1/p1p1kp1r/Bpnp2pp/4p3/1P6/2P1P2N/P2P1PPP/RNBQ1K1R w - - 3 11",
+    "solution": [
+      "a6c8"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_217",
+    "fen": "r1b2bnr/3ppkpp/p1p2p2/1pn5/q1P2P2/1P5P/R2PP1PR/1NBQKBN1 b - - 0 11",
+    "solution": [
+      "a4a2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_218",
+    "fen": "rnbqkbnr/1p1pp2p/p4p2/2p3p1/2P5/1Q3P2/PP1PP1PP/RNB1KBNR w KQkq g6 0 5",
+    "solution": [
+      "b3a4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_219",
+    "fen": "rnb1kbnr/3pppp1/1qp4p/p7/p3PP2/2N2Q2/1PPP2PP/R1B1KBNR b KQkq - 2 7",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_220",
+    "fen": "r1bqk1nr/ppp1b3/4ppp1/3pn2p/2BP2P1/NP1QP2N/P1PK1P1P/R1BR4 w kq - 4 13",
+    "solution": [
+      "c4b5"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_221",
+    "fen": "rnbqk1nr/3pb1pp/p3pp2/1p6/1pP2P2/P2PP3/1BQ1NKPP/RN3B1R b - - 2 11",
+    "solution": [
+      "b4a3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_222",
+    "fen": "1r1qkb1r/p1p1pppp/3pb2n/8/p2P1P1P/1P2PQPN/P1P5/RNB1K2R b KQk - 1 11",
+    "solution": [
+      "e6h3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_223",
+    "fen": "2bq1b1r/1pp1kp1p/rPn1pn1B/p2p4/6P1/3P4/P1P1PP1P/RN1QKBNR w KQ - 1 9",
+    "solution": [
+      "b6c7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_224",
+    "fen": "rnbqkbnr/1p1pp2p/2p3p1/p5P1/3P1p2/2P4B/PP2PP1P/RNBQK1NR w KQkq - 0 6",
+    "solution": [
+      "c1f4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_225",
+    "fen": "r1bqkbnr/3pp1pp/npp2p2/p7/P5P1/5P1P/1BPPP3/RN1QKBNR w KQkq - 1 8",
+    "solution": [
+      "f3f4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_226",
+    "fen": "rnbqkbnr/ppp1p3/5p2/3p2pp/8/2P1P2P/PP1PBPP1/RNBQ1KNR b kq - 1 5",
+    "solution": [
+      "h5h4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_227",
+    "fen": "rnbqkb1r/p4ppp/4p2n/2pp4/P1p3P1/5N2/1P1PPP1P/RNBQKB1R w Kkq d6 0 9",
+    "solution": [
+      "a4a5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_228",
+    "fen": "r1bqkb1r/pppnn3/3pp1pp/5p2/PPPP4/B3PN1P/3N1PP1/R2QKB1R b KQkq - 0 10",
+    "solution": [
+      "f8g7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_229",
+    "fen": "rnb1kbnr/1p1ppppp/p7/2P5/P7/5PPP/q1PPP2R/1NBQKBN1 w kq - 0 10",
+    "solution": [
+      "b1c3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_230",
+    "fen": "rnb1k1nr/pppp1pp1/5q1p/4p3/1bP1P1P1/5P2/PP1P3P/RNBQKBNR w KQkq - 1 5",
+    "solution": [
+      "f1e2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_231",
+    "fen": "rn2kbr1/1p1bp1pp/1q3p2/3p4/p5nP/P1NP1P2/1PP3BR/R1BQK1N1 w Qq - 0 12",
+    "solution": [
+      "c1e3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_232",
+    "fen": "r1b2bkr/p1ppB1pp/np5n/5p2/1P1P1P2/2P1Q2q/P1N1P1PP/R3KBNR b KQ - 0 12",
+    "solution": [
+      "h3e3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_233",
+    "fen": "rnbqkbn1/1pppppp1/p5r1/8/1QP3Pp/P3P2P/RP1P1P2/1NB1KBNR b Kq - 0 8",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_234",
+    "fen": "r1bq1B1r/p2k1p1p/1pp5/3p4/1P1Pn1n1/2N2NPB/P1P1PP1P/R2QKR2 w Q - 2 11",
+    "solution": [
+      "h3g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_235",
+    "fen": "rnbqkb1r/1p1p1ppp/p3p2n/2p5/4P2P/2N3P1/PPPP1P2/R1BQKBNR w KQkq - 0 5",
+    "solution": [
+      "g1h3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_236",
+    "fen": "1nbqk1nr/r1ppppb1/7p/1B4p1/8/2P1PP2/PP1P1KPP/RNB3NR b k - 0 7",
+    "solution": [
+      "c8b7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_237",
+    "fen": "rnb1k3/1p1p1ppr/pqp1p3/1P4Bp/1bPP3P/P4P1N/3NP1P1/2RQKB1R b Kq - 2 12",
+    "solution": [
+      "b4a3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_238",
+    "fen": "rn1qkbnr/1ppbpp1p/p2p2p1/8/5PPP/8/PPPPP1K1/RNBQ1BNR b kq h3 0 5",
+    "solution": [
+      "d7g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_239",
+    "fen": "rnbqk2r/p1p1pp2/3p2p1/1p2N2p/3Pn1P1/PB2b3/RPPB1P1P/1N1QK2R w Kkq - 0 13",
+    "solution": [
+      "h1g1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_240",
+    "fen": "1n1qkb1r/r1pbppp1/p4n2/1p1p3p/1P2P1P1/P7/2PP1P1P/RN1QKBNR w KQk - 1 8",
+    "solution": [
+      "e4d5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_241",
+    "fen": "rnbq1bnr/p2pk1p1/1p6/2p1p2p/2B1p2P/NPP2P1R/PB1P1KP1/R2Q2N1 w - - 4 12",
+    "solution": [
+      "g1e2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_242",
+    "fen": "r1bq1bnr/pppppk2/n4p1p/8/1PP1P1p1/B7/P2P1PPP/RNQ1KBNR w KQ - 0 7",
+    "solution": [
+      "b4b5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_243",
+    "fen": "rn1qkb1r/p1p1pppp/3pbn2/8/1p4PP/1P1R4/P1PPPP2/RNBQKBN1 w Qkq - 0 6",
+    "solution": [
+      "g4g5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_244",
+    "fen": "r1bqkbnr/pppppp1p/6p1/1n6/1QP3P1/N7/PP1PPP1P/R1B1KBNR b KQkq g3 0 5",
+    "solution": [
+      "b5a3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_245",
+    "fen": "rnbqkb1r/2pp1p1p/1p6/p2Q2p1/P4pP1/2N5/1PP1B2P/R1B1K1NR w KQkq - 0 11",
+    "solution": [
+      "d5a8"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_246",
+    "fen": "1rbqkbnr/p1pppp2/2n5/1p4pQ/8/4P2P/PPPP1PP1/RNB1KBNR w KQk - 2 6",
+    "solution": [
+      "h5h8"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_247",
+    "fen": "rn1q1br1/pb1pp1pp/2p1k3/1p2p3/5PPP/P5nR/1PPPQ3/RNB1KBN1 w Q - 0 13",
+    "solution": [
+      "h3g3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_248",
+    "fen": "rnb1kbnr/5ppp/pp1p4/2P1p3/3P1q2/N3P3/P1PB1PPP/R2QKBNR b KQkq - 1 10",
+    "solution": [
+      "h7h6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_249",
+    "fen": "rnbqk1nr/3p1p1p/B1p1p3/1pb1P1p1/7P/NPP2PP1/P1QP3R/R1B1K1N1 b Qkq - 1 11",
+    "solution": [
+      "a8a6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_250",
+    "fen": "r1bk1bnr/pp3ppp/2p1p3/1B1p2P1/6P1/4P3/PPnK1P2/RNB2QNR b - - 0 10",
+    "solution": [
+      "c2a1"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_251",
+    "fen": "rnbq1bnr/p1pkp1pp/3p4/1p3p2/3P4/1P4PN/P1PKPP1P/RNBQ1B1R b - - 2 5",
+    "solution": [
+      "b8a6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_252",
+    "fen": "rnbqkbnr/1pppp1p1/7p/p4p2/3PP2P/2P5/PP3PP1/RNBQKBNR w KQkq - 0 5",
+    "solution": [
+      "e4f5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_253",
+    "fen": "r1b1qk1r/p1pp1ppp/1pn1pQ2/8/Pb2PP1P/5K2/1PPP2P1/RNB2BNR b - - 4 9",
+    "solution": [
+      "g7f6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_254",
+    "fen": "1nbqkbnr/r2ppp1p/2p3p1/pp6/2PP3P/5N2/PP1QPPPR/RNB1KB2 w Qk - 2 7",
+    "solution": [
+      "c4b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_255",
+    "fen": "r1bqkbnr/ppppp3/n4p1p/8/2P2P2/P3P2p/1P1PK1P1/RNBQ1BNR w kq - 0 7",
+    "solution": [
+      "h1h3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_256",
+    "fen": "rn1qkbnr/p3pp1p/1p6/2pp2N1/4b3/PP2P3/2PPKPPP/RNBQ1B1R b kq - 1 10",
+    "solution": [
+      "e4f5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_257",
+    "fen": "rnb1kb1r/2p2pp1/3q3n/pp1pp2p/3P4/2P2N2/PP2PPPP/RN1QKB1R w KQkq - 0 8",
+    "solution": [
+      "d1d2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_258",
+    "fen": "r1b1kbnr/2pp1ppR/p1n1p3/1p4q1/1P1P4/B1P5/P3PPP1/RN1QKBN1 b Qkq - 0 8",
+    "solution": [
+      "h8h7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_259",
+    "fen": "r1q1k1nr/p1pp3p/b1n1ppp1/1pbN4/3PPP2/P4N2/1PPQ2PP/R1BK1B1R b kq - 4 9",
+    "solution": [
+      "c6e5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_260",
+    "fen": "r1bq1bn1/pp1kppp1/2n5/2pp1r2/5P1p/PP1PB1PP/2PQPK2/RN3BNR b - - 2 9",
+    "solution": [
+      "c5c4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_261",
+    "fen": "r1b1kb1r/pp1pp1p1/n1p2n1p/qN3p2/2P3P1/5P1B/PP1PPK1P/R1BQ2NR w kq - 3 8",
+    "solution": [
+      "b5d4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_262",
+    "fen": "r1bqkbnr/p1pppp2/np5p/6p1/PP6/R2P1P2/2P1P1PP/1NBQKBNR b Kkq - 0 5",
+    "solution": [
+      "a6b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_263",
+    "fen": "r2qkbnr/pbpppppp/8/1p2n3/4PPP1/2N5/PPPP3P/R1BQKBNR b KQkq - 2 5",
+    "solution": [
+      "e5g6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_264",
+    "fen": "r2qkbnr/1pp1pp1p/p1bp2p1/8/1P1n2P1/P1NQB2B/2P1PP1P/R3K1NR b KQkq - 3 9",
+    "solution": [
+      "c6h1"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_265",
+    "fen": "rnbqkbnr/4ppp1/p7/2pp4/1p5p/N1P2P1N/PP1PP1PP/R1BQ1BKR b kq - 1 8",
+    "solution": [
+      "c8h3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_266",
+    "fen": "3rkbnr/pbpp1pp1/1p1q4/4Pp1p/1n6/1P3BPP/P1PP1P2/RNB1K1NR w KQk - 0 11",
+    "solution": [
+      "d2d4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_267",
+    "fen": "rnb1kbnr/3pq2p/1pp2pp1/pP6/3Pp3/2P4N/PB2PPPP/RN1QKB1R w KQkq - 1 9",
+    "solution": [
+      "b5c6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_268",
+    "fen": "r1bq1bnr/pp1pp2p/n1p2kp1/1N3p2/1P5P/2P5/P2PPPP1/R1BQKBNR w KQ - 0 7",
+    "solution": [
+      "b5d4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_269",
+    "fen": "rnb1kbn1/1p1qppp1/p6r/2pp3B/8/2P1P3/PP1P1PPP/RNBQK1NR w KQq - 1 7",
+    "solution": [
+      "h5f3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_270",
+    "fen": "1nbqkb1r/r1pp1p1p/1p4p1/p2np3/P1P3PP/1P2P3/N2P1P2/R1BQKBNR w KQk - 1 10",
+    "solution": [
+      "c4d5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_271",
+    "fen": "r1bqkr2/ppppnp2/2n3pb/4p2p/1P2PP1P/P5P1/2PPB3/RNBQK1NR w KQq - 1 11",
+    "solution": [
+      "f4e5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_272",
+    "fen": "rn2kbnr/pqpp3p/bp2p1p1/5p2/PP1P3P/5NP1/2PNPP2/R1BQKB1R w KQkq f6 0 8",
+    "solution": [
+      "d4d5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_273",
+    "fen": "rn2kb1r/pB2pppp/4bn2/1q2Q3/1PppPPPP/N7/2PP4/R1B1K1NR b KQkq - 2 12",
+    "solution": [
+      "c4c3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_274",
+    "fen": "rnbqkbnr/pp2p1p1/3p3p/2p2p2/6P1/P3P2P/1PPP1P2/RNBQKBNR w KQkq - 0 5",
+    "solution": [
+      "g4f5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_275",
+    "fen": "r3kbnr/1p1qpN1p/p4R2/3pN3/1n1p2b1/4B1P1/PPP1PP2/R2QKB2 w Qkq - 1 13",
+    "solution": [
+      "e5d7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_276",
+    "fen": "rnbqk1nr/1pp1ppb1/3p4/p6p/P1P1PP2/1Q5P/1P1P3P/RNB1KB1R b KQkq - 0 8",
+    "solution": [
+      "e8d7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_277",
+    "fen": "rnbqkb1r/ppppp1pp/5p1n/8/7P/1P1P1N2/P1P1PPP1/RNBQKB1R w KQkq - 3 5",
+    "solution": [
+      "h4h5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_278",
+    "fen": "rnbqkbnr/p2p1pp1/7B/1pp1p2p/3P4/1P6/P1PNPPPP/R2QKBNR b KQkq - 0 5",
+    "solution": [
+      "c5d4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_279",
+    "fen": "r1bqkbnr/ppp2ppp/3pp2B/8/1n1P2P1/2N2P2/PPP1P2P/R2QKBNR w KQ - 0 7",
+    "solution": [
+      "h6f4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_280",
+    "fen": "rnbqkbnr/1p1ppp2/p6p/6p1/2p1P1P1/1P3N2/P1PPQP1P/RNB1KB1R w KQkq - 0 6",
+    "solution": [
+      "e2c4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_281",
+    "fen": "rnbqkbn1/p1pppp2/1p4p1/2P5/4P1pr/N7/PP1P1PPP/R1B1KBNR w KQq - 0 7",
+    "solution": [
+      "c5b6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_282",
+    "fen": "r1bqkbn1/1ppnp1pr/p4p1p/6P1/3pP3/P6B/1PPPKP1P/RNBQ2NR b q - 0 8",
+    "solution": [
+      "e7e6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_283",
+    "fen": "r1bqkbnr/ppppppp1/8/1Bn1P2p/PP6/8/2PP1PPP/RNBQK1NR b KQkq - 2 6",
+    "solution": [
+      "c5e4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_284",
+    "fen": "2b1kb2/rp1pppp1/pqn2n1r/4N1B1/3PP1P1/P1p5/1PPQ1P1P/RN2KB1R b KQ g3 0 11",
+    "solution": [
+      "h6h3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_285",
+    "fen": "1rbqkb1r/pppppppp/5n2/2n5/3N4/P5P1/1PPPPP1P/RNBQKB1R w KQk - 3 5",
+    "solution": [
+      "d4f5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_286",
+    "fen": "r1b1kb1r/1pp1pppp/p1nq3n/3pP2Q/2B5/N7/PPPP1PPP/R1BK2NR b kq - 3 6",
+    "solution": [
+      "d6f6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_287",
+    "fen": "rn2kbnr/ppq1p1pp/3p1p2/2p5/4P1bP/6P1/PPPP1P2/RNBQ1KNR w kq - 0 8",
+    "solution": [
+      "d1g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_288",
+    "fen": "1nbqk1r1/r2pp1bp/pp6/2p3p1/3Pn1p1/P3P2N/RPP2PBP/1NBQK2R w - - 3 12",
+    "solution": [
+      "d1f3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_289",
+    "fen": "r1bq1bnr/1p1ppkpp/p4p2/2pNP3/3n4/4B1P1/PPP2P1P/R1NQKB1R b KQ - 0 9",
+    "solution": [
+      "d8a5"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_290",
+    "fen": "rn1qkb1r/p1pp1p1p/1p2p3/8/N5nP/3b2p1/PPPBP3/R2QKBNR w KQkq - 0 10",
+    "solution": [
+      "e2d3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_291",
+    "fen": "r1bqk1nr/pppnp1b1/4N2p/3p1pp1/P2P1P2/7P/1PP1P1PR/R1BQKBN1 b Q - 4 9",
+    "solution": [
+      "g7d4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_292",
+    "fen": "r1bqkb1r/2p1pppp/p1np4/p7/6nQ/2P1P3/PP1P1PPP/RNB1K1NR b KQkq - 0 7",
+    "solution": [
+      "g4e5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_293",
+    "fen": "1r1qkb1r/p1p1pp2/1p3Q1p/2np4/P1B1P1b1/R7/1PPP2PP/1NB1K1NR b Kk - 0 13",
+    "solution": [
+      "g4d1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_294",
+    "fen": "r1b1kbnr/2p4p/1pn1pp2/p2p2B1/3q1P1N/N1PP4/PP2P1PP/R1Q1KB1R b KQkq f3 0 10",
+    "solution": [
+      "b6b5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_295",
+    "fen": "rnb1kbnr/3q3p/p1p1pp2/Pp1p2p1/1P1P1P2/N7/2P1P1PP/R1BQKBNR w KQkq - 2 9",
+    "solution": [
+      "f4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_296",
+    "fen": "rnbqkb1r/ppp1pp1p/5np1/3p4/5PP1/N3P3/PPPPK2P/R1BQ1BNR b kq - 2 6",
+    "solution": [
+      "c8g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_297",
+    "fen": "1rb1k2r/1ppqpp1p/1Bn4b/3p2p1/p1P1P1n1/3P3P/PP1NQP2/RN2KB1R b KQk - 0 13",
+    "solution": [
+      "c7b6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_298",
+    "fen": "rn1qkbnr/p1p1ppp1/1p1p4/5bBp/3P4/P5P1/1PP1PP1P/RN1QKBNR w KQkq - 1 5",
+    "solution": [
+      "a1a2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_299",
+    "fen": "1rbq1bnr/pppkp2p/n5p1/5p2/3pP1P1/1PP4P/PB1PKP2/RN2QBNR b - - 1 8",
+    "solution": [
+      "f5g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_300",
+    "fen": "r2qkbnr/pp2pppp/n2pb3/8/2p3P1/N3P3/PPPP1P1P/1RBQKBNR w Kkq - 1 6",
+    "solution": [
+      "g4g5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_301",
+    "fen": "r1bqk1nr/ppppppbp/6p1/8/2n3P1/N4N1P/PPPPPP1R/R1BQKB2 w Qkq - 2 6",
+    "solution": [
+      "a3c4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_302",
+    "fen": "rnq1k1nr/pbp1p1bp/3p1p2/3P4/P7/2N2p2/1PPQP1PP/R1B1KBNR w KQkq - 3 11",
+    "solution": [
+      "e2f3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_303",
+    "fen": "rnbqkbnr/3pp3/1pp4p/1B4p1/pP2P3/2N2Q2/P1PP1PPP/1RB1K1NR w Kkq - 0 9",
+    "solution": [
+      "f3h5"
+    ],
+    "prompt": "Finish the position immediately.",
+    "theme": "Mate net",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_304",
+    "fen": "r1bqk1nr/pp1p2pp/n1pbp3/5p2/Q2P1P2/2P1B3/PP2P1PP/RN2KBNR w KQkq - 3 6",
+    "solution": [
+      "e3c1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_305",
+    "fen": "1rbqkbr1/1p2pppp/5n2/p1pP4/P2n1P2/1PNP2P1/4P2P/R1BQKBNR b KQ - 0 9",
+    "solution": [
+      "d4c6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_306",
+    "fen": "rnbqkbnr/p2p1pp1/2p5/1p1N3p/P3p3/5P1P/RPPPP1PR/2BQKBN1 w q b6 0 8",
+    "solution": [
+      "d5f4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_307",
+    "fen": "r1bqkbnr/pppp1p1p/2n5/4p1N1/8/1P2P3/PBPP1PPP/R2QKBNR b KQkq - 0 6",
+    "solution": [
+      "d8g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_308",
+    "fen": "rnbqk1nr/2pp1ppp/4p3/pp4N1/1b1P2P1/8/PPPNPP1P/1RBQKB1R b Kkq - 1 6",
+    "solution": [
+      "d8g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_309",
+    "fen": "r3kbnr/pb1ppp1p/1qp5/1B4p1/pn6/N1P1PPPN/PP1P3P/R1B2K1R b kq - 0 9",
+    "solution": [
+      "b7c8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_310",
+    "fen": "1rbqkb1r/pppppppp/2n5/3n4/8/1P1PPN2/P1PB1PPP/RN1QKB1R b KQk - 0 5",
+    "solution": [
+      "b8a8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_311",
+    "fen": "rn1qkb1r/p1ppppp1/1p5n/1b5p/8/P2P1P1P/1PPKP1P1/RNBQ1BNR w kq - 3 6",
+    "solution": [
+      "a3a4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_312",
+    "fen": "r1bqk2r/pp1pb1pp/2p2p1n/1B2p3/1n2P1P1/NP6/2PP1P1P/R1B1QKNR b kq - 2 9",
+    "solution": [
+      "c6b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_313",
+    "fen": "rN1qk1r1/pbpnbp1p/np1p4/4p3/P1B1P2R/2N5/1PPP1PP1/R1BQK3 w Qq - 7 13",
+    "solution": [
+      "a1a3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_314",
+    "fen": "r1bqkb1r/2p1pp1p/Bp5n/3pn3/4QPp1/1P6/P1PP1NPP/RNB1K2R w KQkq d6 0 11",
+    "solution": [
+      "h1g1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_315",
+    "fen": "r3kbnr/p1q1pppp/b7/n1pP4/1p3PPP/2P4B/PP1PR3/RNBQ1KN1 w kq - 1 11",
+    "solution": [
+      "d1a4"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_316",
+    "fen": "r1bqk1nr/p1ppp2p/5p1b/n5p1/1p3P1P/3P3N/PPPBP1P1/RN1QKB1R w KQkq - 0 8",
+    "solution": [
+      "f4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_317",
+    "fen": "rnbqkbr1/p1pppp2/8/7p/pP1P2p1/B6P/2P2PP1/RN1Q1KNR b q - 1 11",
+    "solution": [
+      "c8a6"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_318",
+    "fen": "1r1Bkb1r/ppq1npp1/2n1Q3/5b1p/1Pp5/3P3P/P3PPP1/RN2KBNR w KQk - 0 12",
+    "solution": [
+      "d8c7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_319",
+    "fen": "1nbqkbnr/1p1ppppp/r7/pPp5/2P5/3P3P/P3PPP1/RNBQKBNR w KQk - 1 6",
+    "solution": [
+      "b5a6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_320",
+    "fen": "rnbqkb1r/pppppppp/8/8/n1B1P2P/7R/PPPP1PP1/RNBQK1N1 w Qkq - 5 5",
+    "solution": [
+      "d1e2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_321",
+    "fen": "rnb2b1r/1pqpkp1p/2p1p1pn/p7/P1P1P3/3P1N2/1P1K1PPP/RNBQ1B1R b - - 1 8",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_322",
+    "fen": "1rbqkbr1/1p1n1pp1/p7/2pP3p/QP4P1/3Pp2P/P2BPPB1/RN2K1NR b KQ - 3 13",
+    "solution": [
+      "e3d2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_323",
+    "fen": "rnbq1br1/1pppk1pp/4p3/p1n2p2/1P1P4/4B1PN/P1P2PBP/RN1QK2R w KQ - 3 9",
+    "solution": [
+      "b4c5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_324",
+    "fen": "rnb1kbnr/pp3p1p/1qppp3/6p1/1P6/P1P2P2/3PP1PP/RNBQKBNR b KQkq b3 0 6",
+    "solution": [
+      "b8a6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_325",
+    "fen": "rn1qkb1r/2pppp2/1pb2npp/3P4/1p6/N5P1/PQP1PP1P/R1B1KBNR w KQkq - 0 9",
+    "solution": [
+      "h2h4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_326",
+    "fen": "rn1qkbnr/1p2pppp/8/p1p5/PP1p2b1/R1PP1P2/4P2P/1NBQKBNR w Kkq - 0 8",
+    "solution": [
+      "f3g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_327",
+    "fen": "rn2kbnr/2p1qppp/1p1p4/pb6/P1Np4/6P1/RPPQPP1P/2B1KBNR b Kkq - 1 9",
+    "solution": [
+      "b5c4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_328",
+    "fen": "1nbq1b1r/1p1p1k1p/r3pppn/p1p5/P3PPQ1/2RB4/NPPPN1PP/2B1K2R b K - 5 13",
+    "solution": [
+      "f7g7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_329",
+    "fen": "rnb1kbnr/pp2pppp/8/2ppq3/5P2/3PB1PN/PPP1P2P/RN1QKB1R w KQkq - 1 6",
+    "solution": [
+      "f4e5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_330",
+    "fen": "r1b2bnr/pppk1ppp/2npp3/7q/2P1P3/PP5N/3P1PPP/RNBQKB1R b KQ c3 0 7",
+    "solution": [
+      "h5g5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_331",
+    "fen": "r1b1kbnr/pp1ppp2/2n3pp/2p5/2PP2P1/q1Q5/P3PP1P/RNB1KBNR b KQkq d3 0 8",
+    "solution": [
+      "c6d4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_332",
+    "fen": "rn1qkb2/pppbppp1/7r/3p3p/2PPn3/N6P/PP2PPPR/R1BQKBN1 w Qq - 1 7",
+    "solution": [
+      "c1h6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_333",
+    "fen": "rnbqkb1r/2pppp1p/p4np1/1p6/3PN3/1P6/P1P1PPPP/R1BQKBNR w KQkq - 0 5",
+    "solution": [
+      "e4g5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_334",
+    "fen": "r2qkb1r/4ppp1/ppp2n1n/7p/3PpB2/2P2N1P/PPQ1KPP1/Rb3B1R w kq - 4 12",
+    "solution": [
+      "e2e3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_335",
+    "fen": "r1bqk1nr/nppp2p1/5b1p/p1P2pN1/4pP2/N6P/PPQPP1P1/R1BK1B1R w kq - 1 11",
+    "solution": [
+      "g5e4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_336",
+    "fen": "rn2kb1r/p1pbp2p/1p5n/5qP1/P4p2/1Q2P2N/RP1P2PP/1NB1KBR1 b kq - 3 12",
+    "solution": [
+      "h6f7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_337",
+    "fen": "r2qkbnr/1pp1p1p1/2np1p1p/p3Q3/P2P4/1bN5/2P1PPPP/R1B1KBNR b KQkq - 3 8",
+    "solution": [
+      "b7b6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_338",
+    "fen": "r2qkb1r/pbpp1pp1/n1P1p2p/1p5n/5P2/2NP3N/PP2P1PP/R1BQKB1R w KQkq - 0 8",
+    "solution": [
+      "c6b7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_339",
+    "fen": "r1bqkb1r/3pppp1/1p3n2/p1p4p/1nPP1P2/6PN/P1Q1P2P/RNB1KB1R w KQkq - 1 9",
+    "solution": [
+      "f1g2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_340",
+    "fen": "rnb1kbr1/pppp1p1p/6pn/4p3/1P4q1/5N1P/P1PPPP1R/RNBQKB2 b Qq - 3 7",
+    "solution": [
+      "g4g5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_341",
+    "fen": "1nb1kb1r/1p1pqpp1/rP2p3/pBp1n2p/8/N3P1P1/PBPP1P1P/1R1QK1NR w Kk - 3 10",
+    "solution": [
+      "b2e5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_342",
+    "fen": "r2qkbnr/pppb2p1/n2p1p1p/4p3/P1P1PPQP/8/1P1P2P1/RNB1KBNR w KQkq - 0 7",
+    "solution": [
+      "f1e2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_343",
+    "fen": "rnb2bnr/pp1pkNp1/q7/P1p1p2P/4P3/1P6/2PP1P1P/RNBQKB1R b K - 0 11",
+    "solution": [
+      "b7b5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_344",
+    "fen": "rn1qkbnr/p1ppppp1/b7/7p/6P1/2pPPN1B/PPP2P1P/R1BQK2R w KQkq - 2 7",
+    "solution": [
+      "g4h5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_345",
+    "fen": "r2qkbnr/2pnp2p/1p1pbpp1/8/p3P3/P1PP3P/1P1B1PP1/RNNQKB1R b KQkq - 0 9",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_346",
+    "fen": "rnbqkbnr/2p1ppp1/pp1p3p/4N3/2P5/5P2/PP1PP1PP/RNBQKB1R w KQkq - 0 5",
+    "solution": [
+      "d1a4"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_347",
+    "fen": "r1bqk3/p1pnbnp1/1p2p2r/3p1p1p/3N1P2/1PPP3P/PBQ1P1PR/RN2KB2 w Qq - 4 12",
+    "solution": [
+      "d4f3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_348",
+    "fen": "rnbqkbnr/ppp3p1/3ppp1p/8/3P3P/N3P3/PPP2PP1/R1BQKBNR w KQkq - 0 5",
+    "solution": [
+      "f2f4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_349",
+    "fen": "rnbqk2r/ppppp1bp/5ppn/8/1P1P4/P7/R1P1PPPP/1NBQKBNR w Kkq - 0 5",
+    "solution": [
+      "b4b5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_350",
+    "fen": "rnbqk1nr/pppp1p2/4p2p/6p1/6P1/b3P3/1PPPNPBP/RNBQK2R b KQkq - 1 5",
+    "solution": [
+      "f7f5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_351",
+    "fen": "rnq1kbnr/p1pp1pp1/b6p/8/1p1PpP2/P1P3PN/1P1QP2P/RNB1KB1R w KQkq - 2 8",
+    "solution": [
+      "a3b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_352",
+    "fen": "r1bq2nr/p1pkbppp/np2p3/1N6/P2p2P1/5P2/1PPPPK1P/1RBQ1BNR w - - 0 8",
+    "solution": [
+      "b5d4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_353",
+    "fen": "r2qkbnr/1bpppp1p/pp4p1/1P2n3/8/2N5/P1PPBPPP/R1BQ1KNR b kq - 0 7",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_354",
+    "fen": "rn2kbnr/1p2p1p1/2ppbp2/p3qP1p/PP6/N1P5/1B1PP1PP/R2QKBNR w Kq a6 0 13",
+    "solution": [
+      "f5e6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_355",
+    "fen": "1nbqkbn1/rppp1ppr/7p/p3p3/1P1P2P1/2PQ3N/P3PP1P/RNB1KB1R b KQ b3 0 6",
+    "solution": [
+      "g8f6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_356",
+    "fen": "r1bqkbnr/p2pp1pp/n1p5/1p3p2/3P4/NP3P1N/P1P1P1PP/R1BQKB1R w KQ - 0 7",
+    "solution": [
+      "a3b1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_357",
+    "fen": "rn2kbr1/p1pp1pp1/bp5n/4p1P1/3q1N1p/1P2P3/P1PPNPBP/R1BQK2R b Kq - 1 11",
+    "solution": [
+      "a6b7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_358",
+    "fen": "rnbq1k2/1pppppb1/2r4n/p5pP/2P4P/1P1P4/P2NPP2/R1BQKBNR b KQ c3 0 9",
+    "solution": [
+      "g7a1"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_359",
+    "fen": "1nbqkb1r/r1pppppp/pp5n/8/Q7/P1P2P2/1P1PP1PP/RNB1KBNR w KQk - 1 5",
+    "solution": [
+      "a4b3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_360",
+    "fen": "1n1qkbn1/2pb1ppr/1p6/3pp1Bp/1p1P1P2/N1P1P2N/r1Q3PP/R3KB1R w KQ - 2 10",
+    "solution": [
+      "c2d1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_361",
+    "fen": "rnbq2nr/2ppk1pp/pb6/1p2pp1P/6P1/N1PP3B/PP2PP2/R1BQK1NR w KQ - 1 8",
+    "solution": [
+      "g4f5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_362",
+    "fen": "r2qkbnr/ppp1p2p/n3b1p1/1N6/1P2pp2/8/PBPPKPPP/R4BNR b kq - 1 9",
+    "solution": [
+      "g8f6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_363",
+    "fen": "2bqkb1r/r1p1p2p/np1p1n2/4Npp1/PP2P1P1/8/2PPQP1P/RNB1K1R1 w Qk - 2 10",
+    "solution": [
+      "c1a3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_364",
+    "fen": "r1bqkbr1/pp1ppppp/2n4n/1Pp3N1/8/8/P1PPPPPP/RNBQKB1R w KQq - 1 5",
+    "solution": [
+      "g5h7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_365",
+    "fen": "r3kbn1/p1p1qpp1/bp4r1/3pp2p/PnP2P2/6PN/NQ1PP2P/R1B1KB1R b KQq - 3 12",
+    "solution": [
+      "h5h4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_366",
+    "fen": "r2qkb1r/4pppp/1pnp4/p1p5/4n1b1/2N2N2/PPPP1PPP/R1BQKBR1 w kq - 0 9",
+    "solution": [
+      "b2b3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_367",
+    "fen": "r1b1k1r1/pp1pbppp/n1p1p2n/8/P2N3N/8/1PPPPPPq/1RBQKB1R b Kq - 5 9",
+    "solution": [
+      "h2d6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_368",
+    "fen": "r1b1k1nr/p1pp1ppp/1pn1pq2/3B4/1bP3P1/N7/PP1PPP1P/R1BQK1NR b KQkq - 0 6",
+    "solution": [
+      "e6d5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_369",
+    "fen": "r1b1kbnr/1pp1qppp/p2p4/3Pp3/n1P1P1QP/7N/1P1K1PP1/RNB2B1R b kq - 2 13",
+    "solution": [
+      "c8g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_370",
+    "fen": "r1b1kb1r/1pp2ppp/p1n1p2n/1q6/P1Pp4/2Q2P2/1P1PP1PP/RNB1KBNR w KQkq - 4 9",
+    "solution": [
+      "a4b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_371",
+    "fen": "rnbqkbr1/ppppppp1/7p/6N1/1P1P2n1/5P2/P1P1P1PP/RNBQKB1R b KQq - 0 5",
+    "solution": [
+      "g4h2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_372",
+    "fen": "rnbqkb1r/p1pppp1p/5n2/1p4p1/5P2/4P3/PPPP2PP/RNBQKBNR w KQkq - 0 5",
+    "solution": [
+      "f4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_373",
+    "fen": "r1b1kr2/ppqp1p1p/n3p3/2pn2p1/1b6/PPPPBPPP/3NPK2/R1Q2BNR w q - 8 13",
+    "solution": [
+      "a3b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_374",
+    "fen": "rn1qkb1r/p2ppp1p/b1p3p1/1pn2P2/8/2PQP3/PP1P2PP/RNB1KBNR w KQkq - 6 10",
+    "solution": [
+      "d3e2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_375",
+    "fen": "rnbk2n1/ppp3p1/7r/2Pppp1p/5P2/P6q/1PQ1P1PP/RNB1KBR1 b Q - 0 11",
+    "solution": [
+      "h3g3"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_376",
+    "fen": "r1bq1b1r/2pppk1p/p1n2n2/1p4p1/P7/N2PP1pP/1PP1NP2/1RBQKB1R w K - 2 12",
+    "solution": [
+      "a4b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_377",
+    "fen": "rnbqkb1r/p3pp2/1Npp3n/1p4pp/3N4/PPP5/3PPPPP/R1BQKB1R b KQkq - 3 8",
+    "solution": [
+      "d8b6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_378",
+    "fen": "rnbqkbnr/1pppppp1/7p/p7/2P3P1/1P3N2/P2PPP1P/RNBQKB1R w KQkq - 1 5",
+    "solution": [
+      "f3e5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_379",
+    "fen": "r1b1kbnr/5ppp/n1p2q2/pp1Np3/2P3P1/1P5B/P2PPP1P/R1BQK1NR b KQkq - 5 10",
+    "solution": [
+      "f6e6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_380",
+    "fen": "rnbqkbnr/ppppp1p1/5p1p/6N1/8/1PN5/P1PPPPPP/R1BQKB1R w KQkq - 0 5",
+    "solution": [
+      "g5h3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_381",
+    "fen": "r2qkbnr/ppp1pppp/n2p2b1/8/6P1/5N1P/PPPPPP2/RNBQKBR1 w Qkq - 3 5",
+    "solution": [
+      "f3g5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_382",
+    "fen": "r2k1b1r/p1qbpppp/np1p4/2pn4/QPP2PP1/N2P3N/P3P2P/R1B2BKR b - - 4 11",
+    "solution": [
+      "d7a4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_383",
+    "fen": "rnb1k2r/pqpn2pp/1p6/1Pb1pp2/7P/B7/P1PP1PPR/RN1QKBN1 w Qkq - 5 11",
+    "solution": [
+      "d1h5"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_384",
+    "fen": "r1bqkb1r/1pp1pp2/n4n2/p2p2Np/1P4P1/N7/P1PPPP1P/R1BQKB1R b KQkq - 3 7",
+    "solution": [
+      "c7c6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_385",
+    "fen": "r1b1kbnr/4p1p1/1qp2p2/pp1pP3/P3QB1p/6PN/1PPNPP1P/1R2KB1R b Kkq - 1 11",
+    "solution": [
+      "f6f5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_386",
+    "fen": "r1b1kb1r/pp3p1p/Bqp1pnp1/3p4/4PP2/PP5P/R1PP2P1/1NBQK1NR b Kkq - 2 8",
+    "solution": [
+      "f6d7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_387",
+    "fen": "r1bqkbr1/pp1ppp1p/n1p2n2/6p1/P6N/6PP/1PPPPP2/RNBQKB1R w KQq - 1 6",
+    "solution": [
+      "h4f3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_388",
+    "fen": "rnb1kbnr/1p2pppp/1q1p4/p7/2p1PP2/6PN/PPPP3P/RNBQKBR1 w Qkq - 0 6",
+    "solution": [
+      "h3f2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_389",
+    "fen": "r2qkb1r/pppbp1pp/2n4n/3p1p2/2PP4/1P4PB/P3PP1P/RNBQ1KNR b kq c3 0 7",
+    "solution": [
+      "g7g5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_390",
+    "fen": "1rbqkb1r/pp3ppp/Q2p4/2B1p3/3P2n1/1PP1P3/P4PPP/RN2KBNR b KQk - 0 10",
+    "solution": [
+      "b7b6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_391",
+    "fen": "rnbq1k1r/p2ppn1p/5p1b/1pp3p1/1PP3P1/8/P1NPPP1P/R1BQKBNR b KQ - 2 10",
+    "solution": [
+      "c8b7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_392",
+    "fen": "rn1q1bnr/pbppp1kp/5p2/1p3P2/P1P5/3PPN2/1P4PP/RNB1KB1R b KQ - 0 12",
+    "solution": [
+      "b7f3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_393",
+    "fen": "rnbqk2r/2pp1ppp/1p2pn2/p7/2PPP3/b6P/PP1Q1PP1/RNB1KBNR b KQkq - 2 7",
+    "solution": [
+      "a3b2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_394",
+    "fen": "r3kb1r/1ppbpp1p/p1n2np1/3p4/6q1/P2PPP2/1PP2Q2/RNB1KBNR b KQkq - 1 12",
+    "solution": [
+      "c6e5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_395",
+    "fen": "rn1qkbnr/p1ppp1p1/b4p2/1P5p/1P4P1/5N2/2PPPP1P/RNBQKB1R b KQkq b3 0 5",
+    "solution": [
+      "a6b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_396",
+    "fen": "r1bqkb2/pppp1ppr/n6p/4P3/6Pn/2P2P2/PP2P2P/RNBQKBNR b KQq - 0 8",
+    "solution": [
+      "d8e7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_397",
+    "fen": "rnbq1b1r/1ppppkpp/5p2/p7/2PP2nP/2Q5/PP2PPP1/RNBK1BNR b - - 2 6",
+    "solution": [
+      "e7e5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_398",
+    "fen": "r1q1kb1r/2pn2pp/3ppp1n/pp6/3N2bP/1P1PP3/P1PBBP2/RN1QK2R b KQkq - 5 11",
+    "solution": [
+      "a5a4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_399",
+    "fen": "1rb1kb1r/1p1p1pp1/n1q2n2/p1p1pP1p/N5P1/P4N2/1PPPPK1P/R1BQ1BR1 w k - 2 12",
+    "solution": [
+      "h2h4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_400",
+    "fen": "rnbqkbnr/2p1N1pp/1p3p2/8/pPP5/3N4/P2PPPPP/R1BQKB1R b KQkq - 0 8",
+    "solution": [
+      "g7g5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_401",
+    "fen": "rnbqk1r1/pp1p1p1p/8/2p1pnp1/P1B1P2P/1P3P2/2PP1KP1/bNBQ2NR w q e6 0 11",
+    "solution": [
+      "f2f1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_402",
+    "fen": "1rbq1bnr/pp1ppkpp/n7/2p2p2/P7/2PPP3/1PQ2PPP/RNB1KBNR b KQ - 0 6",
+    "solution": [
+      "b8a8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_403",
+    "fen": "rnbqkb1r/p1p1pppp/1p1p1n2/8/4P3/3P1N2/PPP2P1P/RN1QKB1R w KQkq - 2 6",
+    "solution": [
+      "h1g1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_404",
+    "fen": "rnbq1bnr/1pp2kpp/3p4/4pp2/p1P5/P1NPB3/1PQ1PPPP/R3KBNR w KQ - 0 7",
+    "solution": [
+      "e3b6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_405",
+    "fen": "rn2kbn1/p2qpp1r/1pp4p/8/2Pp2b1/NP2P1P1/PBQP1P1P/2R1KBNR b Kq - 1 13",
+    "solution": [
+      "d7b7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_406",
+    "fen": "r1b1q1nr/pp1p2k1/n1p5/4pppp/1P5P/1Q2NR2/P1PPPPP1/R3KBN1 b Q - 9 13",
+    "solution": [
+      "c6c5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_407",
+    "fen": "1n1qkbnr/rpp1pp1p/3p4/p3Pbp1/P5P1/2PP4/1P1Q1P1P/RNB1KBNR b KQk - 0 7",
+    "solution": [
+      "h7h6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_408",
+    "fen": "rnb1kbnr/3p2pp/p1p1p3/P3Q3/5B2/1p1P3P/RPP2qP1/1N1K1BNR b kq - 1 13",
+    "solution": [
+      "b3a2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_409",
+    "fen": "rnbq1knr/1pp1ppbp/6p1/p2p4/2P5/P3P1PN/1P1P1P1P/RNBQKB1R w KQ d6 0 6",
+    "solution": [
+      "g3g4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_410",
+    "fen": "rnb1kbnr/ppppqp2/4p2p/P5p1/5PP1/4P3/RPPP3P/1NBQKBNR b Kkq - 0 6",
+    "solution": [
+      "e7f6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_411",
+    "fen": "r1q1kbnr/p1p2p2/1p1p2pp/4pB1n/1PP5/P2P1PP1/3NP2P/RQB1K1NR b KQkq - 1 13",
+    "solution": [
+      "c8f5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_412",
+    "fen": "rnbq1bnr/p1ppk1p1/1p2pp2/1B5p/1PP5/1Q2P2P/P2P1PP1/RNB1K1NR w KQ - 1 9",
+    "solution": [
+      "b5a4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_413",
+    "fen": "rn1qkbnr/1pp1pppp/4b3/p7/3pP2P/N7/PPPPKPP1/R1BQ1BNR b kq - 1 6",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_414",
+    "fen": "r1bqkb1r/1ppp1ppp/p1n2n2/4p3/P1P1P3/6P1/1P1PKP1P/RNBQ1BNR b kq - 1 5",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_415",
+    "fen": "r1bqkbnr/2pppp1p/1pn3p1/p7/2P4N/1P6/P2PPPPP/RNBQKB1R w KQkq - 2 5",
+    "solution": [
+      "d2d3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_416",
+    "fen": "r1bqkbnr/p1p1p1pp/np6/3pPp2/8/2P4N/PP1PQPPP/RNB1KB1R b KQkq - 3 5",
+    "solution": [
+      "a6c5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_417",
+    "fen": "1rbqkbnr/ppp1pppp/2n5/8/P1p2P2/1P6/3PPKPP/RNBQ1BNR b k - 1 5",
+    "solution": [
+      "d8d4"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_418",
+    "fen": "rnb1kbnr/pp1ppp1p/1q4p1/8/1p6/2P5/P1NPPPPP/R1BQKBNR w KQkq - 2 5",
+    "solution": [
+      "c3b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_419",
+    "fen": "rn1qk1nr/p2pp2p/b1p2p1b/1p4p1/PP4P1/3P4/2PKPP1P/RNBQ1BNR w kq - 2 8",
+    "solution": [
+      "a4b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_420",
+    "fen": "rn1qk2r/pppb1ppp/7n/3pp1N1/1bP5/N7/P2PPPPP/R1BQKBR1 w Qkq - 1 8",
+    "solution": [
+      "d1c2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_421",
+    "fen": "rnb2knr/ppp1bp1p/3p3q/4p1P1/5P1P/3P4/PPP2Q2/RNB1KBNR w KQ - 1 11",
+    "solution": [
+      "g5h6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_422",
+    "fen": "r1bq1kr1/ppppp1b1/2n2np1/5p1p/P5P1/N3P2P/1PPP1P1R/1RBQKBN1 b - - 0 10",
+    "solution": [
+      "f5g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_423",
+    "fen": "r1bq2nr/p1ppk1pp/4p3/1P3p2/1n1P1P2/b6N/1PP1PKPP/1NBQ1B1R w - - 1 11",
+    "solution": [
+      "b1a3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_424",
+    "fen": "rnbq2nr/3kbp1p/pp1p2p1/2p1p1N1/4P3/PP1PB2P/2P2PPR/RN1QKB2 b Q - 1 9",
+    "solution": [
+      "e7g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_425",
+    "fen": "rn1qkb1r/p1pbp1pp/5p1n/1p1p4/5P1P/7R/PPPPPKP1/RNBQ1BN1 w kq - 2 6",
+    "solution": [
+      "h3h2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_426",
+    "fen": "rn2kb1r/2q2p2/pp4pn/2ppp2p/2P2PbP/P2P2P1/1PQBP3/RN2KBNR b KQkq - 3 13",
+    "solution": [
+      "g4e6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_427",
+    "fen": "r1bn2qr/2pp1kpp/1p2ppNP/p7/1PP5/N4P1P/1B1PP3/R2QKB1R b KQ - 2 13",
+    "solution": [
+      "f7g6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_428",
+    "fen": "rnbqkbr1/2p1p2p/3p2pn/pN3p2/1P6/3P1P1P/P1P1P1PR/R1BQKBN1 w Qq - 0 9",
+    "solution": [
+      "b4a5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_429",
+    "fen": "rnbqk1n1/1pppbp2/pr6/4p1pp/5N2/Q1PP1P2/PP1BP1PP/RN2KB1R b q - 9 10",
+    "solution": [
+      "e7a3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_430",
+    "fen": "rnq1kbnr/ppp2ppp/3pb3/4p3/5P1P/1P5R/P1PPP1P1/RNBQKBN1 w Qkq - 3 5",
+    "solution": [
+      "f4f5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_431",
+    "fen": "q3k1nr/rb1pppbp/1pN5/p1p5/1n2P1p1/P1NQ4/1PPP1PPP/1RB1KB1R b Kk - 2 12",
+    "solution": [
+      "g7f6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_432",
+    "fen": "rnb1kbnr/1p1pp1p1/p7/q1p2p2/2B1P1Pp/5N1P/PPPP1P2/RNBQK2R w KQkq - 2 7",
+    "solution": [
+      "e1e2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_433",
+    "fen": "r1b1kbnr/pp1pp3/n4ppp/2p5/P4qP1/R1P2N1P/1P1PPP2/1NBQKB1R w Kkq - 3 10",
+    "solution": [
+      "e2e3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_434",
+    "fen": "rnbqkb1r/2Qpp1p1/2p2p2/pp5p/P3P3/3B3P/1PPPnPPR/R1BNK1N1 b Qkq - 1 11",
+    "solution": [
+      "d8c7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_435",
+    "fen": "rnbq1k1r/1pp1pp1p/3p2pb/p5Pn/4P2P/PP6/R1PP1P2/1NBQKBNR b K e3 0 9",
+    "solution": [
+      "b7b6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_436",
+    "fen": "rnbqkb1r/1p3pp1/p2p1n1p/2p1p3/4P2N/N1P1Q3/PP1P1PPP/R1B1KB1R b KQkq - 0 7",
+    "solution": [
+      "f6h7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_437",
+    "fen": "r1bqkbnr/1pp2ppp/2npp3/p7/P7/1QP1P2P/1P1P1PP1/RNB1KBNR b KQkq - 0 5",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_438",
+    "fen": "rnbqkbnr/1ppp2p1/p4p1p/4p3/P7/6PP/1PPPPP1R/RNBQKBN1 w Qkq - 0 5",
+    "solution": [
+      "a4a5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_439",
+    "fen": "rnbqkbr1/pppp2pp/2n2p2/2P1p3/P7/1PN2P2/3PP1PP/R1BQKBNR b KQq - 1 6",
+    "solution": [
+      "f8c5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_440",
+    "fen": "1n1qkbn1/rbpp2p1/p1r5/1pP1p1Pp/5p2/5P1N/PPNPP2P/R1BQKB1R w K e6 0 11",
+    "solution": [
+      "b2b4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_441",
+    "fen": "rnbqkbnr/p3pp1p/1p6/2pp2p1/1P4P1/P7/2PPPPBP/RNBQK1NR b KQkq - 0 5",
+    "solution": [
+      "c8g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_442",
+    "fen": "rnbq1b1r/p1pp1kp1/5p2/1pP1p2p/1P4P1/B7/P1nKPPQP/RN3BNR w - - 2 12",
+    "solution": [
+      "d2c2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_443",
+    "fen": "rn1qkbnr/1pp1ppp1/7p/p2p4/PP1P2b1/4B3/2P1PPPP/RN1QKBNR w KQkq - 0 5",
+    "solution": [
+      "b4a5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_444",
+    "fen": "rn2kbnr/p1pqp1pp/bp1p1p2/8/8/P1PP4/1P1NPPPP/RNBQKB1R w KQkq - 2 6",
+    "solution": [
+      "a3a4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_445",
+    "fen": "rnbqkbr1/p2p1ppp/Bp6/2p1p2n/P5N1/4PP2/1PPP2PP/RNBQKR2 w Q - 5 9",
+    "solution": [
+      "a6c8"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_446",
+    "fen": "1rb1q1nr/p2ppkb1/1p3ppp/n1p5/2PP1P1P/PP6/4PKP1/RNBQ1BNR b - - 0 12",
+    "solution": [
+      "c5d4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_447",
+    "fen": "rnb1k1nr/p1qp3p/7b/2p1pP2/1pP1P2p/1Q1B4/PP1P1P2/RNB1K1NR w KQkq - 3 11",
+    "solution": [
+      "h1h4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_448",
+    "fen": "r1bqk2r/ppp1ppbp/n2p3n/3P2p1/4P3/6P1/PPPK1P1P/RNBQ1BNR w kq - 1 6",
+    "solution": [
+      "d1e2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_449",
+    "fen": "r2qk1nr/pp1bpp1p/n1p3pb/3p4/B2P1P2/4P1P1/PPPQ3P/RNB1K1NR b KQkq - 4 7",
+    "solution": [
+      "d7c8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_450",
+    "fen": "3qk1nr/rbppp2p/np6/p2P1pN1/P4QP1/7P/2P1PP2/RNb1KB1R w KQk - 1 11",
+    "solution": [
+      "h1g1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_451",
+    "fen": "rn1qk2r/p1pp1ppp/bp3n2/4p3/5P2/bP1P2PB/PBP1P2P/RN1QK1NR b KQkq - 2 6",
+    "solution": [
+      "a3b2"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_452",
+    "fen": "rnbqkb1r/p1ppppp1/5n1p/1p6/PP1PP3/2P5/4QPPP/RNB1KBNR w KQkq - 0 7",
+    "solution": [
+      "c1h6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_453",
+    "fen": "rnb1kb1r/3qpp1B/1pp3pn/pQ1p4/1P1P1P2/4P3/P1P4P/RNB2KNR b kq b3 0 10",
+    "solution": [
+      "h8h7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_454",
+    "fen": "r1bqk1nr/p1p1p1bp/1p3pN1/3p2p1/1PP5/NQ4P1/P2PPP1P/R1B1KB1R w KQkq - 0 9",
+    "solution": [
+      "g6h8"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_455",
+    "fen": "2bqkbn1/2p1ppp1/np3r2/p2p3p/P3P1P1/N5QP/RPPPBP2/2B1K1NR w K - 2 12",
+    "solution": [
+      "g4h5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_456",
+    "fen": "1n1qkb1r/rb1ppppp/p1p5/1p4P1/4n3/2NP3N/PPP1KP1P/R1BQ1BR1 b k - 0 8",
+    "solution": [
+      "e4c3"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_457",
+    "fen": "r1bq1bnr/ppppkppp/8/4p3/P4N2/1P2PP1P/1P1P2P1/RNBQKB1R b KQ - 0 8",
+    "solution": [
+      "e5f4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_458",
+    "fen": "2bqkb1r/r1ppn1pp/1pn1p3/p2P1p2/PP3P2/7P/2PQP1P1/RNB1KBNR w KQk - 1 9",
+    "solution": [
+      "d5c6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_459",
+    "fen": "r1bqkbnr/pppppp2/B5p1/4n3/3PP1Pp/5Q2/PPP2P1P/RNB1K1NR w KQkq - 0 6",
+    "solution": [
+      "c1g5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_460",
+    "fen": "2b1kbnr/r2p1p2/n1p4p/qp2p3/1P3Pp1/2P4N/P1KPP1PP/RNB2BR1 b k - 1 11",
+    "solution": [
+      "a5a4"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_461",
+    "fen": "1n1qkbr1/rppb4/p3ppnp/3p2p1/P2P2PP/2N4B/1PPKPP1R/R1BQ2N1 w - - 2 13",
+    "solution": [
+      "h4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_462",
+    "fen": "rnbqkbnr/p2ppp2/6p1/2p2Pp1/6P1/3BP3/PPPP3P/RNBQK2R w KQkq - 0 10",
+    "solution": [
+      "h1f1"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_463",
+    "fen": "r1bqkbnr/p1p2ppp/n2pp3/1p4B1/3P4/1P4P1/P1PNPP1P/R2QKBNR b KQkq - 0 5",
+    "solution": [
+      "d8g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_464",
+    "fen": "1n1qk2r/2p1p1bp/r3b3/pp1p1p2/3P1pn1/Q1B5/PPP1PPPP/RN2KB1R b KQk - 7 12",
+    "solution": [
+      "c7c5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_465",
+    "fen": "3qkbnr/rppbpp2/7p/p1np2p1/PP3PP1/4PQ1B/1BPPN2P/RN2K2R b KQk - 2 11",
+    "solution": [
+      "e7e5"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_466",
+    "fen": "rnb3n1/2q2kp1/pppb1p1r/3pp1Bp/P1PPP2P/1P3P2/1Q3KP1/RN3BNR b - - 4 13",
+    "solution": [
+      "f6g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_467",
+    "fen": "rnbqk2r/1pppbp2/p4n2/1P2p1pp/4P3/P5PB/2PP1P1P/RNBQK1NR b KQkq - 0 7",
+    "solution": [
+      "a6b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_468",
+    "fen": "rnb1kbnr/1p1pq1pp/p4p2/2p1p3/6P1/P1N2P1N/1PPPP2P/R1BQKB1R w KQkq - 1 6",
+    "solution": [
+      "c3e4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_469",
+    "fen": "r3kbr1/p2npppp/2p1b3/q2p1n2/1p1P1P2/N1P3PP/PP1NP2R/R1BQKB2 w Qq - 3 12",
+    "solution": [
+      "e2e4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_470",
+    "fen": "rqb1kb1r/p2pnpp1/npp1p2p/5B2/4P3/PPP3P1/1B1P1P1P/RN1QK1NR w KQkq - 0 11",
+    "solution": [
+      "f5g4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_471",
+    "fen": "1n4nr/rp1bkpbp/Q1pqp1p1/3p4/P1PP4/NP2P3/3B1PPP/3RKBNR w K - 1 11",
+    "solution": [
+      "a6a7"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_472",
+    "fen": "1rb1kb1r/pp1qpppp/n2p1n2/2p2P2/2P5/3P2P1/PP2P2P/RNBQKBNR b KQk - 0 7",
+    "solution": [
+      "d7f5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_473",
+    "fen": "rn2kbnr/pb1ppp1p/1p1P2p1/8/1p3P2/2N3PP/P1qQP3/R1B1KBNR b KQkq - 0 9",
+    "solution": [
+      "c2e4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_474",
+    "fen": "r3k2r/p1p2ppp/np5n/2bpp3/N2P3q/P3PNPb/RPPB1P1P/3QKB1R w Kkq - 3 10",
+    "solution": [
+      "f3h4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_475",
+    "fen": "rnbqkb1r/1p1pp3/5np1/p1p2p1p/5P1P/BPN2N2/P1PPP1PR/R2QKB2 b Qkq - 1 7",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_476",
+    "fen": "rn2kb1r/pb1pnp2/2p1N1qp/1p2p1p1/PPPP4/8/3NPPPP/R1BQKB1R b KQq - 8 12",
+    "solution": [
+      "d7e6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_477",
+    "fen": "rn2kqnr/p2b2pp/4p3/1p1p1p2/3p1B1b/NP2P2P/P1PN1PP1/R1Q1KB1R w Qkq b6 0 12",
+    "solution": [
+      "f1e2"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_478",
+    "fen": "1rbq2r1/p1pp1pkp/1pnbpn2/6p1/P3PN2/2PP2P1/1B1Q1P1P/RN2KB1R w KQ - 1 12",
+    "solution": [
+      "d2e3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_479",
+    "fen": "r2nkb1r/2p1pppp/p6n/Pp1p4/1P3P2/2P4q/2QPP1PP/RNBK1BNR b q - 0 12",
+    "solution": [
+      "h3d3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_480",
+    "fen": "rn1qkbnr/p1p1ppp1/1p1p3p/1P1b4/4P1P1/N1P2P1N/P2P3P/R1BQKB1R b KQkq e3 0 8",
+    "solution": [
+      "d5b7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_481",
+    "fen": "rn1q1bnr/2pk3p/pp1pppp1/8/PP1B2P1/N2P3N/2P1PP1P/R2QKB1R b KQ - 3 9",
+    "solution": [
+      "b8c6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 5
+  },
+  {
+    "id": "puzzle_482",
+    "fen": "r1bqkb1r/p1p1p2p/2n4n/1p1p1Pp1/3P1P2/N7/PPP1P2P/R1BQKBNR w KQkq - 1 7",
+    "solution": [
+      "f4g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_483",
+    "fen": "rnbqk1nr/2pp1p1p/1p2p3/p5p1/QbP1P3/5PP1/PP1P3P/RNB1KBNR b KQkq - 1 8",
+    "solution": [
+      "b4d6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_484",
+    "fen": "rnbqkbnr/pp1p2pp/5p2/2p5/8/2N2PP1/PPPP1P1P/R1BQKB1R b KQkq - 0 6",
+    "solution": [
+      "b8c6"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_485",
+    "fen": "r1bqkbnr/pp2pp2/n6p/1Npp2p1/5P1P/3PP1P1/PPP5/R1BQKBNR b KQkq - 0 7",
+    "solution": [
+      "d8a5"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_486",
+    "fen": "r1bqkb1r/p2p1ppp/np5n/2p1p3/1P1P4/P6N/2P1PPPP/RNBQKB1R w KQkq - 0 7",
+    "solution": [
+      "b4c5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_487",
+    "fen": "r2qk1nr/pp2p1b1/2np2pp/5b2/2p2PPP/N3R2B/PPPPQ3/R1B1K1N1 b Qkq - 3 11",
+    "solution": [
+      "f5d3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_488",
+    "fen": "rn1qkbnr/2p2ppp/pp6/3pp3/P4Pb1/R2P4/1PP1PN1P/1NBQKB1R w Kkq - 2 9",
+    "solution": [
+      "c1e3"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_489",
+    "fen": "rnb1kb1r/p1p1p2p/3p4/1q1n1PpP/P1P5/Np1B4/1P1P1PP1/R1BQK1NR w KQkq g6 0 11",
+    "solution": [
+      "a3b5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_490",
+    "fen": "1rbqkbnr/ppppp1p1/8/5p1p/PPn3P1/B2PP3/2P2P1P/RN1QKBNR w KQk h6 0 7",
+    "solution": [
+      "d3c4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_491",
+    "fen": "r1bqkbnr/1pppp3/n5pp/p4p2/1P3B2/3P1NPP/P1P1PP2/RN1QKB1R b KQkq - 2 6",
+    "solution": [
+      "a6b4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_492",
+    "fen": "rnbqkb1r/1pppppp1/p6n/8/5PPp/Q1P4P/PP1PPK2/RNB2BNR b k - 4 7",
+    "solution": [
+      "a8a7"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_493",
+    "fen": "1rbqkbr1/p1ppp2p/1Q3pp1/Pp6/2P3n1/5P1P/P2PP1P1/RNB1KBNR b KQ - 1 12",
+    "solution": [
+      "a7b6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_494",
+    "fen": "r1b1k2r/p3q1bp/1pPp1npn/3p1p2/1Q6/N3PN2/P1P2PPP/R1BK1B1R b kq - 4 13",
+    "solution": [
+      "f6g8"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_495",
+    "fen": "1rb1kbnr/pppp1ppp/n6q/4p1Q1/4PP2/2P5/PP1PK1PP/RNB2BNR b k - 0 6",
+    "solution": [
+      "h6g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 2
+  },
+  {
+    "id": "puzzle_496",
+    "fen": "r1bqk1nr/1ppppp1p/p1n5/3P4/2Pb1p2/P6P/RP2P1P1/1NBQKBNR w Kkq - 1 9",
+    "solution": [
+      "d5c6"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_497",
+    "fen": "r2qkb1r/p2p3p/bp2p3/n1P2pB1/PP4n1/R1P1P3/5PPP/1N2KBNR b Kkq - 1 11",
+    "solution": [
+      "d8g5"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 1
+  },
+  {
+    "id": "puzzle_498",
+    "fen": "r2qkbnr/p1pb1pp1/n6p/1p1p4/P3p2P/6P1/1PPPPP2/RNBQKBNR b KQkq - 0 8",
+    "solution": [
+      "b5b4"
+    ],
+    "prompt": "Find the engine-approved continuation.",
+    "theme": "Positional squeeze",
+    "difficulty": 4
+  },
+  {
+    "id": "puzzle_499",
+    "fen": "rnb1kbnr/2p2ppp/p2pp3/1p4q1/2P3P1/P6Q/1P1PPP1P/RNB1KBNR b KQkq - 0 6",
+    "solution": [
+      "g5g4"
+    ],
+    "prompt": "Find the cleanest forcing capture.",
+    "theme": "Tactical strike",
+    "difficulty": 3
+  },
+  {
+    "id": "puzzle_500",
+    "fen": "rnbqk1nr/p2p1ppp/1pp5/4p3/2P3P1/b2PPN1B/PP3P1P/RNBQK2R b KQkq - 4 6",
+    "solution": [
+      "a3b4"
+    ],
+    "prompt": "Keep the king under pressure with the best check.",
+    "theme": "Initiative",
+    "difficulty": 3
+  }
+]
