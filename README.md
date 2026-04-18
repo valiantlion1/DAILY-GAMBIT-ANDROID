@@ -18,7 +18,7 @@ Independent Android release channel for `Daily Gambit`, an offline-first premium
 ## Phone Testing Flow
 
 1. Open the repo's `Releases` page on your phone.
-2. Download the latest `app-release.apk`.
+2. Download the latest `.apk` asset from the release.
 3. Allow installation from the browser/files app if Android asks.
 4. Tap the APK and install.
 

@@ -3,6 +3,10 @@
         android:label="daily_gambit"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- Test AdMob app ID so startup does not crash before real monetization config is wired. -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
