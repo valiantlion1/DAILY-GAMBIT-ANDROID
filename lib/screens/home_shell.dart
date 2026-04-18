@@ -167,25 +167,25 @@ class _OnboardingScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            'Sade, yetişkin ve premium bir satranç deneyimi: hızlı maç, günlük puzzle, temiz monetization.',
+                            'Clean premium chess: quick match, daily puzzle, and respectful monetization.',
                             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                   color: Colors.white.withValues(alpha: 0.88),
                                 ),
                           ),
                           const SizedBox(height: 24),
                           _FeatureBullet(
-                            title: 'Akış bozmayan tempo',
-                            detail: 'Aktif oyun ortasında reklam yok, sadece kontrollü tetikleme.',
+                            title: 'No flow-breaking ads',
+                            detail: 'No ad interruptions during active play, only controlled placements.',
                             accent: Colors.white,
                           ),
                           _FeatureBullet(
-                            title: 'Tam lokal çalışma',
-                            detail: 'Offline açılır, ilerleme ve puzzle durumu cihazda tutulur.',
+                            title: 'Fully local first',
+                            detail: 'Offline startup with progress and puzzle state saved on-device.',
                             accent: Colors.white,
                           ),
                           _FeatureBullet(
-                            title: 'Büyümeye hazır temel',
-                            detail: 'Şimdi single-player; sonra istersek cloud ve multiplayer ekleriz.',
+                            title: 'Built to scale',
+                            detail: 'Single-player now, cloud save and multiplayer can be layered later.',
                             accent: Colors.white,
                           ),
                           const SizedBox(height: 8),
@@ -197,7 +197,7 @@ class _OnboardingScreen extends StatelessWidget {
                                 foregroundColor: theme.darkSquare,
                               ),
                               onPressed: controller.completeOnboarding,
-                              child: const Text('Oyuna Gir'),
+                              child: const Text('Enter the Game'),
                             ),
                           ),
                         ],
@@ -245,14 +245,14 @@ class _HomeTab extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Bugün tek hamle: ritmini koru.',
+                    'One smart move today: keep your rhythm.',
                     style: Theme.of(
                       context,
                     ).textTheme.headlineSmall?.copyWith(color: Colors.white),
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'Bir maç, bir puzzle, küçük bir gelişim. Fazla yük bindirmeyen ama güçlü hissettiren satranç akışı.',
+                    'One match, one puzzle, one clean progression loop. Strong pacing without fatigue.',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Colors.white.withValues(alpha: 0.86),
                         ),
@@ -270,7 +270,7 @@ class _HomeTab extends ConsumerWidget {
                         onPressed: () {
                           controller.switchTab(1);
                         },
-                        child: const Text('Maça Devam Et'),
+                        child: const Text('Continue Match'),
                       ),
                       OutlinedButton(
                         style: OutlinedButton.styleFrom(
@@ -280,7 +280,7 @@ class _HomeTab extends ConsumerWidget {
                           ),
                         ),
                         onPressed: controller.switchToDailyPuzzle,
-                        child: const Text('Günlük Puzzle'),
+                        child: const Text('Daily Puzzle'),
                       ),
                     ],
                   ),
@@ -374,11 +374,11 @@ class _HomeTab extends ConsumerWidget {
             child: _SectionCard(
               title: 'Achievements',
               subtitle: achievements.isEmpty
-                  ? 'İlk başarılar bir maç ve birkaç puzzle sonrasında açılır.'
-                  : 'Küçük ama motive eden kilometre taşları.',
+                  ? 'Your first badges unlock after one match and a few puzzles.'
+                  : 'Small but motivating milestone rewards.',
               child: achievements.isEmpty
                   ? Text(
-                      'İlk rozeti almak için bir maçı bitir.',
+                      'Finish one full match to unlock your first badge.',
                       style: Theme.of(context).textTheme.bodyMedium,
                     )
                   : Wrap(
@@ -452,7 +452,7 @@ class _GameTabState extends ConsumerState<_GameTab> {
             child: _SectionCard(
               title: game.statusTitle,
               subtitle:
-                  game.resultDetail ?? 'Seviye seç, temiz hamlelerle akışı kur.',
+                  game.resultDetail ?? 'Pick a level and build a clean move cadence.',
               child: Column(
                 children: <Widget>[
                   ChessBoard(
@@ -534,7 +534,7 @@ class _GameTabState extends ConsumerState<_GameTab> {
                                 ),
                                 const SizedBox(width: 10),
                                 Text(
-                                  'Engine cevap hesaplıyor...',
+                                  'Engine is calculating a response...',
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                               ],
@@ -553,7 +553,7 @@ class _GameTabState extends ConsumerState<_GameTab> {
               child: _SectionCard(
                 title: game.resultTitle ?? 'Post-game room',
                 subtitle: game.resultDetail ??
-                    'İstersen analiz aç, istersen direkt yeni maça geç.',
+                    'Open analysis or jump straight into a new match.',
                 child: Column(
                   children: <Widget>[
                     SizedBox(
@@ -779,7 +779,7 @@ class _ShopTab extends ConsumerWidget {
         children: <Widget>[
           _SectionHeader(
             title: 'Monetization',
-            subtitle: 'Ad + IAP dengesini oyuncuyu boğmadan kur.',
+            subtitle: 'Balance ads and IAP without overloading the player.',
           ),
           const SizedBox(height: 16),
           _RevealOnMount(
@@ -789,7 +789,7 @@ class _ShopTab extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Premium oyuncuya konfor sağlar.',
+                    'Premium should reduce friction.',
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall
@@ -797,7 +797,7 @@ class _ShopTab extends ConsumerWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Pro paket reklamları kaldırır, tema kilitlerini açar ve maç sonrası analizi hızlandırır.',
+                    'Pro removes ads, unlocks all themes, and keeps post-game analysis one tap away.',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Colors.white.withValues(alpha: 0.86),
                         ),
@@ -839,7 +839,7 @@ class _ShopTab extends ConsumerWidget {
             delay: const Duration(milliseconds: 140),
             child: _SectionCard(
               title: 'Board Themes',
-              subtitle: 'Kozmetik yükseltmeler anında uygulanır.',
+              subtitle: 'Cosmetic upgrades apply instantly.',
               child: Column(
                 children: themePacks.map((AppThemePack pack) {
                   final bool unlocked =
@@ -926,13 +926,13 @@ class _SettingsTab extends ConsumerWidget {
         children: <Widget>[
           _SectionHeader(
             title: 'Settings & Launch Notes',
-            subtitle: 'Konfor ayarları ve release hazırlık kontrolü.',
+            subtitle: 'Comfort controls and launch readiness notes.',
           ),
           const SizedBox(height: 16),
           _RevealOnMount(
             child: _SectionCard(
               title: 'Player Comfort',
-              subtitle: 'Kısa seanslarda bile akışı yormayan varsayılanlar.',
+              subtitle: 'Defaults tuned for short and calm sessions.',
               child: Column(
                 children: <Widget>[
                   SwitchListTile(
@@ -940,7 +940,7 @@ class _SettingsTab extends ConsumerWidget {
                     activeThumbColor: theme.accent,
                     contentPadding: EdgeInsets.zero,
                     title: const Text('Move sound'),
-                    subtitle: const Text('Hamlede kısa sistem sesi kullan.'),
+                    subtitle: const Text('Use lightweight system click feedback for moves.'),
                     onChanged: controller.toggleSound,
                   ),
                   SwitchListTile(
@@ -948,7 +948,7 @@ class _SettingsTab extends ConsumerWidget {
                     activeThumbColor: theme.accent,
                     contentPadding: EdgeInsets.zero,
                     title: const Text('Haptics'),
-                    subtitle: const Text('Tahta etkileşiminde titreşim geri bildirimi.'),
+                    subtitle: const Text('Use tactile feedback on board interactions.'),
                     onChanged: controller.toggleHaptics,
                   ),
                   SwitchListTile(
@@ -956,7 +956,7 @@ class _SettingsTab extends ConsumerWidget {
                     activeThumbColor: theme.accent,
                     contentPadding: EdgeInsets.zero,
                     title: const Text('Flip board'),
-                    subtitle: const Text('Pozisyonu iki taraftan da incelemek için.'),
+                    subtitle: const Text('Useful when reviewing both sides of a position.'),
                     onChanged: (_) => controller.toggleBoardFlip(),
                   ),
                 ],
@@ -968,14 +968,14 @@ class _SettingsTab extends ConsumerWidget {
             delay: const Duration(milliseconds: 120),
             child: _SectionCard(
               title: 'Launch Hardening Checklist',
-              subtitle: 'Store çıkışı öncesi bağlanacak son teknik parçalar.',
+              subtitle: 'Final integrations before store submission.',
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _ChecklistLine(text: 'Satın alma stublarını gerçek Play Billing ürünlerine bağla.'),
-                  _ChecklistLine(text: 'Rewarded/interstitial akışını AdMob test ID ile doğrula.'),
-                  _ChecklistLine(text: 'Yerel telemetry adapter yerine Firebase Analytics/Crashlytics tak.'),
-                  _ChecklistLine(text: 'Mağaza görselleri, privacy policy ve consent akışını tamamla.'),
+                  _ChecklistLine(text: 'Swap purchase stubs with real Google Play Billing products.'),
+                  _ChecklistLine(text: 'Validate rewarded/interstitial flow with AdMob test IDs.'),
+                  _ChecklistLine(text: 'Replace local telemetry adapter with Firebase Analytics and Crashlytics.'),
+                  _ChecklistLine(text: 'Finalize store assets, privacy policy, and consent flow.'),
                   const SizedBox(height: 12),
                   Row(
                     children: <Widget>[

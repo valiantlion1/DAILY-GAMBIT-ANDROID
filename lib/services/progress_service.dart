@@ -4,6 +4,14 @@ import '../core/models.dart';
 class ProgressService {
   const ProgressService();
 
+  AppProfile recordDailyVisit(
+    AppProfile profile, {
+    required DateTime now,
+  }) {
+    final AppProfile updated = _applyDailyActivity(profile, now);
+    return _unlockAchievements(updated);
+  }
+
   AppProfile recordMatch(
     AppProfile profile, {
     required bool won,

@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -83,11 +86,41 @@ Future<AppBootstrap> bootstrapApplication() async {
   );
 }
 
-class DailyGambitApp extends ConsumerWidget {
+class DailyGambitApp extends ConsumerStatefulWidget {
   const DailyGambitApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DailyGambitApp> createState() => _DailyGambitAppState();
+}
+
+class _DailyGambitAppState extends ConsumerState<DailyGambitApp>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      unawaited(ref.read(appControllerProvider.notifier).syncDailyState());
+    });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      unawaited(
+        ref.read(appControllerProvider.notifier).syncDailyState(fromResume: true),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final AppViewState viewState = ref.watch(appControllerProvider);
     final AppThemePack theme = themePacks.firstWhere(
       (AppThemePack pack) => pack.id == viewState.profile.selectedThemeId,
@@ -116,10 +149,12 @@ class DailyGambitController extends Notifier<AppViewState> {
     state = state.copyWith(profile: profile);
     _bootstrap.telemetryService.track('onboarding_completed');
     await _persistProfile(profile);
+    await syncDailyState();
   }
 
   void switchTab(int index) {
     state = state.copyWith(selectedTabIndex: index, bannerMessage: null);
+    unawaited(syncDailyState());
   }
 
   void clearBanner() {
@@ -305,6 +340,7 @@ class DailyGambitController extends Notifier<AppViewState> {
   }
 
   Future<void> switchToDailyPuzzle() async {
+    await syncDailyState();
     final PuzzleDefinition daily =
         _bootstrap.puzzleService.nextDailyPuzzle(DateTime.now());
     final PuzzleProgressState next =
@@ -400,5 +436,47 @@ class DailyGambitController extends Notifier<AppViewState> {
 
   Future<void> _persistPuzzle(PuzzleProgressState puzzle) async {
     await _bootstrap.storageService.savePuzzle(puzzle);
+  }
+
+  Future<void> syncDailyState({bool fromResume = false}) async {
+    final DateTime now = DateTime.now();
+    final AppProfile nextProfile = _bootstrap.progressService.recordDailyVisit(
+      state.profile,
+      now: now,
+    );
+    final PuzzleDefinition dailyPuzzle =
+        _bootstrap.puzzleService.nextDailyPuzzle(now);
+    final PuzzleProgressState nextPuzzle = _bootstrap.puzzleService.ensurePuzzle(
+      state.puzzle,
+      dailyPuzzle,
+    );
+
+    final bool profileChanged =
+        jsonEncode(nextProfile.toJson()) != jsonEncode(state.profile.toJson());
+    final bool puzzleChanged =
+        jsonEncode(nextPuzzle.toJson()) != jsonEncode(state.puzzle.toJson());
+
+    if (!profileChanged && !puzzleChanged) {
+      return;
+    }
+
+    final bool dailyPuzzleChanged =
+        nextPuzzle.activePuzzleId != state.puzzle.activePuzzleId;
+    final String? bannerMessage = dailyPuzzleChanged
+        ? 'New daily puzzle is ready.'
+        : (fromResume ? 'Session refreshed from local state.' : state.bannerMessage);
+
+    state = state.copyWith(
+      profile: nextProfile,
+      puzzle: nextPuzzle,
+      bannerMessage: bannerMessage,
+    );
+
+    if (profileChanged) {
+      await _persistProfile(nextProfile);
+    }
+    if (puzzleChanged) {
+      await _persistPuzzle(nextPuzzle);
+    }
   }
 }

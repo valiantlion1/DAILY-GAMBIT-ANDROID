@@ -22,7 +22,7 @@ class GameSessionService {
 
     String statusTitle = playerTurn ? 'Your move' : 'Engine pressure';
     String statusDetail =
-        'Level ${state.difficulty} · ${state.sanHistory.length} half-moves played';
+        'Level ${state.difficulty} - ${state.sanHistory.length} half-moves played';
     String? resultTitle;
     String? resultDetail;
 

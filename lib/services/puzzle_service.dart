@@ -46,7 +46,7 @@ class PuzzleService {
     final String title = state.completed ? 'Puzzle solved' : 'Daily tactic';
     final String detail = state.completed
         ? 'Clean finish. Come back tomorrow for the next local challenge.'
-        : '${puzzle.prompt} · Difficulty ${puzzle.difficulty}/5 · ${state.failedAttempts} misses';
+        : '${puzzle.prompt} - Difficulty ${puzzle.difficulty}/5 - ${state.failedAttempts} misses';
     return LivePuzzleState(
       puzzle: puzzle,
       fen: game.fen,
