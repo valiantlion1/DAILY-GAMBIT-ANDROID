@@ -38,207 +38,254 @@ class ChessBoard extends StatelessWidget {
         final double boardSize = constraints.maxWidth;
         final double tileSize = boardSize / 8;
 
-        return AspectRatio(
-          aspectRatio: 1,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(28),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: <Color>[
-                  Colors.white.withValues(alpha: 0.92),
-                  themePack.surface.withValues(alpha: 0.78),
-                  themePack.darkSquare.withValues(alpha: 0.14),
+        return RepaintBoundary(
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                    Color.alphaBlend(
+                      themePack.lightSquare.withValues(alpha: 0.56),
+                      Colors.white,
+                    ),
+                    themePack.surface.withValues(alpha: 0.84),
+                    themePack.darkSquare.withValues(alpha: 0.28),
+                  ],
+                ),
+                border: Border.all(
+                  color: themePack.darkSquare.withValues(alpha: 0.24),
+                ),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: themePack.darkSquare.withValues(alpha: 0.18),
+                    blurRadius: 34,
+                    offset: const Offset(0, 20),
+                  ),
                 ],
               ),
-              border: Border.all(
-                color: themePack.darkSquare.withValues(alpha: 0.22),
-              ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: themePack.darkSquare.withValues(alpha: 0.14),
-                  blurRadius: 34,
-                  offset: const Offset(0, 18),
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Stack(
-                  children: <Widget>[
-                    Column(
-                      children: ranks.map((int rank) {
-                        return Expanded(
-                          child: Row(
-                            children: files.map((String file) {
-                              final String square = '$file$rank';
-                              final bool isLight = (file.codeUnitAt(0) + rank).isEven;
-                              final String? piece = board[square];
-                              final bool isSelected = square == selectedSquare;
-                              final bool isHint = hintSquares.contains(square);
-                              final bool isHighlighted =
-                                  highlightedSquares.contains(square);
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(24),
+                  child: Stack(
+                    children: <Widget>[
+                      Column(
+                        children: ranks.map((int rank) {
+                          return Expanded(
+                            child: Row(
+                              children: files.map((String file) {
+                                final String square = '$file$rank';
+                                final bool isLight =
+                                    (file.codeUnitAt(0) + rank).isEven;
+                                final String? piece = board[square];
+                                final bool isSelected =
+                                    square == selectedSquare;
+                                final bool isHint = hintSquares.contains(
+                                  square,
+                                );
+                                final bool isHighlighted = highlightedSquares
+                                    .contains(square);
 
-                              return Expanded(
-                                child: GestureDetector(
-                                  onTap: () => onSquareTap(square),
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 140),
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        colors: <Color>[
-                                          _squareColor(
-                                            isLight: isLight,
-                                            isSelected: isSelected,
-                                            isHint: isHint,
-                                          ),
-                                          _squareColor(
-                                            isLight: isLight,
-                                            isSelected: isSelected,
-                                            isHint: isHint,
-                                          ).withValues(alpha: 0.92),
-                                        ],
+                                return Expanded(
+                                  child: GestureDetector(
+                                    onTap: () => onSquareTap(square),
+                                    child: AnimatedContainer(
+                                      duration: const Duration(
+                                        milliseconds: 140,
                                       ),
-                                    ),
-                                    child: Stack(
-                                      children: <Widget>[
-                                        if (isHighlighted)
-                                          Center(
-                                            child: AnimatedContainer(
-                                              duration: const Duration(
-                                                milliseconds: 120,
-                                              ),
-                                              width: tileSize * (piece == null ? 0.22 : 0.60),
-                                              height: tileSize * (piece == null ? 0.22 : 0.60),
-                                              decoration: BoxDecoration(
-                                                color: piece == null
-                                                    ? themePack.accent.withValues(alpha: 0.78)
-                                                    : Colors.transparent,
-                                                border: piece == null
-                                                    ? null
-                                                    : Border.all(
-                                                        color: themePack.accent
-                                                            .withValues(alpha: 0.95),
-                                                        width: 2.5,
-                                                      ),
-                                                shape: BoxShape.circle,
-                                              ),
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: <Color>[
+                                            _squareColor(
+                                              isLight: isLight,
+                                              isSelected: isSelected,
+                                              isHint: isHint,
                                             ),
-                                          ),
-                                        if (piece != null)
-                                          Center(
-                                            child: AnimatedScale(
-                                              duration: const Duration(
-                                                milliseconds: 120,
-                                              ),
-                                              scale: isSelected ? 1.07 : 1,
-                                              child: Text(
-                                                pieceGlyph(piece),
-                                                style: TextStyle(
-                                                  fontSize: tileSize * 0.64,
-                                                  color: isWhitePiece(piece)
-                                                      ? const Color(0xFFFBF8F3)
-                                                      : const Color(0xFF1B1916),
-                                                  shadows: <Shadow>[
-                                                    Shadow(
-                                                      color: Colors.black.withValues(
-                                                        alpha: 0.16,
-                                                      ),
-                                                      blurRadius: 8,
-                                                      offset: const Offset(0, 4),
-                                                    ),
-                                                  ],
+                                            _squareColor(
+                                              isLight: isLight,
+                                              isSelected: isSelected,
+                                              isHint: isHint,
+                                            ).withValues(alpha: 0.92),
+                                          ],
+                                        ),
+                                      ),
+                                      child: Stack(
+                                        children: <Widget>[
+                                          if (isHighlighted)
+                                            Center(
+                                              child: AnimatedContainer(
+                                                duration: const Duration(
+                                                  milliseconds: 120,
+                                                ),
+                                                width:
+                                                    tileSize *
+                                                    (piece == null
+                                                        ? 0.22
+                                                        : 0.60),
+                                                height:
+                                                    tileSize *
+                                                    (piece == null
+                                                        ? 0.22
+                                                        : 0.60),
+                                                decoration: BoxDecoration(
+                                                  color: piece == null
+                                                      ? themePack.accent
+                                                            .withValues(
+                                                              alpha: 0.80,
+                                                            )
+                                                      : Colors.transparent,
+                                                  border: piece == null
+                                                      ? null
+                                                      : Border.all(
+                                                          color: themePack
+                                                              .accent
+                                                              .withValues(
+                                                                alpha: 0.96,
+                                                              ),
+                                                          width: 2.8,
+                                                        ),
+                                                  shape: BoxShape.circle,
+                                                  boxShadow: piece == null
+                                                      ? <BoxShadow>[
+                                                          BoxShadow(
+                                                            color: themePack
+                                                                .accent
+                                                                .withValues(
+                                                                  alpha: 0.28,
+                                                                ),
+                                                            blurRadius: 16,
+                                                          ),
+                                                        ]
+                                                      : null,
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        if ((rank == (flipped ? 8 : 1)) &&
-                                            file != files.last)
-                                          Positioned(
-                                            bottom: 4,
-                                            right: 6,
-                                            child: Text(
-                                              file,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall
-                                                  ?.copyWith(
-                                                    color: isLight
-                                                        ? Colors.black.withValues(
-                                                            alpha: 0.40,
+                                          if (piece != null)
+                                            Center(
+                                              child: AnimatedScale(
+                                                duration: const Duration(
+                                                  milliseconds: 120,
+                                                ),
+                                                scale: isSelected ? 1.08 : 1,
+                                                child: Text(
+                                                  pieceGlyph(piece),
+                                                  style: TextStyle(
+                                                    fontSize: tileSize * 0.64,
+                                                    color: isWhitePiece(piece)
+                                                        ? const Color(
+                                                            0xFFFBF8F3,
                                                           )
-                                                        : Colors.white.withValues(
-                                                            alpha: 0.58,
+                                                        : const Color(
+                                                            0xFF1B1916,
                                                           ),
-                                                    fontWeight: FontWeight.w700,
+                                                    shadows: <Shadow>[
+                                                      Shadow(
+                                                        color: Colors.black
+                                                            .withValues(
+                                                              alpha: 0.16,
+                                                            ),
+                                                        blurRadius: 8,
+                                                        offset: const Offset(
+                                                          0,
+                                                          4,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        if (file == files.first)
-                                          Positioned(
-                                            top: 4,
-                                            left: 6,
-                                            child: Text(
-                                              '$rank',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall
-                                                  ?.copyWith(
-                                                    color: isLight
-                                                        ? Colors.black.withValues(
-                                                            alpha: 0.40,
-                                                          )
-                                                        : Colors.white.withValues(
-                                                            alpha: 0.58,
-                                                          ),
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
+                                          if ((rank == (flipped ? 8 : 1)) &&
+                                              file != files.last)
+                                            Positioned(
+                                              bottom: 4,
+                                              right: 6,
+                                              child: Text(
+                                                file,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall
+                                                    ?.copyWith(
+                                                      color: isLight
+                                                          ? Colors.black
+                                                                .withValues(
+                                                                  alpha: 0.44,
+                                                                )
+                                                          : Colors.white
+                                                                .withValues(
+                                                                  alpha: 0.64,
+                                                                ),
+                                                    ),
+                                              ),
                                             ),
-                                          ),
-                                      ],
+                                          if (file == files.first)
+                                            Positioned(
+                                              top: 4,
+                                              left: 6,
+                                              child: Text(
+                                                '$rank',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall
+                                                    ?.copyWith(
+                                                      color: isLight
+                                                          ? Colors.black
+                                                                .withValues(
+                                                                  alpha: 0.44,
+                                                                )
+                                                          : Colors.white
+                                                                .withValues(
+                                                                  alpha: 0.64,
+                                                                ),
+                                                    ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                    Positioned.fill(
-                      child: IgnorePointer(
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: <Color>[
-                                Colors.white.withValues(alpha: 0.08),
-                                Colors.transparent,
-                                Colors.black.withValues(alpha: 0.08),
-                              ],
+                                );
+                              }).toList(),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      Positioned.fill(
+                        child: IgnorePointer(
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: <Color>[
+                                  Colors.white.withValues(alpha: 0.12),
+                                  Colors.transparent,
+                                  Colors.black.withValues(alpha: 0.10),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Positioned.fill(
-                      child: IgnorePointer(
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.2),
+                      Positioned.fill(
+                        child: IgnorePointer(
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.22),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
