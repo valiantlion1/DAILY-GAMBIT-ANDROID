@@ -12,7 +12,9 @@ class PuzzleService {
   final List<PuzzleDefinition> _puzzles;
 
   static Future<PuzzleService> loadFromAssets() async {
-    final String raw = await rootBundle.loadString('assets/puzzles/puzzle_pack.json');
+    final String raw = await rootBundle.loadString(
+      'assets/puzzles/puzzle_pack.json',
+    );
     final List<dynamic> parsed = jsonDecode(raw) as List<dynamic>;
     return PuzzleService(
       puzzles: parsed
@@ -26,6 +28,31 @@ class PuzzleService {
 
   PuzzleDefinition nextDailyPuzzle(DateTime date) {
     return _puzzles[dayOfYear(date) % _puzzles.length];
+  }
+
+  PuzzleDefinition? nextUnsolvedPuzzle(
+    Set<String> completedPuzzleIds, {
+    String? afterId,
+  }) {
+    if (_puzzles.isEmpty) {
+      return null;
+    }
+
+    final int currentIndex = afterId == null
+        ? -1
+        : _puzzles.indexWhere(
+            (PuzzleDefinition puzzle) => puzzle.id == afterId,
+          );
+    final int startIndex = currentIndex < 0 ? 0 : currentIndex + 1;
+
+    for (int offset = 0; offset < _puzzles.length; offset++) {
+      final PuzzleDefinition puzzle =
+          _puzzles[(startIndex + offset) % _puzzles.length];
+      if (!completedPuzzleIds.contains(puzzle.id)) {
+        return puzzle;
+      }
+    }
+    return null;
   }
 
   PuzzleProgressState ensurePuzzle(
@@ -65,9 +92,9 @@ class PuzzleService {
     PuzzleProgressState state,
     String puzzleId,
   ) {
-    return PuzzleProgressState.initial(puzzleId).copyWith(
-      completedPuzzleIds: state.completedPuzzleIds,
-    );
+    return PuzzleProgressState.initial(
+      puzzleId,
+    ).copyWith(completedPuzzleIds: state.completedPuzzleIds);
   }
 
   PuzzleProgressState submitSolution(
@@ -95,8 +122,9 @@ class PuzzleService {
 
     final List<String> played = <String>[...state.playedMoves, attempted];
     final bool completed = played.length >= puzzle.solution.length;
-    final Set<String> completedPuzzleIds =
-        Set<String>.from(state.completedPuzzleIds);
+    final Set<String> completedPuzzleIds = Set<String>.from(
+      state.completedPuzzleIds,
+    );
     if (completed) {
       completedPuzzleIds.add(puzzle.id);
     }
@@ -114,9 +142,7 @@ class PuzzleService {
       return state;
     }
     final PuzzleDefinition puzzle = byId(state.activePuzzleId);
-    return state.copyWith(
-      hintMove: puzzle.solution[state.playedMoves.length],
-    );
+    return state.copyWith(hintMove: puzzle.solution[state.playedMoves.length]);
   }
 
   PuzzleDefinition byId(String id) {

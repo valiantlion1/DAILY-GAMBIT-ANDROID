@@ -180,11 +180,47 @@ class DailyGambitController extends Notifier<AppViewState> {
     state = state.copyWith(bannerMessage: null);
   }
 
+  void showBanner(String message) {
+    state = state.copyWith(bannerMessage: message);
+  }
+
+  Future<void> playNow() async {
+    final LiveGameState live = _bootstrap.gameSessionService.inspect(
+      state.game,
+    );
+    PersistedGameState game = state.game;
+    String? banner;
+
+    if (live.gameOver || state.game.sanHistory.isEmpty) {
+      game = _bootstrap.gameSessionService.startGame(
+        difficulty: state.game.difficulty,
+      );
+      banner = 'Fresh board. Your move.';
+      _bootstrap.telemetryService.track('game_started', <String, Object?>{
+        'difficulty': game.difficulty,
+        'entry': 'home_play',
+      });
+      await _persistGame(game);
+    }
+
+    state = state.copyWith(
+      game: game,
+      selectedTabIndex: 1,
+      aiThinking: false,
+      bannerMessage: banner,
+    );
+    unawaited(syncDailyState());
+  }
+
   Future<void> startNewGame([int? difficulty]) async {
     final PersistedGameState next = _bootstrap.gameSessionService.startGame(
       difficulty: difficulty ?? state.game.difficulty,
     );
-    state = state.copyWith(game: next, aiThinking: false, bannerMessage: null);
+    state = state.copyWith(
+      game: next,
+      aiThinking: false,
+      bannerMessage: 'Fresh board. Your move.',
+    );
     _bootstrap.telemetryService.track('game_started', <String, Object?>{
       'difficulty': next.difficulty,
     });
@@ -254,10 +290,15 @@ class DailyGambitController extends Notifier<AppViewState> {
     if (state.aiThinking) {
       return;
     }
+    if (state.game.sanHistory.isEmpty) {
+      state = state.copyWith(bannerMessage: 'No move to undo yet.');
+      return;
+    }
+
     final PersistedGameState next = _bootstrap.gameSessionService.undo(
       state.game,
     );
-    state = state.copyWith(game: next, bannerMessage: 'Last turn taken back.');
+    state = state.copyWith(game: next, bannerMessage: 'Turn taken back.');
     await _persistGame(next);
   }
 
@@ -265,11 +306,32 @@ class DailyGambitController extends Notifier<AppViewState> {
     final PersistedGameState next = _bootstrap.gameSessionService.restart(
       state.game,
     );
-    state = state.copyWith(game: next, aiThinking: false, bannerMessage: null);
+    state = state.copyWith(
+      game: next,
+      aiThinking: false,
+      selectedTabIndex: 1,
+      bannerMessage: 'Fresh board. Your move.',
+    );
     await _persistGame(next);
   }
 
   Future<void> unlockGameHint() async {
+    final LiveGameState live = _bootstrap.gameSessionService.inspect(
+      state.game,
+    );
+    if (live.gameOver) {
+      state = state.copyWith(
+        bannerMessage: 'Start a new match before asking for a hint.',
+      );
+      return;
+    }
+    if (!live.playerTurn || state.aiThinking) {
+      state = state.copyWith(
+        bannerMessage: 'Let the engine finish this move first.',
+      );
+      return;
+    }
+
     final RewardResult reward = _bootstrap.monetizationService.showRewarded(
       state.profile,
       RewardContext.hint,
@@ -347,6 +409,14 @@ class DailyGambitController extends Notifier<AppViewState> {
   }
 
   Future<void> unlockPuzzleHint() async {
+    if (state.puzzle.completed) {
+      state = state.copyWith(
+        bannerMessage:
+            'This puzzle is already solved. Continue to the next one.',
+      );
+      return;
+    }
+
     final RewardResult reward = _bootstrap.monetizationService.showRewarded(
       state.profile,
       RewardContext.hint,
@@ -360,6 +430,33 @@ class DailyGambitController extends Notifier<AppViewState> {
       bannerMessage: '${reward.message} Best move highlighted.',
     );
     await _persistProfile(reward.profile);
+    await _persistPuzzle(next);
+  }
+
+  Future<void> continuePuzzle() async {
+    final PuzzleDefinition? nextPuzzle = _bootstrap.puzzleService
+        .nextUnsolvedPuzzle(
+          state.puzzle.completedPuzzleIds,
+          afterId: state.puzzle.activePuzzleId,
+        );
+
+    if (nextPuzzle == null) {
+      state = state.copyWith(
+        selectedTabIndex: 0,
+        bannerMessage: 'Puzzle pack cleared. Come back for a fresh daily run.',
+      );
+      return;
+    }
+
+    final PuzzleProgressState next = _bootstrap.puzzleService.switchToPuzzle(
+      state.puzzle,
+      nextPuzzle.id,
+    );
+    state = state.copyWith(
+      puzzle: next,
+      selectedTabIndex: 2,
+      bannerMessage: 'Next tactic loaded.',
+    );
     await _persistPuzzle(next);
   }
 

@@ -32,12 +32,7 @@ void main() {
   test('en passant capture remains legal in the expected window', () {
     final PersistedGameState state = PersistedGameState(
       difficulty: 2,
-      sanHistory: _sanHistoryFor(<String>[
-        'e2e4',
-        'a7a6',
-        'e4e5',
-        'd7d5',
-      ]),
+      sanHistory: _sanHistoryFor(<String>['e2e4', 'a7a6', 'e4e5', 'd7d5']),
       analysisUnlocked: false,
     );
 
@@ -45,15 +40,22 @@ void main() {
     expect(targets.contains('d6'), isTrue);
   });
 
+  test('last move is recorded for board feedback and cleared on undo', () {
+    final PersistedGameState state = PersistedGameState.initial();
+    final PersistedGameState moved = service.applyPlayerMove(
+      state,
+      from: 'e2',
+      to: 'e4',
+    )!;
+
+    expect(moved.lastMove, 'e2e4');
+    expect(service.undo(moved).lastMove, isNull);
+  });
+
   test('fools mate surfaces a player loss', () {
     final PersistedGameState state = PersistedGameState(
       difficulty: 2,
-      sanHistory: _sanHistoryFor(<String>[
-        'f2f3',
-        'e7e5',
-        'g2g4',
-        'd8h4',
-      ]),
+      sanHistory: _sanHistoryFor(<String>['f2f3', 'e7e5', 'g2g4', 'd8h4']),
       analysisUnlocked: false,
     );
 

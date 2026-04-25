@@ -4,10 +4,7 @@ import '../core/models.dart';
 class ProgressService {
   const ProgressService();
 
-  AppProfile recordDailyVisit(
-    AppProfile profile, {
-    required DateTime now,
-  }) {
+  AppProfile recordDailyVisit(AppProfile profile, {required DateTime now}) {
     final AppProfile updated = _applyDailyActivity(profile, now);
     return _unlockAchievements(updated);
   }
@@ -18,8 +15,9 @@ class ProgressService {
     required DateTime now,
   }) {
     AppProfile updated = _applyDailyActivity(profile, now);
-    final Map<String, int> missionProgress =
-        Map<String, int>.from(updated.missionProgress);
+    final Map<String, int> missionProgress = Map<String, int>.from(
+      updated.missionProgress,
+    );
     missionProgress['play_2_games'] =
         (missionProgress['play_2_games'] ?? 0) + 1;
     if (won) {
@@ -43,8 +41,9 @@ class ProgressService {
     required DateTime now,
   }) {
     AppProfile updated = _applyDailyActivity(profile, now);
-    final Map<String, int> missionProgress =
-        Map<String, int>.from(updated.missionProgress);
+    final Map<String, int> missionProgress = Map<String, int>.from(
+      updated.missionProgress,
+    );
     if (solved) {
       missionProgress['solve_5_puzzles'] =
           (missionProgress['solve_5_puzzles'] ?? 0) + 1;
@@ -58,8 +57,9 @@ class ProgressService {
   }
 
   AppProfile recordHint(AppProfile profile) {
-    final Map<String, int> missionProgress =
-        Map<String, int>.from(profile.missionProgress);
+    final Map<String, int> missionProgress = Map<String, int>.from(
+      profile.missionProgress,
+    );
     missionProgress['use_1_hint'] = (missionProgress['use_1_hint'] ?? 0) + 1;
     return _unlockAchievements(
       profile.copyWith(
@@ -70,8 +70,9 @@ class ProgressService {
   }
 
   AppProfile recordAnalysisUnlock(AppProfile profile) {
-    final Map<String, int> missionProgress =
-        Map<String, int>.from(profile.missionProgress);
+    final Map<String, int> missionProgress = Map<String, int>.from(
+      profile.missionProgress,
+    );
     missionProgress['unlock_analysis'] =
         (missionProgress['unlock_analysis'] ?? 0) + 1;
     return profile.copyWith(
@@ -86,8 +87,9 @@ class ProgressService {
     }
     final Set<String> unlocked = Set<String>.from(profile.unlockedThemeIds)
       ..add(themeId);
-    final Map<String, int> missionProgress =
-        Map<String, int>.from(profile.missionProgress);
+    final Map<String, int> missionProgress = Map<String, int>.from(
+      profile.missionProgress,
+    );
     missionProgress['unlock_1_theme'] =
         (missionProgress['unlock_1_theme'] ?? 0) + 1;
     return _unlockAchievements(
@@ -114,8 +116,9 @@ class ProgressService {
       }
     }
 
-    final Map<String, int> missionProgress =
-        Map<String, int>.from(profile.missionProgress);
+    final Map<String, int> missionProgress = Map<String, int>.from(
+      profile.missionProgress,
+    );
     missionProgress['finish_3_days'] = streak;
 
     return profile.copyWith(
@@ -126,7 +129,9 @@ class ProgressService {
   }
 
   AppProfile _unlockAchievements(AppProfile profile) {
-    final Set<String> unlocked = Set<String>.from(profile.unlockedAchievementIds);
+    final Set<String> unlocked = Set<String>.from(
+      profile.unlockedAchievementIds,
+    );
     if (profile.gamesPlayed >= 1) {
       unlocked.add('opening_night');
     }
@@ -140,7 +145,8 @@ class ProgressService {
       unlocked.add('three_day_streak');
     }
     if (profile.unlockedThemeIds.any(
-      (String id) => themePacks.any((AppThemePack pack) => pack.id == id && pack.premium),
+      (String id) =>
+          themePacks.any((AppThemePack pack) => pack.id == id && pack.premium),
     )) {
       unlocked.add('collector');
     }

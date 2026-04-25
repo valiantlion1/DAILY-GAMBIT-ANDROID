@@ -37,7 +37,9 @@ class StorageService {
     if (raw == null) {
       return null;
     }
-    return PuzzleProgressState.fromJson(jsonDecode(raw) as Map<String, dynamic>);
+    return PuzzleProgressState.fromJson(
+      jsonDecode(raw) as Map<String, dynamic>,
+    );
   }
 
   Future<void> saveProfile(AppProfile profile) async {

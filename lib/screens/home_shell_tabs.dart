@@ -11,6 +11,12 @@ class _HomeTab extends ConsumerWidget {
     final DailyGambitController controller = ref.read(
       appControllerProvider.notifier,
     );
+    final AppBootstrap bootstrap = ref.read(bootstrapProvider);
+    final LiveGameState liveGame = bootstrap.gameSessionService.inspect(
+      viewState.game,
+    );
+    final bool activeMatch =
+        viewState.game.sanHistory.isNotEmpty && !liveGame.gameOver;
     final List<StarterMission> missions = buildStarterMissions(
       viewState.profile,
     );
@@ -71,9 +77,11 @@ class _HomeTab extends ConsumerWidget {
           _FadeIn(
             delay: const Duration(milliseconds: 40),
             child: _GoldButton(
-              label: 'Play',
-              subtitle: 'AI Match',
-              onTap: () => controller.switchTab(1),
+              label: activeMatch ? 'Resume' : 'Play',
+              subtitle: activeMatch
+                  ? '${viewState.game.sanHistory.length} half-moves in'
+                  : 'Fresh AI Match',
+              onTap: () => unawaited(controller.playNow()),
             ),
           ),
           const SizedBox(height: 12),
@@ -216,7 +224,7 @@ class _GameTabState extends ConsumerState<_GameTab> {
         children: <Widget>[
           _ReferenceTopBar(
             title: 'AI Match',
-            subtitle: 'Hard',
+            subtitle: _difficultyLabel(viewState.game.difficulty),
             dark: true,
             leading: _IconTap(
               icon: Icons.arrow_back_rounded,
@@ -228,6 +236,13 @@ class _GameTabState extends ConsumerState<_GameTab> {
               dark: true,
               onTap: () => controller.switchTab(4),
             ),
+          ),
+          const SizedBox(height: 8),
+          _DifficultyPips(
+            current: viewState.game.difficulty,
+            accent: widget.theme.accent,
+            onSelected: (int level) =>
+                unawaited(controller.setDifficulty(level)),
           ),
           const SizedBox(height: 8),
           _MatchPlayerStrip(
@@ -246,6 +261,7 @@ class _GameTabState extends ConsumerState<_GameTab> {
               selectedSquare: selectedSquare,
               highlightedSquares: highlighted,
               hintSquares: hintSquares,
+              lastMoveSquares: _squaresForMove(viewState.game.lastMove),
               onSquareTap: (String square) =>
                   _handleTap(square, game, viewState, controller),
             ),
@@ -306,6 +322,15 @@ class _GameTabState extends ConsumerState<_GameTab> {
       return;
     }
 
+    if (selectedSquare != null && !game.targetsBySource.containsKey(square)) {
+      setState(() => selectedSquare = null);
+      controller.showBanner('That square is not available from here.');
+      if (viewState.profile.hapticsEnabled) {
+        HapticFeedback.lightImpact();
+      }
+      return;
+    }
+
     if (selectedSquare == square) {
       setState(() => selectedSquare = null);
       return;
@@ -344,6 +369,7 @@ class _PuzzleTabState extends ConsumerState<_PuzzleTab> {
       return _PuzzleSolvedScreen(
         accent: widget.theme.accent,
         onBack: () => controller.switchTab(0),
+        onContinue: () => unawaited(controller.continuePuzzle()),
       );
     }
 
@@ -408,6 +434,11 @@ class _PuzzleTabState extends ConsumerState<_PuzzleTab> {
               selectedSquare: selectedSquare,
               highlightedSquares: highlighted,
               hintSquares: hintSquares,
+              lastMoveSquares: _squaresForMove(
+                viewState.puzzle.playedMoves.isEmpty
+                    ? null
+                    : viewState.puzzle.playedMoves.last,
+              ),
               onSquareTap: (String square) =>
                   _handleTap(square, puzzle, viewState, controller),
             ),
@@ -460,6 +491,15 @@ class _PuzzleTabState extends ConsumerState<_PuzzleTab> {
       unawaited(controller.playPuzzleMove(from, square));
       if (viewState.profile.soundEnabled) {
         SystemSound.play(SystemSoundType.click);
+      }
+      return;
+    }
+
+    if (selectedSquare != null && !puzzle.targetsBySource.containsKey(square)) {
+      setState(() => selectedSquare = null);
+      controller.showBanner('That tactic move is not legal.');
+      if (viewState.profile.hapticsEnabled) {
+        HapticFeedback.lightImpact();
       }
       return;
     }
@@ -681,6 +721,90 @@ String _difficultyLabel(int difficulty) {
     return 'Medium';
   }
   return 'Hard';
+}
+
+Set<String> _squaresForMove(String? move) {
+  if (move == null || move.length < 4) {
+    return const <String>{};
+  }
+  return <String>{move.substring(0, 2), move.substring(2, 4)};
+}
+
+class _DifficultyPips extends StatelessWidget {
+  const _DifficultyPips({
+    required this.current,
+    required this.accent,
+    required this.onSelected,
+  });
+
+  final int current;
+  final Color accent;
+  final ValueChanged<int> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return _SoftPanel(
+      color: _RefColor.matchPanel,
+      borderColor: Colors.white.withValues(alpha: 0.07),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      child: Row(
+        children: <Widget>[
+          Text(
+            'Level',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.white.withValues(alpha: 0.64),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Row(
+              children: List<Widget>.generate(5, (int index) {
+                final int level = index + 1;
+                final bool selected = level == current;
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 2),
+                    child: Material(
+                      color: selected
+                          ? accent
+                          : Colors.white.withValues(alpha: 0.08),
+                      borderRadius: BorderRadius.circular(999),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(999),
+                        onTap: selected ? null : () => onSelected(level),
+                        child: SizedBox(
+                          height: 28,
+                          child: Center(
+                            child: Text(
+                              '$level',
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
+                                    color: selected
+                                        ? Colors.white
+                                        : Colors.white.withValues(alpha: 0.70),
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Text(
+            _difficultyLabel(current),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.white.withValues(alpha: 0.72),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _StatCard extends StatelessWidget {
@@ -1416,10 +1540,15 @@ class _TrendPainter extends CustomPainter {
 }
 
 class _PuzzleSolvedScreen extends StatelessWidget {
-  const _PuzzleSolvedScreen({required this.accent, required this.onBack});
+  const _PuzzleSolvedScreen({
+    required this.accent,
+    required this.onBack,
+    required this.onContinue,
+  });
 
   final Color accent;
   final VoidCallback onBack;
+  final VoidCallback onContinue;
 
   @override
   Widget build(BuildContext context) {
@@ -1490,7 +1619,7 @@ class _PuzzleSolvedScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 18),
-          _GoldButton(label: 'Continue', onTap: onBack),
+          _GoldButton(label: 'Continue', onTap: onContinue),
         ],
       ),
     );

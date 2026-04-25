@@ -13,6 +13,7 @@ class ChessBoard extends StatelessWidget {
     this.selectedSquare,
     this.highlightedSquares = const <String>{},
     this.hintSquares = const <String>{},
+    this.lastMoveSquares = const <String>{},
   });
 
   final String fen;
@@ -22,6 +23,7 @@ class ChessBoard extends StatelessWidget {
   final String? selectedSquare;
   final Set<String> highlightedSquares;
   final Set<String> hintSquares;
+  final Set<String> lastMoveSquares;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +73,9 @@ class ChessBoard extends StatelessWidget {
                                 square,
                               );
                               final bool hint = hintSquares.contains(square);
+                              final bool lastMove = lastMoveSquares.contains(
+                                square,
+                              );
                               return Expanded(
                                 child: GestureDetector(
                                   behavior: HitTestBehavior.opaque,
@@ -83,11 +88,33 @@ class ChessBoard extends StatelessWidget {
                                         light,
                                         selected,
                                         hint,
+                                        lastMove,
                                       ),
                                     ),
                                     child: Stack(
                                       alignment: Alignment.center,
                                       children: <Widget>[
+                                        if (lastMove)
+                                          Positioned.fill(
+                                            child: AnimatedContainer(
+                                              duration: const Duration(
+                                                milliseconds: 170,
+                                              ),
+                                              curve: Curves.easeOutCubic,
+                                              margin: EdgeInsets.all(
+                                                tileSize * 0.10,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                border: Border.all(
+                                                  color: themePack.accent
+                                                      .withValues(alpha: 0.48),
+                                                  width: 1.4,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         if (target)
                                           AnimatedContainer(
                                             duration: const Duration(
@@ -120,25 +147,76 @@ class ChessBoard extends StatelessWidget {
                                               milliseconds: 120,
                                             ),
                                             scale: selected ? 1.08 : 1,
-                                            child: Text(
-                                              pieceGlyph(piece),
-                                              style: TextStyle(
-                                                fontSize: tileSize * 0.68,
-                                                height: 1,
-                                                fontFamily: 'serif',
-                                                color: isWhitePiece(piece)
-                                                    ? const Color(0xFFF9F3EA)
-                                                    : const Color(0xFF17130F),
-                                                shadows: <Shadow>[
-                                                  Shadow(
-                                                    color: Colors.black
-                                                        .withValues(
-                                                          alpha: 0.24,
-                                                        ),
-                                                    blurRadius: 6,
-                                                    offset: const Offset(0, 3),
+                                            child: AnimatedSwitcher(
+                                              duration: const Duration(
+                                                milliseconds: 170,
+                                              ),
+                                              switchInCurve: Curves.easeOutBack,
+                                              switchOutCurve: Curves.easeIn,
+                                              transitionBuilder:
+                                                  (
+                                                    Widget child,
+                                                    Animation<double> animation,
+                                                  ) {
+                                                    return FadeTransition(
+                                                      opacity: animation,
+                                                      child: ScaleTransition(
+                                                        scale: Tween<double>(
+                                                          begin: 0.82,
+                                                          end: 1,
+                                                        ).animate(animation),
+                                                        child: child,
+                                                      ),
+                                                    );
+                                                  },
+                                              child: Text(
+                                                pieceGlyph(piece),
+                                                key: ValueKey<String>(
+                                                  '$square-$piece',
+                                                ),
+                                                style: TextStyle(
+                                                  fontSize: tileSize * 0.68,
+                                                  height: 1,
+                                                  fontFamily: 'serif',
+                                                  color: isWhitePiece(piece)
+                                                      ? const Color(0xFFF9F3EA)
+                                                      : const Color(0xFF17130F),
+                                                  shadows: <Shadow>[
+                                                    Shadow(
+                                                      color: Colors.black
+                                                          .withValues(
+                                                            alpha: 0.24,
+                                                          ),
+                                                      blurRadius: 6,
+                                                      offset: const Offset(
+                                                        0,
+                                                        3,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        if (selected)
+                                          Positioned.fill(
+                                            child: IgnorePointer(
+                                              child: DecoratedBox(
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: themePack.accent,
+                                                    width: 2,
                                                   ),
-                                                ],
+                                                  boxShadow: <BoxShadow>[
+                                                    BoxShadow(
+                                                      color: themePack.accent
+                                                          .withValues(
+                                                            alpha: 0.28,
+                                                          ),
+                                                      blurRadius: 12,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -182,20 +260,8 @@ class ChessBoard extends StatelessWidget {
     );
   }
 
-  Color _squareColor(bool light, bool selected, bool hint) {
-    if (selected) {
-      return Color.alphaBlend(
-        themePack.accent.withValues(alpha: 0.40),
-        light ? themePack.lightSquare : themePack.darkSquare,
-      );
-    }
-    if (hint) {
-      return Color.alphaBlend(
-        themePack.accent.withValues(alpha: 0.28),
-        light ? themePack.lightSquare : themePack.darkSquare,
-      );
-    }
-    return light
+  Color _squareColor(bool light, bool selected, bool hint, bool lastMove) {
+    final Color base = light
         ? Color.alphaBlend(
             Colors.white.withValues(alpha: 0.08),
             themePack.lightSquare,
@@ -204,5 +270,15 @@ class ChessBoard extends StatelessWidget {
             Colors.black.withValues(alpha: 0.06),
             themePack.darkSquare,
           );
+    if (selected) {
+      return Color.alphaBlend(themePack.accent.withValues(alpha: 0.40), base);
+    }
+    if (hint) {
+      return Color.alphaBlend(themePack.accent.withValues(alpha: 0.28), base);
+    }
+    if (lastMove) {
+      return Color.alphaBlend(themePack.accent.withValues(alpha: 0.18), base);
+    }
+    return base;
   }
 }

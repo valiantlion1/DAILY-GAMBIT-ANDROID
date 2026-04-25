@@ -6,7 +6,7 @@ import 'chess_engine_adapter.dart';
 
 class GameSessionService {
   const GameSessionService({required ChessEngineAdapter engineAdapter})
-      : _engineAdapter = engineAdapter;
+    : _engineAdapter = engineAdapter;
 
   final ChessEngineAdapter _engineAdapter;
 
@@ -53,7 +53,9 @@ class GameSessionService {
       statusDetail: statusDetail,
       resultTitle: resultTitle,
       resultDetail: resultDetail,
-      bestMoveSan: state.hintMove == null ? null : readableMove(state.hintMove!),
+      bestMoveSan: state.hintMove == null
+          ? null
+          : readableMove(state.hintMove!),
     );
   }
 
@@ -87,6 +89,7 @@ class GameSessionService {
       hintMove: null,
       analysisUnlocked: false,
       analysisSummary: null,
+      lastMove: moveToCoordinateString(move),
     );
   }
 
@@ -119,6 +122,7 @@ class GameSessionService {
     return state.copyWith(
       sanHistory: <String>[...state.sanHistory, san],
       hintMove: null,
+      lastMove: moveToCoordinateString(move),
     );
   }
 
@@ -129,10 +133,14 @@ class GameSessionService {
 
     final int removeCount = state.sanHistory.length >= 2 ? 2 : 1;
     return state.copyWith(
-      sanHistory: state.sanHistory.sublist(0, state.sanHistory.length - removeCount),
+      sanHistory: state.sanHistory.sublist(
+        0,
+        state.sanHistory.length - removeCount,
+      ),
       hintMove: null,
       analysisUnlocked: false,
       analysisSummary: null,
+      lastMove: null,
     );
   }
 
@@ -153,17 +161,19 @@ class GameSessionService {
     return state.copyWith(hintMove: insight.coordinateMove);
   }
 
-  Future<PersistedGameState> unlockAnalysisPreview(PersistedGameState state) async {
+  Future<PersistedGameState> unlockAnalysisPreview(
+    PersistedGameState state,
+  ) async {
     final LiveGameState live = inspect(state);
-    final EngineInsight insight = await _engineAdapter.analyze(live.fen, depth: 3);
+    final EngineInsight insight = await _engineAdapter.analyze(
+      live.fen,
+      depth: 3,
+    );
     final String summary = insight.coordinateMove == null
         ? 'Engine score ${_formatEvaluation(insight.evaluation)}. No legal move remains.'
         : 'Engine score ${_formatEvaluation(insight.evaluation)} with ${insight.san ?? readableMove(insight.coordinateMove!)} on deck.';
 
-    return state.copyWith(
-      analysisUnlocked: true,
-      analysisSummary: summary,
-    );
+    return state.copyWith(analysisUnlocked: true, analysisSummary: summary);
   }
 
   bool didPlayerWin(PersistedGameState state) {
@@ -232,15 +242,14 @@ class GameSessionService {
 
   String _formatEvaluation(int centipawns) {
     final double pawns = centipawns / 100;
-    return pawns >= 0 ? '+${pawns.toStringAsFixed(1)}' : pawns.toStringAsFixed(1);
+    return pawns >= 0
+        ? '+${pawns.toStringAsFixed(1)}'
+        : pawns.toStringAsFixed(1);
   }
 }
 
 class _ResultCopy {
-  const _ResultCopy({
-    required this.title,
-    this.detail,
-  });
+  const _ResultCopy({required this.title, this.detail});
 
   final String title;
   final String? detail;

@@ -42,7 +42,9 @@ void main() {
     expect(
       themePacks
           .where((AppThemePack pack) => pack.premium)
-          .every((AppThemePack pack) => profile.unlockedThemeIds.contains(pack.id)),
+          .every(
+            (AppThemePack pack) => profile.unlockedThemeIds.contains(pack.id),
+          ),
       isTrue,
     );
   });

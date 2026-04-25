@@ -4,7 +4,7 @@ import 'progress_service.dart';
 
 class MonetizationService {
   const MonetizationService({required ProgressService progressService})
-      : _progressService = progressService;
+    : _progressService = progressService;
 
   final ProgressService _progressService;
 
@@ -63,17 +63,21 @@ class MonetizationService {
     AppProfile updated = profile.copyWith(ownedProductIds: owned);
 
     if (productId == 'pro_pack') {
-      final Set<String> allThemes = themePacks.map((AppThemePack pack) => pack.id).toSet();
-      updated = updated.copyWith(
-        unlockedThemeIds: allThemes,
-      );
-      for (final AppThemePack pack in themePacks.where((AppThemePack pack) => pack.premium)) {
+      final Set<String> allThemes = themePacks
+          .map((AppThemePack pack) => pack.id)
+          .toSet();
+      updated = updated.copyWith(unlockedThemeIds: allThemes);
+      for (final AppThemePack pack in themePacks.where(
+        (AppThemePack pack) => pack.premium,
+      )) {
         updated = _progressService.unlockTheme(updated, pack.id);
       }
     }
 
     if (productId == 'theme_pack') {
-      for (final AppThemePack pack in themePacks.where((AppThemePack pack) => pack.premium)) {
+      for (final AppThemePack pack in themePacks.where(
+        (AppThemePack pack) => pack.premium,
+      )) {
         updated = _progressService.unlockTheme(updated, pack.id);
       }
     }

@@ -10,9 +10,7 @@ Future<void> main() async {
   final AppBootstrap bootstrap = await bootstrapApplication();
   runApp(
     ProviderScope(
-      overrides: [
-        bootstrapProvider.overrideWithValue(bootstrap),
-      ],
+      overrides: [bootstrapProvider.overrideWithValue(bootstrap)],
       child: const DailyGambitApp(),
     ),
   );

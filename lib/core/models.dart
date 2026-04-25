@@ -321,6 +321,7 @@ class PersistedGameState {
     required this.analysisUnlocked,
     this.hintMove,
     this.analysisSummary,
+    this.lastMove,
   });
 
   factory PersistedGameState.initial({int difficulty = 2}) {
@@ -340,6 +341,7 @@ class PersistedGameState {
       analysisUnlocked: json['analysisUnlocked'] as bool? ?? false,
       hintMove: json['hintMove'] as String?,
       analysisSummary: json['analysisSummary'] as String?,
+      lastMove: json['lastMove'] as String?,
     );
   }
 
@@ -348,6 +350,7 @@ class PersistedGameState {
   final bool analysisUnlocked;
   final String? hintMove;
   final String? analysisSummary;
+  final String? lastMove;
 
   PersistedGameState copyWith({
     int? difficulty,
@@ -355,6 +358,7 @@ class PersistedGameState {
     bool? analysisUnlocked,
     Object? hintMove = _sentinel,
     Object? analysisSummary = _sentinel,
+    Object? lastMove = _sentinel,
   }) {
     return PersistedGameState(
       difficulty: difficulty ?? this.difficulty,
@@ -364,6 +368,7 @@ class PersistedGameState {
       analysisSummary: analysisSummary == _sentinel
           ? this.analysisSummary
           : analysisSummary as String?,
+      lastMove: lastMove == _sentinel ? this.lastMove : lastMove as String?,
     );
   }
 
@@ -374,6 +379,7 @@ class PersistedGameState {
       'analysisUnlocked': analysisUnlocked,
       'hintMove': hintMove,
       'analysisSummary': analysisSummary,
+      'lastMove': lastMove,
     };
   }
 }
