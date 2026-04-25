@@ -215,6 +215,7 @@ class _GameTabState extends ConsumerState<_GameTab> {
             viewState.game.hintMove!.substring(0, 2),
             viewState.game.hintMove!.substring(2, 4),
           };
+    final String? toastMessage = _playfieldToast(viewState.bannerMessage);
 
     return _PhonePage(
       backgroundColor: _RefColor.match,
@@ -261,12 +262,21 @@ class _GameTabState extends ConsumerState<_GameTab> {
               selectedSquare: selectedSquare,
               highlightedSquares: highlighted,
               hintSquares: hintSquares,
-              lastMoveSquares: _squaresForMove(viewState.game.lastMove),
+              lastMove: viewState.game.lastMove,
               onSquareTap: (String square) =>
                   _handleTap(square, game, viewState, controller),
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
+          if (toastMessage != null) ...<Widget>[
+            _PlayfieldToast(
+              message: toastMessage,
+              accent: widget.theme.accent,
+              dark: true,
+            ),
+            const SizedBox(height: 8),
+          ] else
+            const SizedBox(height: 2),
           _MatchPlayerStrip(
             pieceCode: 0x2654,
             title: 'You',
@@ -387,6 +397,7 @@ class _PuzzleTabState extends ConsumerState<_PuzzleTab> {
             viewState.puzzle.hintMove!.substring(0, 2),
             viewState.puzzle.hintMove!.substring(2, 4),
           };
+    final String? toastMessage = _playfieldToast(viewState.bannerMessage);
 
     return _PhonePage(
       backgroundColor: const Color(0xFFF9F3EA),
@@ -434,16 +445,19 @@ class _PuzzleTabState extends ConsumerState<_PuzzleTab> {
               selectedSquare: selectedSquare,
               highlightedSquares: highlighted,
               hintSquares: hintSquares,
-              lastMoveSquares: _squaresForMove(
-                viewState.puzzle.playedMoves.isEmpty
-                    ? null
-                    : viewState.puzzle.playedMoves.last,
-              ),
+              lastMove: viewState.puzzle.playedMoves.isEmpty
+                  ? null
+                  : viewState.puzzle.playedMoves.last,
               onSquareTap: (String square) =>
                   _handleTap(square, puzzle, viewState, controller),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 10),
+          if (toastMessage != null) ...<Widget>[
+            _PlayfieldToast(message: toastMessage, accent: widget.theme.accent),
+            const SizedBox(height: 10),
+          ] else
+            const SizedBox(height: 6),
           Text(
             puzzle.puzzle.prompt,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -723,11 +737,98 @@ String _difficultyLabel(int difficulty) {
   return 'Hard';
 }
 
-Set<String> _squaresForMove(String? move) {
-  if (move == null || move.length < 4) {
-    return const <String>{};
+String? _playfieldToast(String? message) {
+  if (message == null || message == 'Engine thinking...') {
+    return null;
   }
-  return <String>{move.substring(0, 2), move.substring(2, 4)};
+  if (message.contains('No interstitial') ||
+      message.contains('Interstitial ready') ||
+      message.contains('Premium user') ||
+      message.contains('Daily interstitial')) {
+    return null;
+  }
+  if (message.contains('Hint ready')) {
+    return 'Hint highlighted on the board.';
+  }
+  if (message.contains('Best move highlighted')) {
+    return 'Best move highlighted.';
+  }
+  if (message.contains('Rewarded break') || message.contains('Benefit')) {
+    return 'Reward unlocked.';
+  }
+  if (message.contains('not legal from the current board') ||
+      message.contains('not available')) {
+    return 'No move there.';
+  }
+  if (message.contains('tactic move')) {
+    return 'No tactic there.';
+  }
+  if (message.contains('Keep looking')) {
+    return 'Try a cleaner forcing move.';
+  }
+  if (message.contains('Puzzle solved')) {
+    return 'Solved. Streak updated.';
+  }
+  return message;
+}
+
+class _PlayfieldToast extends StatelessWidget {
+  const _PlayfieldToast({
+    required this.message,
+    required this.accent,
+    this.dark = false,
+  });
+
+  final String message;
+  final Color accent;
+  final bool dark;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 160),
+      child: DecoratedBox(
+        key: ValueKey<String>(message),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(999),
+          color: dark
+              ? Colors.white.withValues(alpha: 0.08)
+              : _RefColor.ink.withValues(alpha: 0.06),
+          border: Border.all(
+            color: dark
+                ? Colors.white.withValues(alpha: 0.10)
+                : accent.withValues(alpha: 0.20),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
+          child: Row(
+            children: <Widget>[
+              Icon(
+                Icons.bolt_rounded,
+                size: 15,
+                color: dark ? accent : _RefColor.goldDark,
+              ),
+              const SizedBox(width: 7),
+              Expanded(
+                child: Text(
+                  message,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: dark
+                        ? Colors.white.withValues(alpha: 0.78)
+                        : _RefColor.ink.withValues(alpha: 0.78),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class _DifficultyPips extends StatelessWidget {

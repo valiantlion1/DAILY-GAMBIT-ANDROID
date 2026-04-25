@@ -41,6 +41,7 @@ class HomeShell extends ConsumerWidget {
         viewState.selectedTabIndex == 0 ||
         viewState.selectedTabIndex == 3 ||
         viewState.selectedTabIndex == 4;
+    final bool showGlobalBanner = showNav && viewState.bannerMessage != null;
 
     return Scaffold(
       extendBody: true,
@@ -55,7 +56,7 @@ class HomeShell extends ConsumerWidget {
               children: <Widget>[
                 AnimatedSwitcher(
                   duration: const Duration(milliseconds: 180),
-                  child: viewState.bannerMessage == null
+                  child: !showGlobalBanner
                       ? const SizedBox.shrink()
                       : Padding(
                           key: ValueKey<String>(viewState.bannerMessage!),
