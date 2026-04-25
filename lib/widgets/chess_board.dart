@@ -43,34 +43,37 @@ class ChessBoard extends StatelessWidget {
             aspectRatio: 1,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(32),
+                borderRadius: BorderRadius.circular(26),
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: <Color>[
+                    themePack.darkSquare.withValues(alpha: 0.96),
                     Color.alphaBlend(
-                      themePack.lightSquare.withValues(alpha: 0.56),
-                      Colors.white,
+                      themePack.darkSquare.withValues(alpha: 0.36),
+                      const Color(0xFF1A1715),
                     ),
-                    themePack.surface.withValues(alpha: 0.84),
-                    themePack.darkSquare.withValues(alpha: 0.28),
+                    Color.alphaBlend(
+                      themePack.lightSquare.withValues(alpha: 0.28),
+                      themePack.darkSquare,
+                    ),
                   ],
                 ),
                 border: Border.all(
-                  color: themePack.darkSquare.withValues(alpha: 0.24),
+                  color: themePack.lightSquare.withValues(alpha: 0.30),
                 ),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: themePack.darkSquare.withValues(alpha: 0.18),
-                    blurRadius: 34,
-                    offset: const Offset(0, 20),
+                    color: themePack.darkSquare.withValues(alpha: 0.24),
+                    blurRadius: 28,
+                    offset: const Offset(0, 18),
                   ),
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(10),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(18),
                   child: Stack(
                     children: <Widget>[
                       Column(
@@ -176,7 +179,7 @@ class ChessBoard extends StatelessWidget {
                                                 child: Text(
                                                   pieceGlyph(piece),
                                                   style: TextStyle(
-                                                    fontSize: tileSize * 0.64,
+                                                    fontSize: tileSize * 0.62,
                                                     color: isWhitePiece(piece)
                                                         ? const Color(
                                                             0xFFFBF8F3,
@@ -213,13 +216,14 @@ class ChessBoard extends StatelessWidget {
                                                     .bodySmall
                                                     ?.copyWith(
                                                       color: isLight
-                                                          ? Colors.black
-                                                                .withValues(
-                                                                  alpha: 0.44,
-                                                                )
+                                                          ? const Color(
+                                                              0xFF43372D,
+                                                            ).withValues(
+                                                              alpha: 0.56,
+                                                            )
                                                           : Colors.white
                                                                 .withValues(
-                                                                  alpha: 0.64,
+                                                                  alpha: 0.70,
                                                                 ),
                                                     ),
                                               ),
@@ -235,13 +239,14 @@ class ChessBoard extends StatelessWidget {
                                                     .bodySmall
                                                     ?.copyWith(
                                                       color: isLight
-                                                          ? Colors.black
-                                                                .withValues(
-                                                                  alpha: 0.44,
-                                                                )
+                                                          ? const Color(
+                                                              0xFF43372D,
+                                                            ).withValues(
+                                                              alpha: 0.56,
+                                                            )
                                                           : Colors.white
                                                                 .withValues(
-                                                                  alpha: 0.64,
+                                                                  alpha: 0.70,
                                                                 ),
                                                     ),
                                               ),
@@ -264,9 +269,9 @@ class ChessBoard extends StatelessWidget {
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                                 colors: <Color>[
-                                  Colors.white.withValues(alpha: 0.12),
+                                  Colors.white.withValues(alpha: 0.10),
                                   Colors.transparent,
-                                  Colors.black.withValues(alpha: 0.10),
+                                  Colors.black.withValues(alpha: 0.12),
                                 ],
                               ),
                             ),
@@ -278,7 +283,7 @@ class ChessBoard extends StatelessWidget {
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.22),
+                                color: Colors.white.withValues(alpha: 0.16),
                               ),
                             ),
                           ),
@@ -306,6 +311,14 @@ class ChessBoard extends StatelessWidget {
     if (isHint) {
       return themePack.accent.withValues(alpha: 0.24);
     }
-    return isLight ? themePack.lightSquare : themePack.darkSquare;
+    return isLight
+        ? Color.alphaBlend(
+            Colors.white.withValues(alpha: 0.06),
+            themePack.lightSquare,
+          )
+        : Color.alphaBlend(
+            Colors.black.withValues(alpha: 0.08),
+            themePack.darkSquare,
+          );
   }
 }

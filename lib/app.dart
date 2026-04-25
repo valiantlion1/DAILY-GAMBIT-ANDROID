@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 import 'core/models.dart';
 import 'screens/home_shell.dart';
@@ -20,8 +22,7 @@ final Provider<AppBootstrap> bootstrapProvider = Provider<AppBootstrap>(
 );
 
 final NotifierProvider<DailyGambitController, AppViewState>
-    appControllerProvider =
-    NotifierProvider<DailyGambitController, AppViewState>(
+appControllerProvider = NotifierProvider<DailyGambitController, AppViewState>(
   DailyGambitController.new,
 );
 
@@ -62,8 +63,9 @@ Future<AppBootstrap> bootstrapApplication() async {
 
   final AppProfile profile = await storageService.loadProfile();
   final PersistedGameState game = await storageService.loadGame();
-  final PuzzleDefinition dailyPuzzle =
-      puzzleService.nextDailyPuzzle(DateTime.now());
+  final PuzzleDefinition dailyPuzzle = puzzleService.nextDailyPuzzle(
+    DateTime.now(),
+  );
   final PuzzleProgressState puzzle = puzzleService.ensurePuzzle(
     await storageService.loadPuzzle(),
     dailyPuzzle,
@@ -114,7 +116,9 @@ class _DailyGambitAppState extends ConsumerState<DailyGambitApp>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       unawaited(
-        ref.read(appControllerProvider.notifier).syncDailyState(fromResume: true),
+        ref
+            .read(appControllerProvider.notifier)
+            .syncDailyState(fromResume: true),
       );
     }
   }
@@ -127,11 +131,26 @@ class _DailyGambitAppState extends ConsumerState<DailyGambitApp>
       orElse: () => themePacks.first,
     );
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Daily Gambit',
-      theme: buildAppTheme(theme),
-      home: const HomeShell(),
+    return ShadApp.custom(
+      themeMode: ThemeMode.light,
+      theme: buildShadTheme(theme),
+      appBuilder: (BuildContext context) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Daily Gambit',
+          theme: buildAppTheme(theme, baseTheme: Theme.of(context)),
+          localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+            GlobalShadLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          home: const HomeShell(),
+          builder: (BuildContext context, Widget? child) {
+            return ShadAppBuilder(child: child!);
+          },
+        );
+      },
     );
   }
 }
@@ -181,14 +200,11 @@ class DailyGambitController extends Notifier<AppViewState> {
       return;
     }
 
-    final bool wasGameOver =
-        _bootstrap.gameSessionService.inspect(state.game).gameOver;
-    final PersistedGameState? playerState =
-        _bootstrap.gameSessionService.applyPlayerMove(
-      state.game,
-      from: from,
-      to: to,
-    );
+    final bool wasGameOver = _bootstrap.gameSessionService
+        .inspect(state.game)
+        .gameOver;
+    final PersistedGameState? playerState = _bootstrap.gameSessionService
+        .applyPlayerMove(state.game, from: from, to: to);
     if (playerState == null) {
       state = state.copyWith(
         bannerMessage: 'That move is not legal from the current board.',
@@ -205,16 +221,20 @@ class DailyGambitController extends Notifier<AppViewState> {
     });
 
     final bool playerEndedGame =
-        !wasGameOver && _bootstrap.gameSessionService.inspect(playerState).gameOver;
+        !wasGameOver &&
+        _bootstrap.gameSessionService.inspect(playerState).gameOver;
     if (playerEndedGame) {
       await _finalizeMatch(playerState);
       return;
     }
 
-    state = state.copyWith(aiThinking: true, bannerMessage: 'Engine thinking...');
+    state = state.copyWith(
+      aiThinking: true,
+      bannerMessage: 'Engine thinking...',
+    );
     await Future<void>.delayed(const Duration(milliseconds: 260));
-    final PersistedGameState aiState =
-        await _bootstrap.gameSessionService.runAiTurn(playerState);
+    final PersistedGameState aiState = await _bootstrap.gameSessionService
+        .runAiTurn(playerState);
     state = state.copyWith(
       game: aiState,
       aiThinking: false,
@@ -222,8 +242,9 @@ class DailyGambitController extends Notifier<AppViewState> {
     );
     await _persistGame(aiState);
 
-    final bool aiEndedGame =
-        _bootstrap.gameSessionService.inspect(aiState).gameOver;
+    final bool aiEndedGame = _bootstrap.gameSessionService
+        .inspect(aiState)
+        .gameOver;
     if (aiEndedGame) {
       await _finalizeMatch(aiState);
     }
@@ -233,14 +254,17 @@ class DailyGambitController extends Notifier<AppViewState> {
     if (state.aiThinking) {
       return;
     }
-    final PersistedGameState next = _bootstrap.gameSessionService.undo(state.game);
+    final PersistedGameState next = _bootstrap.gameSessionService.undo(
+      state.game,
+    );
     state = state.copyWith(game: next, bannerMessage: 'Last turn taken back.');
     await _persistGame(next);
   }
 
   Future<void> restartGame() async {
-    final PersistedGameState next =
-        _bootstrap.gameSessionService.restart(state.game);
+    final PersistedGameState next = _bootstrap.gameSessionService.restart(
+      state.game,
+    );
     state = state.copyWith(game: next, aiThinking: false, bannerMessage: null);
     await _persistGame(next);
   }
@@ -250,8 +274,8 @@ class DailyGambitController extends Notifier<AppViewState> {
       state.profile,
       RewardContext.hint,
     );
-    final PersistedGameState game =
-        await _bootstrap.gameSessionService.primeHint(state.game);
+    final PersistedGameState game = await _bootstrap.gameSessionService
+        .primeHint(state.game);
     state = state.copyWith(
       profile: reward.profile,
       game: game,
@@ -266,8 +290,8 @@ class DailyGambitController extends Notifier<AppViewState> {
       state.profile,
       RewardContext.analysisPreview,
     );
-    final PersistedGameState game =
-        await _bootstrap.gameSessionService.unlockAnalysisPreview(state.game);
+    final PersistedGameState game = await _bootstrap.gameSessionService
+        .unlockAnalysisPreview(state.game);
     state = state.copyWith(
       profile: reward.profile,
       game: game,
@@ -294,7 +318,9 @@ class DailyGambitController extends Notifier<AppViewState> {
         solved: true,
         now: DateTime.now(),
       );
-      profile = _bootstrap.monetizationService.resetPuzzleFailureCounter(profile);
+      profile = _bootstrap.monetizationService.resetPuzzleFailureCounter(
+        profile,
+      );
       banner = 'Puzzle solved. Daily progress banked.';
       _bootstrap.telemetryService.track('puzzle_solved', <String, Object?>{
         'puzzleId': next.activePuzzleId,
@@ -305,11 +331,8 @@ class DailyGambitController extends Notifier<AppViewState> {
         solved: false,
         now: DateTime.now(),
       );
-      final InterstitialResult interstitial =
-          _bootstrap.monetizationService.registerPuzzleFailure(
-        profile,
-        DateTime.now(),
-      );
+      final InterstitialResult interstitial = _bootstrap.monetizationService
+          .registerPuzzleFailure(profile, DateTime.now());
       profile = interstitial.profile;
       banner = interstitial.message;
     }
@@ -328,8 +351,9 @@ class DailyGambitController extends Notifier<AppViewState> {
       state.profile,
       RewardContext.hint,
     );
-    final PuzzleProgressState next =
-        _bootstrap.puzzleService.primeHint(state.puzzle);
+    final PuzzleProgressState next = _bootstrap.puzzleService.primeHint(
+      state.puzzle,
+    );
     state = state.copyWith(
       profile: reward.profile,
       puzzle: next,
@@ -341,17 +365,26 @@ class DailyGambitController extends Notifier<AppViewState> {
 
   Future<void> switchToDailyPuzzle() async {
     await syncDailyState();
-    final PuzzleDefinition daily =
-        _bootstrap.puzzleService.nextDailyPuzzle(DateTime.now());
-    final PuzzleProgressState next =
-        _bootstrap.puzzleService.switchToPuzzle(state.puzzle, daily.id);
-    state = state.copyWith(puzzle: next, selectedTabIndex: 2, bannerMessage: null);
+    final PuzzleDefinition daily = _bootstrap.puzzleService.nextDailyPuzzle(
+      DateTime.now(),
+    );
+    final PuzzleProgressState next = _bootstrap.puzzleService.switchToPuzzle(
+      state.puzzle,
+      daily.id,
+    );
+    state = state.copyWith(
+      puzzle: next,
+      selectedTabIndex: 2,
+      bannerMessage: null,
+    );
     await _persistPuzzle(next);
   }
 
   Future<void> purchase(String productId) async {
-    final AppProfile profile =
-        _bootstrap.monetizationService.purchase(state.profile, productId);
+    final AppProfile profile = _bootstrap.monetizationService.purchase(
+      state.profile,
+      productId,
+    );
     state = state.copyWith(
       profile: profile,
       bannerMessage: '$productId unlocked for this local build.',
@@ -363,8 +396,9 @@ class DailyGambitController extends Notifier<AppViewState> {
   }
 
   Future<void> restorePurchases() async {
-    final AppProfile profile =
-        _bootstrap.monetizationService.restorePurchases(state.profile);
+    final AppProfile profile = _bootstrap.monetizationService.restorePurchases(
+      state.profile,
+    );
     state = state.copyWith(
       profile: profile,
       bannerMessage: 'Owned products restored from local state.',
@@ -398,8 +432,9 @@ class DailyGambitController extends Notifier<AppViewState> {
   }
 
   Future<void> toggleBoardFlip() async {
-    final AppProfile profile =
-        state.profile.copyWith(boardFlipped: !state.profile.boardFlipped);
+    final AppProfile profile = state.profile.copyWith(
+      boardFlipped: !state.profile.boardFlipped,
+    );
     state = state.copyWith(profile: profile);
     await _persistProfile(profile);
   }
@@ -410,11 +445,8 @@ class DailyGambitController extends Notifier<AppViewState> {
       won: _bootstrap.gameSessionService.didPlayerWin(game),
       now: DateTime.now(),
     );
-    final InterstitialResult interstitial =
-        _bootstrap.monetizationService.registerMatchCompletion(
-      profile,
-      DateTime.now(),
-    );
+    final InterstitialResult interstitial = _bootstrap.monetizationService
+        .registerMatchCompletion(profile, DateTime.now());
     profile = interstitial.profile;
     state = state.copyWith(
       profile: profile,
@@ -444,12 +476,10 @@ class DailyGambitController extends Notifier<AppViewState> {
       state.profile,
       now: now,
     );
-    final PuzzleDefinition dailyPuzzle =
-        _bootstrap.puzzleService.nextDailyPuzzle(now);
-    final PuzzleProgressState nextPuzzle = _bootstrap.puzzleService.ensurePuzzle(
-      state.puzzle,
-      dailyPuzzle,
-    );
+    final PuzzleDefinition dailyPuzzle = _bootstrap.puzzleService
+        .nextDailyPuzzle(now);
+    final PuzzleProgressState nextPuzzle = _bootstrap.puzzleService
+        .ensurePuzzle(state.puzzle, dailyPuzzle);
 
     final bool profileChanged =
         jsonEncode(nextProfile.toJson()) != jsonEncode(state.profile.toJson());
@@ -464,7 +494,9 @@ class DailyGambitController extends Notifier<AppViewState> {
         nextPuzzle.activePuzzleId != state.puzzle.activePuzzleId;
     final String? bannerMessage = dailyPuzzleChanged
         ? 'New daily puzzle is ready.'
-        : (fromResume ? 'Session refreshed from local state.' : state.bannerMessage);
+        : (fromResume
+              ? 'Session refreshed from local state.'
+              : state.bannerMessage);
 
     state = state.copyWith(
       profile: nextProfile,

@@ -9,44 +9,56 @@ class _AmbientBackdrop extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+        gradient: RadialGradient(
+          center: const Alignment(-0.18, -0.92),
+          radius: 1.28,
           colors: <Color>[
-            Color.alphaBlend(
-              theme.accent.withValues(alpha: 0.12),
-              theme.background,
-            ),
-            theme.surface,
             Colors.white,
+            theme.background,
+            Color.alphaBlend(
+              theme.accent.withValues(alpha: 0.08),
+              theme.surface,
+            ),
           ],
         ),
       ),
       child: Stack(
         children: <Widget>[
           Positioned(
-            top: -120,
-            right: -20,
+            top: -90,
+            right: -30,
             child: _GlowOrb(
-              color: theme.accent.withValues(alpha: 0.22),
+              color: theme.accent.withValues(alpha: 0.18),
+              size: 260,
+            ),
+          ),
+          Positioned(
+            top: 84,
+            left: -14,
+            child: _BackdropPieceSilhouette(
+              glyph: '♔',
+              color: theme.darkSquare.withValues(alpha: 0.08),
               size: 300,
+              blurSigma: 2,
+              angle: -0.08,
             ),
           ),
           Positioned(
-            top: 180,
-            left: -80,
-            child: _GlowOrb(
+            top: 190,
+            right: 28,
+            child: _BackdropPieceSilhouette(
+              glyph: '♟',
               color: theme.darkSquare.withValues(alpha: 0.10),
-              size: 240,
+              size: 180,
+              blurSigma: 4,
+              angle: 0.06,
             ),
           ),
           Positioned(
-            bottom: -140,
-            right: -40,
-            child: _GlowOrb(
-              color: theme.accent.withValues(alpha: 0.14),
-              size: 360,
-            ),
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _BackdropBoardField(theme: theme),
           ),
         ],
       ),
@@ -75,6 +87,102 @@ class _GlowOrb extends StatelessWidget {
   }
 }
 
+class _BackdropPieceSilhouette extends StatelessWidget {
+  const _BackdropPieceSilhouette({
+    required this.glyph,
+    required this.color,
+    required this.size,
+    this.blurSigma = 0,
+    this.angle = 0,
+  });
+
+  final String glyph;
+  final Color color;
+  final double size;
+  final double blurSigma;
+  final double angle;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget child = Transform.rotate(
+      angle: angle,
+      child: Text(
+        glyph,
+        style: TextStyle(
+          fontSize: size,
+          height: 1,
+          color: color,
+          fontFamily: 'serif',
+        ),
+      ),
+    );
+    if (blurSigma > 0) {
+      child = ImageFiltered(
+        imageFilter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
+        child: child,
+      );
+    }
+    return IgnorePointer(child: child);
+  }
+}
+
+class _BackdropBoardField extends StatelessWidget {
+  const _BackdropBoardField({required this.theme});
+
+  final AppThemePack theme;
+
+  @override
+  Widget build(BuildContext context) {
+    const int tiles = 8;
+    return IgnorePointer(
+      child: Opacity(
+        opacity: 0.22,
+        child: SizedBox(
+          height: 220,
+          child: Stack(
+            children: <Widget>[
+              Column(
+                children: List<Widget>.generate(tiles, (int rank) {
+                  return Expanded(
+                    child: Row(
+                      children: List<Widget>.generate(tiles, (int file) {
+                        final bool isLight = (rank + file).isEven;
+                        return Expanded(
+                          child: ColoredBox(
+                            color: isLight
+                                ? theme.lightSquare.withValues(alpha: 0.72)
+                                : theme.darkSquare.withValues(alpha: 0.56),
+                          ),
+                        );
+                      }),
+                    ),
+                  );
+                }),
+              ),
+              Positioned.fill(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: <Color>[
+                        theme.background,
+                        Colors.transparent,
+                        theme.background.withValues(alpha: 0.20),
+                      ],
+                      stops: const <double>[0.0, 0.42, 1.0],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _TopShellBar extends StatelessWidget {
   const _TopShellBar({required this.theme, required this.profile});
 
@@ -85,21 +193,48 @@ class _TopShellBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return _GlassPanel(
       blurSigma: 16,
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
       child: Row(
         children: <Widget>[
+          Container(
+            width: 38,
+            height: 38,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: <Color>[
+                  theme.accent.withValues(alpha: 0.92),
+                  theme.accent.withValues(alpha: 0.72),
+                ],
+              ),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: theme.accent.withValues(alpha: 0.18),
+                  blurRadius: 18,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.workspace_premium_rounded,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _SectionEyebrow(
-                  label: 'Android launch track',
-                  accent: theme.accent,
-                ),
-                const SizedBox(height: 6),
                 Text(
                   'Daily Gambit',
                   style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'One calm match. One clean return.',
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
@@ -142,21 +277,22 @@ class _FloatingNavShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: theme.darkSquare.withValues(alpha: 0.08)),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: theme.darkSquare.withValues(alpha: 0.18),
-            blurRadius: 26,
-            offset: const Offset(0, 14),
+            color: theme.darkSquare.withValues(alpha: 0.12),
+            blurRadius: 30,
+            offset: const Offset(0, 16),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(28),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
           child: ColoredBox(
-            color: Colors.white.withValues(alpha: 0.74),
+            color: Colors.white.withValues(alpha: 0.88),
             child: child,
           ),
         ),
@@ -167,7 +303,6 @@ class _FloatingNavShell extends StatelessWidget {
 
 class _GlassPanel extends StatelessWidget {
   const _GlassPanel({
-    super.key,
     required this.child,
     this.padding = const EdgeInsets.all(20),
     this.blurSigma = 14,
@@ -197,18 +332,20 @@ class _GlassPanel extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: <Color>[
-                    Colors.white.withValues(alpha: 0.78),
-                    Colors.white.withValues(alpha: 0.58),
+                    Colors.white.withValues(alpha: 0.90),
+                    Colors.white.withValues(alpha: 0.74),
                   ],
                 ),
             border: Border.all(
-              color: borderColor ?? Colors.white.withValues(alpha: 0.48),
+              color:
+                  borderColor ??
+                  Theme.of(context).colorScheme.outline.withValues(alpha: 0.26),
             ),
             boxShadow: <BoxShadow>[
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.06),
-                blurRadius: 20,
-                offset: const Offset(0, 10),
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 24,
+                offset: const Offset(0, 12),
               ),
             ],
           ),
@@ -233,27 +370,38 @@ class _SurfaceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(28),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: <Color>[
-            backgroundColor ?? Colors.white.withValues(alpha: 0.94),
-            theme.colorScheme.surface.withValues(alpha: 0.88),
-          ],
-        ),
-        border: Border.all(color: Colors.black.withValues(alpha: 0.07)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 18,
-            offset: const Offset(0, 10),
+    return ShadCard(
+      padding: padding,
+      backgroundColor:
+          backgroundColor ??
+          Color.alphaBlend(
+            Colors.white.withValues(alpha: 0.92),
+            theme.colorScheme.surface,
           ),
-        ],
+      radius: BorderRadius.circular(28),
+      border: ShadBorder.all(
+        color: theme.colorScheme.outline.withValues(alpha: 0.22),
       ),
-      child: Padding(padding: padding, child: child),
+      shadows: <BoxShadow>[
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.045),
+          blurRadius: 22,
+          offset: const Offset(0, 12),
+        ),
+      ],
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: <Color>[
+              Colors.white.withValues(alpha: 0.06),
+              theme.colorScheme.surface.withValues(alpha: 0.16),
+            ],
+          ),
+        ),
+        child: child,
+      ),
     );
   }
 }
@@ -371,20 +519,16 @@ class _BadgePill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(999),
-        color: background,
-        border: Border.all(color: foreground.withValues(alpha: 0.12)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: Text(
-          label,
-          style: Theme.of(
-            context,
-          ).textTheme.labelLarge?.copyWith(color: foreground),
-        ),
+    return ShadBadge.raw(
+      variant: ShadBadgeVariant.outline,
+      backgroundColor: background,
+      foregroundColor: foreground,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      child: Text(
+        label,
+        style: Theme.of(
+          context,
+        ).textTheme.labelLarge?.copyWith(color: foreground),
       ),
     );
   }
@@ -455,58 +599,6 @@ class _InlineBanner extends StatelessWidget {
   }
 }
 
-class _FeatureBullet extends StatelessWidget {
-  const _FeatureBullet({
-    required this.title,
-    required this.detail,
-    required this.accent,
-  });
-
-  final String title;
-  final String detail;
-  final Color accent;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 12,
-            height: 12,
-            margin: const EdgeInsets.only(top: 6),
-            decoration: BoxDecoration(shape: BoxShape.circle, color: accent),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleMedium?.copyWith(color: accent),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  detail,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: accent.withValues(alpha: 0.82),
-                    height: 1.45,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class _MetricTile extends StatelessWidget {
   const _MetricTile({
     required this.label,
@@ -563,32 +655,6 @@ class _MetricTile extends StatelessWidget {
   }
 }
 
-class _StatusPill extends StatelessWidget {
-  const _StatusPill({required this.label, required this.accent});
-
-  final String label;
-  final Color accent;
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(999),
-        color: accent.withValues(alpha: 0.12),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: Text(
-          label,
-          style: Theme.of(
-            context,
-          ).textTheme.labelLarge?.copyWith(color: accent),
-        ),
-      ),
-    );
-  }
-}
-
 class _ChecklistLine extends StatelessWidget {
   const _ChecklistLine({required this.text});
 
@@ -615,55 +681,6 @@ class _ChecklistLine extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _ActionTile extends StatelessWidget {
-  const _ActionTile({
-    required this.icon,
-    required this.title,
-    required this.detail,
-    required this.accent,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String title;
-  final String detail;
-  final Color accent;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(22),
-      onTap: onTap,
-      child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(22),
-          color: accent.withValues(alpha: 0.08),
-          border: Border.all(color: accent.withValues(alpha: 0.14)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Icon(icon, color: accent),
-              const SizedBox(height: 10),
-              Text(title, style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(height: 4),
-              Text(
-                detail,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(height: 1.4),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

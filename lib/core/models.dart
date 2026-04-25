@@ -280,7 +280,8 @@ class AppProfile {
       matchesTowardInterstitial:
           matchesTowardInterstitial ?? this.matchesTowardInterstitial,
       failedPuzzlesTowardInterstitial:
-          failedPuzzlesTowardInterstitial ?? this.failedPuzzlesTowardInterstitial,
+          failedPuzzlesTowardInterstitial ??
+          this.failedPuzzlesTowardInterstitial,
       missionProgress: missionProgress ?? this.missionProgress,
     );
   }
@@ -555,53 +556,52 @@ class InterstitialResult {
   final String message;
 }
 
-enum RewardContext {
-  hint,
-  extraUndo,
-  analysisPreview,
-}
+enum RewardContext { hint, extraUndo, analysisPreview }
 
 const List<AppThemePack> themePacks = <AppThemePack>[
   AppThemePack(
     id: 'classic_ivory',
-    name: 'Ivory Hall',
-    description: 'Warm ivory and espresso with a timeless tournament feel.',
-    lightSquare: Color(0xFFF4E8D0),
-    darkSquare: Color(0xFF7A5C45),
-    accent: Color(0xFFB7792B),
-    surface: Color(0xFFF7F1E5),
-    background: Color(0xFFFFFBF4),
+    name: 'Ivory Elegance',
+    description: 'Soft ivory stone with espresso wood and a gold accent line.',
+    lightSquare: Color(0xFFF0DFBF),
+    darkSquare: Color(0xFF8A6342),
+    accent: Color(0xFFC99A52),
+    surface: Color(0xFFF8F1E4),
+    background: Color(0xFFFFFBF5),
   ),
   AppThemePack(
     id: 'walnut_stone',
-    name: 'Walnut Stone',
-    description: 'A grounded walnut board for calm daily sessions.',
-    lightSquare: Color(0xFFE9DCC9),
-    darkSquare: Color(0xFF55606E),
-    accent: Color(0xFF7F8C5A),
-    surface: Color(0xFFF2EEE8),
-    background: Color(0xFFF8F6F2),
+    name: 'Classic Walnut',
+    description:
+        'Grounded walnut planks and soft cream for calm daily sessions.',
+    lightSquare: Color(0xFFE5D0B4),
+    darkSquare: Color(0xFF6D4D33),
+    accent: Color(0xFFC6904E),
+    surface: Color(0xFFF5EEE3),
+    background: Color(0xFFF9F4EC),
   ),
   AppThemePack(
     id: 'royal_navy',
-    name: 'Royal Navy',
-    description: 'Midnight lacquer with brass accents for premium players.',
-    lightSquare: Color(0xFFD9E1E8),
-    darkSquare: Color(0xFF1F3552),
-    accent: Color(0xFFCC9B46),
-    surface: Color(0xFFECEFF4),
-    background: Color(0xFFF7F9FC),
+    name: 'Obsidian',
+    description:
+        'Charcoal lacquer with brass trim for premium late-night play.',
+    lightSquare: Color(0xFF5D5A55),
+    darkSquare: Color(0xFF1D1B1A),
+    accent: Color(0xFFD0A15A),
+    surface: Color(0xFFF0EBE3),
+    background: Color(0xFFFAF7F1),
     premium: true,
   ),
   AppThemePack(
     id: 'ember_sand',
-    name: 'Ember Sand',
-    description: 'Copper heat over sandy stone for bold streak sessions.',
-    lightSquare: Color(0xFFF2D9B3),
-    darkSquare: Color(0xFF8D4E34),
-    accent: Color(0xFFD86B3A),
-    surface: Color(0xFFFAF0E4),
-    background: Color(0xFFFFFAF5),
+    name: 'Emerald Court',
+    description:
+        'Muted emerald velvet over warm stone for a richer collectible feel.',
+    lightSquare: Color(0xFFD7D8BE),
+    darkSquare: Color(0xFF324A3C),
+    accent: Color(0xFFB78B52),
+    surface: Color(0xFFF3F0E7),
+    background: Color(0xFFFBF8F1),
     premium: true,
   ),
 ];
@@ -625,32 +625,32 @@ const List<ProductOffer> productOffers = <ProductOffer>[
 
 const List<AchievementDefinition> achievementDefinitions =
     <AchievementDefinition>[
-  AchievementDefinition(
-    id: 'opening_night',
-    title: 'Opening Night',
-    description: 'Play your first complete match.',
-  ),
-  AchievementDefinition(
-    id: 'first_win',
-    title: 'First Blood',
-    description: 'Beat the engine once.',
-  ),
-  AchievementDefinition(
-    id: 'puzzle_hunter',
-    title: 'Puzzle Hunter',
-    description: 'Solve 5 bundled puzzles.',
-  ),
-  AchievementDefinition(
-    id: 'three_day_streak',
-    title: 'Three Day Rhythm',
-    description: 'Keep a 3-day activity streak alive.',
-  ),
-  AchievementDefinition(
-    id: 'collector',
-    title: 'Collector',
-    description: 'Unlock a premium board style.',
-  ),
-];
+      AchievementDefinition(
+        id: 'opening_night',
+        title: 'Opening Night',
+        description: 'Play your first complete match.',
+      ),
+      AchievementDefinition(
+        id: 'first_win',
+        title: 'First Blood',
+        description: 'Beat the engine once.',
+      ),
+      AchievementDefinition(
+        id: 'puzzle_hunter',
+        title: 'Puzzle Hunter',
+        description: 'Solve 5 bundled puzzles.',
+      ),
+      AchievementDefinition(
+        id: 'three_day_streak',
+        title: 'Three Day Rhythm',
+        description: 'Keep a 3-day activity streak alive.',
+      ),
+      AchievementDefinition(
+        id: 'collector',
+        title: 'Collector',
+        description: 'Unlock a premium board style.',
+      ),
+    ];
 
 Map<String, int> defaultMissionProgress() {
   return <String, int>{
