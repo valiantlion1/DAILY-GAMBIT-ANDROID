@@ -263,6 +263,9 @@ class _GameTabState extends ConsumerState<_GameTab> {
               highlightedSquares: highlighted,
               hintSquares: hintSquares,
               lastMove: viewState.game.lastMove,
+              capturedByWhite: game.capturedByWhite,
+              capturedByBlack: game.capturedByBlack,
+              lastCapturedPiece: game.lastCapturedPiece,
               onSquareTap: (String square) =>
                   _handleTap(square, game, viewState, controller),
             ),

@@ -52,6 +52,20 @@ void main() {
     expect(service.undo(moved).lastMove, isNull);
   });
 
+  test('captures are exposed for the board graveyard trays', () {
+    final PersistedGameState state = PersistedGameState(
+      difficulty: 2,
+      sanHistory: _sanHistoryFor(<String>['e2e4', 'd7d5', 'e4d5', 'd8d5']),
+      analysisUnlocked: false,
+    );
+
+    final LiveGameState live = service.inspect(state);
+
+    expect(live.capturedByWhite, <String>['p']);
+    expect(live.capturedByBlack, <String>['P']);
+    expect(live.lastCapturedPiece, 'P');
+  });
+
   test('fools mate surfaces a player loss', () {
     final PersistedGameState state = PersistedGameState(
       difficulty: 2,

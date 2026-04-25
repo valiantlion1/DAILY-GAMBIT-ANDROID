@@ -498,24 +498,30 @@ class LiveGameState {
   const LiveGameState({
     required this.fen,
     required this.targetsBySource,
+    required this.capturedByWhite,
+    required this.capturedByBlack,
     required this.playerTurn,
     required this.gameOver,
     required this.statusTitle,
     required this.statusDetail,
     required this.resultTitle,
     required this.resultDetail,
+    this.lastCapturedPiece,
     this.evaluation,
     this.bestMoveSan,
   });
 
   final String fen;
   final Map<String, Set<String>> targetsBySource;
+  final List<String> capturedByWhite;
+  final List<String> capturedByBlack;
   final bool playerTurn;
   final bool gameOver;
   final String statusTitle;
   final String statusDetail;
   final String? resultTitle;
   final String? resultDetail;
+  final String? lastCapturedPiece;
   final int? evaluation;
   final String? bestMoveSan;
 }

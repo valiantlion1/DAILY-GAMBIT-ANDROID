@@ -19,6 +19,7 @@ class GameSessionService {
     final bool playerTurn = game.turn == Bishop.white;
     final bool gameOver = game.gameOver;
     final Map<String, Set<String>> targets = targetsBySourceFromGame(game);
+    final _CaptureSummary captures = _captureSummary(state.sanHistory);
 
     String statusTitle = playerTurn ? 'Your move' : 'Engine pressure';
     String statusDetail =
@@ -47,12 +48,15 @@ class GameSessionService {
     return LiveGameState(
       fen: game.fen,
       targetsBySource: targets,
+      capturedByWhite: captures.capturedByWhite,
+      capturedByBlack: captures.capturedByBlack,
       playerTurn: playerTurn,
       gameOver: gameOver,
       statusTitle: statusTitle,
       statusDetail: statusDetail,
       resultTitle: resultTitle,
       resultDetail: resultDetail,
+      lastCapturedPiece: captures.lastCapturedPiece,
       bestMoveSan: state.hintMove == null
           ? null
           : readableMove(state.hintMove!),
@@ -189,6 +193,65 @@ class GameSessionService {
     return game;
   }
 
+  _CaptureSummary _captureSummary(List<String> sanHistory) {
+    final Game game = Game();
+    final List<String> capturedByWhite = <String>[];
+    final List<String> capturedByBlack = <String>[];
+    String? lastCapturedPiece;
+
+    for (final String san in sanHistory) {
+      final Move? move = _moveForSan(game, san);
+      if (move == null) {
+        game.makeMoveSan(san);
+        lastCapturedPiece = null;
+        continue;
+      }
+
+      final Map<String, String?> boardBefore = boardMapFromFen(game.fen);
+      final String from = squareNameFromIndex(move.from);
+      final String to = squareNameFromIndex(move.to);
+      final String? movingPiece = boardBefore[from];
+      String? capturedPiece = boardBefore[to];
+
+      if (capturedPiece == null &&
+          movingPiece != null &&
+          movingPiece.toLowerCase() == 'p' &&
+          from.substring(0, 1) != to.substring(0, 1)) {
+        capturedPiece =
+            boardBefore['${to.substring(0, 1)}${from.substring(1, 2)}'];
+      }
+
+      game.makeMove(move);
+
+      if (capturedPiece == null || movingPiece == null) {
+        lastCapturedPiece = null;
+        continue;
+      }
+
+      if (isWhitePiece(movingPiece)) {
+        capturedByWhite.add(capturedPiece);
+      } else {
+        capturedByBlack.add(capturedPiece);
+      }
+      lastCapturedPiece = capturedPiece;
+    }
+
+    return _CaptureSummary(
+      capturedByWhite: capturedByWhite,
+      capturedByBlack: capturedByBlack,
+      lastCapturedPiece: lastCapturedPiece,
+    );
+  }
+
+  Move? _moveForSan(Game game, String san) {
+    for (final Move move in game.generateLegalMoves()) {
+      if (game.toSan(move) == san) {
+        return move;
+      }
+    }
+    return null;
+  }
+
   Move? _resolveMove(Game game, String from, String to) {
     Move? move = game.getMove('$from$to');
     if (move != null) {
@@ -253,4 +316,16 @@ class _ResultCopy {
 
   final String title;
   final String? detail;
+}
+
+class _CaptureSummary {
+  const _CaptureSummary({
+    required this.capturedByWhite,
+    required this.capturedByBlack,
+    required this.lastCapturedPiece,
+  });
+
+  final List<String> capturedByWhite;
+  final List<String> capturedByBlack;
+  final String? lastCapturedPiece;
 }
