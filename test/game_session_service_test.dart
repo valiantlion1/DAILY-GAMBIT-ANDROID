@@ -77,6 +77,20 @@ void main() {
     expect(live.gameOver, isTrue);
     expect(live.resultTitle, 'Checkmated');
   });
+
+  test('hard engine takes a mate in one', () async {
+    final Game game = Game();
+    for (final String san in _sanHistoryFor(<String>['f2f3', 'e7e5', 'g2g4'])) {
+      game.makeMoveSan(san);
+    }
+
+    final EngineInsight insight = await const ChessEngineAdapter().bestMove(
+      game.fen,
+      level: 5,
+    );
+
+    expect(insight.coordinateMove, 'd8h4');
+  });
 }
 
 List<String> _sanHistoryFor(List<String> uciMoves) {

@@ -26,7 +26,6 @@ class _BoardRenderSpec {
     required this.impactSparkCount,
     required this.targetPulseMillis,
     required this.captureDropMillis,
-    required this.pileSettleMillis,
     required this.captureTumbleTurns,
     required this.captureDropDistance,
     required this.captureBounce,
@@ -55,12 +54,11 @@ class _BoardRenderSpec {
           trayScratchCount: 2,
           impactSparkCount: 0,
           targetPulseMillis: 90,
-          captureDropMillis: 360,
-          pileSettleMillis: 120,
-          captureTumbleTurns: 0.75,
-          captureDropDistance: 1.25,
-          captureBounce: 0.10,
-          captureSidePush: 0.65,
+          captureDropMillis: 190,
+          captureTumbleTurns: 0.10,
+          captureDropDistance: 0.42,
+          captureBounce: 0.04,
+          captureSidePush: 0.18,
         );
       case GraphicsQuality.balanced:
         return const _BoardRenderSpec(
@@ -82,12 +80,11 @@ class _BoardRenderSpec {
           trayScratchCount: 4,
           impactSparkCount: 3,
           targetPulseMillis: 120,
-          captureDropMillis: 520,
-          pileSettleMillis: 180,
-          captureTumbleTurns: 1.20,
-          captureDropDistance: 1.75,
-          captureBounce: 0.18,
-          captureSidePush: 0.95,
+          captureDropMillis: 230,
+          captureTumbleTurns: 0.16,
+          captureDropDistance: 0.52,
+          captureBounce: 0.05,
+          captureSidePush: 0.22,
         );
       case GraphicsQuality.high:
         return const _BoardRenderSpec(
@@ -109,12 +106,11 @@ class _BoardRenderSpec {
           trayScratchCount: 7,
           impactSparkCount: 6,
           targetPulseMillis: 160,
-          captureDropMillis: 720,
-          pileSettleMillis: 280,
-          captureTumbleTurns: 2.40,
-          captureDropDistance: 2.80,
-          captureBounce: 0.30,
-          captureSidePush: 1.50,
+          captureDropMillis: 270,
+          captureTumbleTurns: 0.22,
+          captureDropDistance: 0.60,
+          captureBounce: 0.06,
+          captureSidePush: 0.26,
         );
       case GraphicsQuality.ultra:
         return const _BoardRenderSpec(
@@ -136,12 +132,11 @@ class _BoardRenderSpec {
           trayScratchCount: 10,
           impactSparkCount: 10,
           targetPulseMillis: 190,
-          captureDropMillis: 860,
-          pileSettleMillis: 340,
-          captureTumbleTurns: 3.30,
-          captureDropDistance: 3.25,
-          captureBounce: 0.38,
-          captureSidePush: 1.85,
+          captureDropMillis: 320,
+          captureTumbleTurns: 0.28,
+          captureDropDistance: 0.72,
+          captureBounce: 0.07,
+          captureSidePush: 0.32,
         );
     }
   }
@@ -165,7 +160,6 @@ class _BoardRenderSpec {
   final int impactSparkCount;
   final int targetPulseMillis;
   final int captureDropMillis;
-  final int pileSettleMillis;
   final double captureTumbleTurns;
   final double captureDropDistance;
   final double captureBounce;
@@ -242,28 +236,24 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
         });
     _impactController =
         AnimationController(
-            vsync: this,
-            duration: const Duration(milliseconds: 360),
-          )
-          ..addListener(_rebuildForBoardEffect)
-          ..addStatusListener((AnimationStatus status) {
-            if (!mounted || status != AnimationStatus.completed) {
-              return;
-            }
-            setState(() => _impactSquare = null);
-          });
+          vsync: this,
+          duration: const Duration(milliseconds: 240),
+        )..addStatusListener((AnimationStatus status) {
+          if (!mounted || status != AnimationStatus.completed) {
+            return;
+          }
+          setState(() => _impactSquare = null);
+        });
     _tapController =
         AnimationController(
-            vsync: this,
-            duration: const Duration(milliseconds: 190),
-          )
-          ..addListener(_rebuildForBoardEffect)
-          ..addStatusListener((AnimationStatus status) {
-            if (!mounted || status != AnimationStatus.completed) {
-              return;
-            }
-            setState(() => _tapSquare = null);
-          });
+          vsync: this,
+          duration: const Duration(milliseconds: 130),
+        )..addStatusListener((AnimationStatus status) {
+          if (!mounted || status != AnimationStatus.completed) {
+            return;
+          }
+          setState(() => _tapSquare = null);
+        });
   }
 
   @override
@@ -500,10 +490,10 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
               captureTarget: target && piece != null,
               hint: hint,
               lastMove: lastMove,
-              impactValue: _impactSquare == square
-                  ? _impactController.value
-                  : 0,
-              tapValue: _tapSquare == square ? _tapController.value : 0,
+              impactAnimation: _impactSquare == square
+                  ? _impactController
+                  : null,
+              tapAnimation: _tapSquare == square ? _tapController : null,
               spec: spec,
               accent: widget.themePack.accent,
               lightColor: widget.themePack.lightSquare,
@@ -649,12 +639,6 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
     widget.onSquareTap(square);
   }
 
-  void _rebuildForBoardEffect() {
-    if (mounted) {
-      setState(() {});
-    }
-  }
-
   int _moveDurationMillis(String move) {
     final _BoardRenderSpec spec = _BoardRenderSpec.from(widget.graphicsQuality);
     final Offset from = _squareVector(move.substring(0, 2));
@@ -688,8 +672,8 @@ class _BoardSquare extends StatelessWidget {
     required this.captureTarget,
     required this.hint,
     required this.lastMove,
-    required this.impactValue,
-    required this.tapValue,
+    required this.impactAnimation,
+    required this.tapAnimation,
     required this.spec,
     required this.accent,
     required this.lightColor,
@@ -703,8 +687,8 @@ class _BoardSquare extends StatelessWidget {
   final bool captureTarget;
   final bool hint;
   final bool lastMove;
-  final double impactValue;
-  final double tapValue;
+  final Animation<double>? impactAnimation;
+  final Animation<double>? tapAnimation;
   final _BoardRenderSpec spec;
   final Color accent;
   final Color lightColor;
@@ -753,15 +737,15 @@ class _BoardSquare extends StatelessWidget {
           children: <Widget>[
             Positioned.fill(
               child: IgnorePointer(
-                child: CustomPaint(
-                  painter: _SquareTexturePainter(
-                    light: light,
-                    accent: accent,
-                    active: selected || hint || lastMove,
-                    tapValue: spec.enableSquarePulses ? tapValue : 0,
-                    impactValue: spec.enableImpactEffects ? impactValue : 0,
-                    textureLines: spec.squareTextureLines,
-                  ),
+                child: _SquareTextureLayer(
+                  light: light,
+                  accent: accent,
+                  active: selected || hint || lastMove,
+                  tapAnimation: spec.enableSquarePulses ? tapAnimation : null,
+                  impactAnimation: spec.enableImpactEffects
+                      ? impactAnimation
+                      : null,
+                  textureLines: spec.squareTextureLines,
                 ),
               ),
             ),
@@ -823,15 +807,13 @@ class _BoardSquare extends StatelessWidget {
                   ),
                 ),
               ),
-            if (impactValue > 0 && spec.enableImpactEffects)
+            if (impactAnimation != null && spec.enableImpactEffects)
               Positioned.fill(
                 child: IgnorePointer(
-                  child: CustomPaint(
-                    painter: _ImpactRingPainter(
-                      progress: impactValue,
-                      accent: accent,
-                      sparkCount: spec.impactSparkCount,
-                    ),
+                  child: _ImpactEffectLayer(
+                    animation: impactAnimation!,
+                    accent: accent,
+                    sparkCount: spec.impactSparkCount,
                   ),
                 ),
               ),
@@ -852,6 +834,85 @@ class _BoardSquare extends StatelessWidget {
       return Color.alphaBlend(accent.withValues(alpha: 0.17), base);
     }
     return base;
+  }
+}
+
+class _SquareTextureLayer extends StatelessWidget {
+  const _SquareTextureLayer({
+    required this.light,
+    required this.accent,
+    required this.active,
+    required this.textureLines,
+    this.tapAnimation,
+    this.impactAnimation,
+  });
+
+  final bool light;
+  final Color accent;
+  final bool active;
+  final int textureLines;
+  final Animation<double>? tapAnimation;
+  final Animation<double>? impactAnimation;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Animation<double>> animations = <Animation<double>>[
+      if (tapAnimation != null) tapAnimation!,
+      if (impactAnimation != null) impactAnimation!,
+    ];
+
+    Widget paintLayer() {
+      return CustomPaint(
+        painter: _SquareTexturePainter(
+          light: light,
+          accent: accent,
+          active: active,
+          tapValue: tapAnimation?.value ?? 0,
+          impactValue: impactAnimation?.value ?? 0,
+          textureLines: textureLines,
+        ),
+      );
+    }
+
+    if (animations.isEmpty) {
+      return paintLayer();
+    }
+
+    return AnimatedBuilder(
+      animation: Listenable.merge(animations),
+      builder: (BuildContext context, Widget? child) => paintLayer(),
+    );
+  }
+}
+
+class _ImpactEffectLayer extends StatelessWidget {
+  const _ImpactEffectLayer({
+    required this.animation,
+    required this.accent,
+    required this.sparkCount,
+  });
+
+  final Animation<double> animation;
+  final Color accent;
+  final int sparkCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (BuildContext context, Widget? child) {
+        if (animation.value <= 0) {
+          return const SizedBox.shrink();
+        }
+        return CustomPaint(
+          painter: _ImpactRingPainter(
+            progress: animation.value,
+            accent: accent,
+            sparkCount: sparkCount,
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -978,42 +1039,7 @@ class _CapturedPieceToken extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TweenAnimationBuilder<double>(
-      tween: Tween<double>(begin: 0, end: 1),
-      duration: Duration(
-        milliseconds: latest ? spec.captureDropMillis : spec.pileSettleMillis,
-      ),
-      curve: latest ? Curves.easeOutBack : Curves.easeOutCubic,
-      builder: (BuildContext context, double value, Widget? child) {
-        final double fall = 1 - value;
-        final double tumble =
-            rotation + (fall * sidePush * spec.captureTumbleTurns);
-        final double dropY =
-            fall *
-                (bottomSide
-                    ? -size * spec.captureDropDistance
-                    : size * spec.captureDropDistance) -
-            math.sin(value * math.pi) * size * spec.captureBounce;
-        final double shoveX = fall * sidePush * size * spec.captureSidePush;
-        final double squash = latest
-            ? 1 + (math.sin(value * math.pi) * 0.10)
-            : 1;
-
-        return Transform.translate(
-          offset: Offset(shoveX, dropY),
-          child: Transform.scale(
-            scale: squash,
-            child: Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.001)
-                ..rotateX(bottomSide ? 0.52 : -0.52)
-                ..rotateZ(tumble),
-              child: Opacity(opacity: latest ? 0.98 : 0.84, child: child),
-            ),
-          ),
-        );
-      },
+    final Widget token = RepaintBoundary(
       child: _PieceGlyphView(
         piece: piece,
         tileSize: size * 1.18,
@@ -1021,6 +1047,45 @@ class _CapturedPieceToken extends StatelessWidget {
         fallen: true,
         spec: spec,
       ),
+    );
+
+    if (!latest) {
+      return Transform.rotate(
+        angle: rotation,
+        child: Opacity(opacity: 0.84, child: token),
+      );
+    }
+
+    return TweenAnimationBuilder<double>(
+      tween: Tween<double>(begin: 0, end: 1),
+      duration: Duration(milliseconds: spec.captureDropMillis),
+      curve: Curves.easeOutCubic,
+      builder: (BuildContext context, double value, Widget? child) {
+        final double fall = 1 - value;
+        final double settle = Curves.easeOutCubic.transform(value);
+        final double tumble =
+            rotation + ((1 - settle) * sidePush * spec.captureTumbleTurns);
+        final double dropY =
+            fall *
+                (bottomSide
+                    ? -size * spec.captureDropDistance
+                    : size * spec.captureDropDistance) -
+            math.sin(value * math.pi) * size * spec.captureBounce;
+        final double shoveX = fall * sidePush * size * spec.captureSidePush;
+        final double squash = 0.92 + (settle * 0.08);
+
+        return Transform.translate(
+          offset: Offset(shoveX, dropY),
+          child: Transform.scale(
+            scale: squash,
+            child: Transform.rotate(
+              angle: tumble,
+              child: Opacity(opacity: 0.70 + (settle * 0.28), child: child),
+            ),
+          ),
+        );
+      },
+      child: token,
     );
   }
 }

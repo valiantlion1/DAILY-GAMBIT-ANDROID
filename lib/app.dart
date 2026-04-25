@@ -264,13 +264,11 @@ class DailyGambitController extends Notifier<AppViewState> {
       return;
     }
 
-    state = state.copyWith(
-      aiThinking: true,
-      bannerMessage: 'Engine thinking...',
-    );
-    await Future<void>.delayed(const Duration(milliseconds: 410));
-    final PersistedGameState aiState = await _bootstrap.gameSessionService
+    state = state.copyWith(aiThinking: true, bannerMessage: null);
+    final Future<PersistedGameState> aiTurn = _bootstrap.gameSessionService
         .runAiTurn(playerState);
+    await Future<void>.delayed(const Duration(milliseconds: 320));
+    final PersistedGameState aiState = await aiTurn;
     state = state.copyWith(
       game: aiState,
       aiThinking: false,
