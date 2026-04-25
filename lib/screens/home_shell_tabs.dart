@@ -15,467 +15,142 @@ class _HomeTab extends ConsumerWidget {
       viewState.profile,
     );
     final List<AchievementDefinition> achievements = achievementDefinitions
-        .where((AchievementDefinition achievement) {
-          return viewState.profile.unlockedAchievementIds.contains(
-            achievement.id,
-          );
-        })
+        .where(
+          (AchievementDefinition item) =>
+              viewState.profile.unlockedAchievementIds.contains(item.id),
+        )
         .toList();
-    final int estimatedRating = _estimatedRating(viewState.profile);
 
-    return _TabScroll(
+    return _PhonePage(
+      bottomPadding: 112,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _RevealOnMount(
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final bool wide = constraints.maxWidth >= 920;
-                final Widget dashboard = _SurfaceCard(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          _ReferenceTopBar(
+            title: 'Daily Gambit',
+            leading: _IconTap(
+              icon: Icons.menu_rounded,
+              onTap: () => controller.switchTab(4),
+            ),
+            trailing: _IconTap(
+              icon: Icons.notifications_none_rounded,
+              onTap: controller.clearBanner,
+            ),
+          ),
+          const SizedBox(height: 10),
+          _FadeIn(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: _StatCard(
+                    icon: Icons.local_fire_department_rounded,
+                    title: 'Daily Streak',
+                    value: '${viewState.profile.streakDays}',
+                    suffix: 'days',
+                    accent: const Color(0xFFE1782D),
+                    child: _WeekDots(
+                      active: viewState.profile.streakDays,
+                      accent: theme.accent,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _StatCard(
+                    icon: Icons.workspace_premium_rounded,
+                    title: 'Rating',
+                    value: '${_estimatedRating(viewState.profile)}',
+                    suffix: 'Rapid',
+                    accent: theme.accent,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          _FadeIn(
+            delay: const Duration(milliseconds: 40),
+            child: _GoldButton(
+              label: 'Play',
+              subtitle: 'AI Match',
+              onTap: () => controller.switchTab(1),
+            ),
+          ),
+          const SizedBox(height: 12),
+          _FadeIn(
+            delay: const Duration(milliseconds: 70),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: _HomeShortcut(
+                    icon: Icons.extension_rounded,
+                    title: 'Puzzles',
+                    subtitle: 'Solve Daily',
+                    onTap: () => unawaited(controller.switchToDailyPuzzle()),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _HomeShortcut(
+                    icon: Icons.emoji_events_rounded,
+                    title: 'Missions',
+                    subtitle:
+                        '${missions.where((StarterMission item) => !item.completed).length} Active',
+                    onTap: () => controller.switchTab(0),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 14),
+          _FadeIn(
+            delay: const Duration(milliseconds: 100),
+            child: _SoftPanel(
+              padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: _DashboardOverviewCard(
-                              title: 'Daily Streak',
-                              value: '${viewState.profile.streakDays}',
-                              subtitle: 'days',
-                              accent: theme.accent,
-                              leading: Icons.local_fire_department_rounded,
-                              footer: _WeekProgressDots(
-                                activeCount: viewState.profile.streakDays,
-                                accent: theme.accent,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _DashboardOverviewCard(
-                              title: 'Rating',
-                              value: '$estimatedRating',
-                              subtitle: 'rapid',
-                              accent: theme.accent,
-                              leading: Icons.workspace_premium_rounded,
-                              valueStyle: Theme.of(
-                                context,
-                              ).textTheme.headlineSmall?.copyWith(fontSize: 32),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 14),
-                      InkWell(
-                        borderRadius: BorderRadius.circular(20),
-                        onTap: () => controller.switchTab(1),
-                        child: Ink(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: <Color>[
-                                theme.accent,
-                                theme.accent.withValues(alpha: 0.82),
-                              ],
-                            ),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: theme.accent.withValues(alpha: 0.18),
-                                blurRadius: 18,
-                                offset: const Offset(0, 12),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 18,
-                              vertical: 18,
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        'Play',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall
-                                            ?.copyWith(
-                                              color: Colors.white,
-                                              fontSize: 24,
-                                            ),
-                                      ),
-                                      const SizedBox(height: 2),
-                                      Text(
-                                        'AI Match',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(
-                                              color: Colors.white.withValues(
-                                                alpha: 0.84,
-                                              ),
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.chevron_right_rounded,
-                                  size: 24,
-                                  color: Colors.white.withValues(alpha: 0.94),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 14),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: _QuickHomeTile(
-                              icon: Icons.extension_rounded,
-                              title: 'Puzzles',
-                              subtitle: 'Solve Daily',
-                              accent: theme.darkSquare,
-                              onTap: controller.switchToDailyPuzzle,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _QuickHomeTile(
-                              icon: Icons.emoji_events_outlined,
-                              title: 'Missions',
-                              subtitle:
-                                  '${missions.where((StarterMission mission) => !mission.completed).length} Active',
-                              accent: theme.accent,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
                       Text(
                         'Achievements',
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: List<Widget>.generate(4, (int index) {
-                          final bool unlocked = index < achievements.length;
-                          return Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                right: index == 3 ? 0 : 8,
-                              ),
-                              child: _AchievementMedallion(
-                                label: unlocked
-                                    ? achievements[index].title
-                                    : 'Locked',
-                                unlocked: unlocked,
-                                accent: theme.accent,
-                              ),
-                            ),
-                          );
-                        }),
-                      ),
-                      const SizedBox(height: 14),
-                      _PremiumRibbon(
-                        accent: theme.accent,
-                        owned: viewState.profile.premiumUnlocked,
-                        onTap: () => controller.switchTab(3),
+                      const Spacer(),
+                      Text(
+                        'View all',
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
                   ),
-                );
-
-                final Widget sideRail = Column(
-                  children: <Widget>[
-                    _SurfaceCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          _SectionEyebrow(label: 'Today', accent: theme.accent),
-                          const SizedBox(height: 12),
-                          Text(
-                            'One match, one puzzle, one clean return.',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          const SizedBox(height: 12),
-                          const _ChecklistLine(
-                            text:
-                                'Open the AI match without interruptive ad pressure.',
-                          ),
-                          const _ChecklistLine(
-                            text:
-                                'Solve the daily tactic before the streak cools down.',
-                          ),
-                          const _ChecklistLine(
-                            text:
-                                'Keep premium offers utility-shaped and visually calm.',
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 18),
-                    _SurfaceCard(
-                      backgroundColor: theme.darkSquare.withValues(alpha: 0.05),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          _SectionEyebrow(
-                            label: 'Conversion posture',
-                            accent: theme.darkSquare,
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            'Premium should feel like polish, not pressure.',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Themes, analysis depth, and ad removal read better when the free product already feels composed.',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyMedium?.copyWith(height: 1.45),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-
-                if (wide) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(flex: 6, child: dashboard),
-                      const SizedBox(width: 18),
-                      Expanded(flex: 4, child: sideRail),
-                    ],
-                  );
-                }
-
-                return Column(
-                  children: <Widget>[
-                    dashboard,
-                    const SizedBox(height: 18),
-                    sideRail,
-                  ],
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 20),
-          _RevealOnMount(
-            delay: const Duration(milliseconds: 80),
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final bool wide = constraints.maxWidth >= 760;
-                if (!wide) {
-                  return Column(
-                    children: <Widget>[
-                      _MetricTile(
-                        label: 'Streak',
-                        value: '${viewState.profile.streakDays}',
-                        caption: 'consecutive active days',
-                        accent: theme.accent,
-                        icon: Icons.local_fire_department_outlined,
-                        emphasized: true,
-                      ),
-                      const SizedBox(height: 12),
-                      _MetricTile(
-                        label: 'Wins',
-                        value: '${viewState.profile.wins}',
-                        caption:
-                            '${viewState.profile.gamesPlayed} games played',
-                        accent: theme.darkSquare,
-                        icon: Icons.emoji_events_outlined,
-                      ),
-                      const SizedBox(height: 12),
-                      _MetricTile(
-                        label: 'Solved',
-                        value: '${viewState.profile.puzzlesSolved}',
-                        caption: 'local tactics cleared',
-                        accent: theme.accent,
-                        icon: Icons.extension_outlined,
-                      ),
-                    ],
-                  );
-                }
-
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 5,
-                      child: _MetricTile(
-                        label: 'Streak',
-                        value: '${viewState.profile.streakDays}',
-                        caption: 'consecutive active days',
-                        accent: theme.accent,
-                        icon: Icons.local_fire_department_outlined,
-                        emphasized: true,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            child: _MetricTile(
-                              label: 'Wins',
-                              value: '${viewState.profile.wins}',
-                              caption:
-                                  '${viewState.profile.gamesPlayed} games played',
-                              accent: theme.darkSquare,
-                              icon: Icons.emoji_events_outlined,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          Expanded(
-                            child: _MetricTile(
-                              label: 'Solved',
-                              value: '${viewState.profile.puzzlesSolved}',
-                              caption: 'local tactics cleared',
-                              accent: theme.accent,
-                              icon: Icons.extension_outlined,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 20),
-          _RevealOnMount(
-            delay: const Duration(milliseconds: 140),
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final bool wide = constraints.maxWidth >= 860;
-                final Widget missionsCard = _SurfaceCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      _SectionHeader(
-                        title: 'Starter missions',
-                        subtitle:
-                            'The first-week loop should feel guided, not gamified to death.',
-                        accent: theme.accent,
-                      ),
-                      const SizedBox(height: 18),
-                      ...missions.map((StarterMission mission) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: _MissionProgressCard(
-                            mission: mission,
-                            accent: theme.accent,
-                          ),
-                        );
-                      }),
-                    ],
+                  const SizedBox(height: 12),
+                  Row(
+                    children: List<Widget>.generate(4, (int index) {
+                      final bool unlocked = index < achievements.length;
+                      final String title = unlocked
+                          ? achievements[index].title
+                          : index == 0
+                          ? 'First Steps'
+                          : 'Locked';
+                      return Expanded(
+                        child: _MedalTile(
+                          title: title,
+                          unlocked: unlocked,
+                          accent: theme.accent,
+                        ),
+                      );
+                    }),
                   ),
-                );
-                final Widget supportRail = Column(
-                  children: <Widget>[
-                    _SurfaceCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          _SectionHeader(
-                            title: 'Achievements',
-                            subtitle: achievements.isEmpty
-                                ? 'The first badge should land quickly so the app does not feel empty.'
-                                : 'Lightweight status markers, not a bloated trophy room.',
-                            accent: theme.darkSquare,
-                          ),
-                          const SizedBox(height: 18),
-                          if (achievements.isEmpty)
-                            Text(
-                              'Finish one match to unlock the first achievement and start visual progression.',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium?.copyWith(height: 1.45),
-                            )
-                          else
-                            Wrap(
-                              spacing: 10,
-                              runSpacing: 10,
-                              children: achievements.map((
-                                AchievementDefinition achievement,
-                              ) {
-                                return _BadgePill(
-                                  label: achievement.title,
-                                  foreground: theme.darkSquare,
-                                  background: theme.accent.withValues(
-                                    alpha: 0.12,
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 18),
-                    _SurfaceCard(
-                      backgroundColor: theme.darkSquare.withValues(alpha: 0.05),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          _SectionHeader(
-                            title: 'Revenue stance',
-                            subtitle:
-                                'This product should make money by reducing friction, not by being annoying.',
-                            accent: theme.darkSquare,
-                          ),
-                          const SizedBox(height: 18),
-                          const _ChecklistLine(
-                            text:
-                                'Rewarded hint, extra undo, and analysis preview stay utility-shaped.',
-                          ),
-                          const _ChecklistLine(
-                            text:
-                                'Pro removes ads and opens cosmetic + analysis depth.',
-                          ),
-                          const _ChecklistLine(
-                            text:
-                                'Interstitials stay capped and never break the core board loop.',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-
-                if (wide) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(flex: 6, child: missionsCard),
-                      const SizedBox(width: 18),
-                      Expanded(flex: 4, child: supportRail),
-                    ],
-                  );
-                }
-
-                return Column(
-                  children: <Widget>[
-                    missionsCard,
-                    const SizedBox(height: 18),
-                    supportRail,
-                  ],
-                );
-              },
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          _FadeIn(
+            delay: const Duration(milliseconds: 130),
+            child: _PremiumStrip(
+              owned: viewState.profile.premiumUnlocked,
+              onTap: () => controller.switchTab(3),
             ),
           ),
         ],
@@ -507,6 +182,17 @@ class _GameTabState extends ConsumerState<_GameTab> {
       viewState.game,
     );
 
+    if (game.gameOver) {
+      return _ResultScreen(
+        theme: widget.theme,
+        game: game,
+        profile: viewState.profile,
+        onBack: () => controller.switchTab(0),
+        onReview: controller.unlockAnalysisPreview,
+        onRestart: controller.restartGame,
+      );
+    }
+
     if (selectedSquare != null &&
         !game.targetsBySource.containsKey(selectedSquare)) {
       selectedSquare = null;
@@ -521,267 +207,71 @@ class _GameTabState extends ConsumerState<_GameTab> {
             viewState.game.hintMove!.substring(0, 2),
             viewState.game.hintMove!.substring(2, 4),
           };
-    final String turnLabel = game.gameOver
-        ? 'Session closed'
-        : game.playerTurn
-        ? 'White to move'
-        : 'Engine to move';
-    final int estimatedRating = _estimatedRating(viewState.profile);
 
-    return _TabScroll(
+    return _PhonePage(
+      backgroundColor: _RefColor.match,
+      bottomPadding: 18,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _RevealOnMount(
-            child: _SectionHeader(
-              title: 'Engine match',
-              subtitle:
-                  'Board-first play surface with calm controls around it.',
-              accent: widget.theme.accent,
+          _ReferenceTopBar(
+            title: 'AI Match',
+            subtitle: 'Hard',
+            dark: true,
+            leading: _IconTap(
+              icon: Icons.arrow_back_rounded,
+              dark: true,
+              onTap: () => controller.switchTab(0),
+            ),
+            trailing: _IconTap(
+              icon: Icons.settings_rounded,
+              dark: true,
+              onTap: () => controller.switchTab(4),
             ),
           ),
-          const SizedBox(height: 18),
-          _RevealOnMount(
-            delay: const Duration(milliseconds: 80),
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final bool wide = constraints.maxWidth >= 920;
-                final Widget stage = _SurfaceCard(
-                  backgroundColor: const Color(0xFF221C18),
-                  padding: const EdgeInsets.all(16),
-                  child: DefaultTextStyle.merge(
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.white.withValues(alpha: 0.82),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: _MatchSideStrip(
-                                title: 'Black (AI)',
-                                value: '1200',
-                                accent: widget.theme.lightSquare,
-                                dark: true,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            _StagePill(
-                              label: 'Level ${viewState.game.difficulty}',
-                              dark: true,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 14),
-                        RepaintBoundary(
-                          child: ChessBoard(
-                            fen: game.fen,
-                            themePack: widget.theme,
-                            flipped: viewState.profile.boardFlipped,
-                            selectedSquare: selectedSquare,
-                            highlightedSquares: highlighted,
-                            hintSquares: hintSquares,
-                            onSquareTap: (String square) =>
-                                _handleTap(square, game, viewState, controller),
-                          ),
-                        ),
-                        const SizedBox(height: 14),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: _MatchSideStrip(
-                                title: 'You',
-                                value: '$estimatedRating',
-                                accent: widget.theme.accent,
-                                dark: true,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            _StagePill(label: turnLabel, dark: true),
-                          ],
-                        ),
-                        const SizedBox(height: 14),
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            color: Colors.white.withValues(alpha: 0.08),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.08),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 8,
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: _DockActionButton(
-                                    icon: Icons.undo_rounded,
-                                    label: 'Undo',
-                                    onTap: controller.undoGame,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: _DockActionButton(
-                                    icon: Icons.lightbulb_outline_rounded,
-                                    label: 'Hint',
-                                    onTap: controller.unlockGameHint,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: _DockActionButton(
-                                    icon: Icons.replay_rounded,
-                                    label: 'Restart',
-                                    onTap: controller.restartGame,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-
-                final Widget rail = Column(
-                  children: <Widget>[
-                    _SurfaceCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            game.statusTitle,
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            game.resultDetail ?? game.statusDetail,
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyLarge?.copyWith(height: 1.45),
-                          ),
-                          const SizedBox(height: 16),
-                          Wrap(
-                            spacing: 8,
-                            runSpacing: 8,
-                            children: List<Widget>.generate(5, (int index) {
-                              final int difficulty = index + 1;
-                              return ChoiceChip(
-                                label: Text('Level $difficulty'),
-                                selected:
-                                    viewState.game.difficulty == difficulty,
-                                onSelected: (_) =>
-                                    controller.setDifficulty(difficulty),
-                              );
-                            }),
-                          ),
-                          const SizedBox(height: 14),
-                          _StageNotice(
-                            icon: Icons.flip_rounded,
-                            title: 'Board orientation',
-                            detail: viewState.profile.boardFlipped
-                                ? 'Viewing from Black.'
-                                : 'Viewing from White.',
-                            actionLabel: 'Flip',
-                            onTap: controller.toggleBoardFlip,
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (viewState.aiThinking) ...<Widget>[
-                      const SizedBox(height: 18),
-                      _GlassPanel(
-                        blurSigma: 12,
-                        padding: const EdgeInsets.all(18),
-                        child: Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: 18,
-                              height: 18,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2.2,
-                                color: widget.theme.accent,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                'Engine is calculating a reply.',
-                                style: Theme.of(
-                                  context,
-                                ).textTheme.bodyMedium?.copyWith(height: 1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                    const SizedBox(height: 18),
-                    if (game.gameOver)
-                      _MatchResultPanel(
-                        accent: widget.theme.accent,
-                        youRating: estimatedRating,
-                        aiRating: 1200,
-                        resultTitle: game.resultTitle ?? 'Game finished',
-                        resultDetail:
-                            game.resultDetail ??
-                            'Analysis should appear as a clear premium value add.',
-                        scoreLabel: _resultScoreLabel(game.resultTitle),
-                        analysisSummary: viewState.game.analysisSummary,
-                        analysisUnlocked: viewState.game.analysisUnlocked,
-                        premiumUnlocked: viewState.profile.premiumUnlocked,
-                        onReview: controller.unlockAnalysisPreview,
-                      )
-                    else
-                      _SurfaceCard(
-                        backgroundColor: widget.theme.accent.withValues(
-                          alpha: 0.08,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            _SectionEyebrow(
-                              label: 'Board discipline',
-                              accent: widget.theme.accent,
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              'Tap source then destination. Keep the board clean.',
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              'Hint and restart live outside the playfield so the match keeps its focus.',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium?.copyWith(height: 1.45),
-                            ),
-                          ],
-                        ),
-                      ),
-                  ],
-                );
-
-                if (wide) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(flex: 6, child: stage),
-                      const SizedBox(width: 18),
-                      Expanded(flex: 4, child: rail),
-                    ],
-                  );
-                }
-
-                return Column(
-                  children: <Widget>[stage, const SizedBox(height: 18), rail],
-                );
-              },
+          const SizedBox(height: 8),
+          _MatchPlayerStrip(
+            pieceCode: 0x265F,
+            title: 'Black (AI)',
+            rating: '1200',
+            tag: 'Lv ${viewState.game.difficulty}',
+            dark: true,
+          ),
+          const SizedBox(height: 10),
+          _FadeIn(
+            child: ChessBoard(
+              fen: game.fen,
+              themePack: widget.theme,
+              flipped: viewState.profile.boardFlipped,
+              selectedSquare: selectedSquare,
+              highlightedSquares: highlighted,
+              hintSquares: hintSquares,
+              onSquareTap: (String square) =>
+                  _handleTap(square, game, viewState, controller),
             ),
+          ),
+          const SizedBox(height: 10),
+          _MatchPlayerStrip(
+            pieceCode: 0x2654,
+            title: 'You',
+            rating: '${_estimatedRating(viewState.profile)}',
+            tag: game.playerTurn ? 'Your move' : 'Thinking',
+            accent: widget.theme.accent,
+            dark: true,
+          ),
+          const SizedBox(height: 12),
+          if (viewState.aiThinking)
+            _ThinkingStrip(accent: widget.theme.accent)
+          else
+            _MatchDock(
+              onUndo: controller.undoGame,
+              onHint: controller.unlockGameHint,
+              onRestart: controller.restartGame,
+            ),
+          const SizedBox(height: 12),
+          _SmallLabel(
+            game.statusDetail,
+            color: Colors.white.withValues(alpha: 0.54),
           ),
         ],
       ),
@@ -809,7 +299,7 @@ class _GameTabState extends ConsumerState<_GameTab> {
     if (selectedSquare != null && currentTargets.contains(square)) {
       final String from = selectedSquare!;
       setState(() => selectedSquare = null);
-      controller.playGameMove(from, square);
+      unawaited(controller.playGameMove(from, square));
       if (viewState.profile.soundEnabled) {
         SystemSound.play(SystemSoundType.click);
       }
@@ -821,12 +311,9 @@ class _GameTabState extends ConsumerState<_GameTab> {
       return;
     }
 
-    if (game.targetsBySource.containsKey(square)) {
-      setState(() => selectedSquare = square);
-      return;
-    }
-
-    setState(() => selectedSquare = null);
+    setState(() {
+      selectedSquare = game.targetsBySource.containsKey(square) ? square : null;
+    });
   }
 }
 
@@ -853,6 +340,13 @@ class _PuzzleTabState extends ConsumerState<_PuzzleTab> {
       viewState.puzzle,
     );
 
+    if (puzzle.completed) {
+      return _PuzzleSolvedScreen(
+        accent: widget.theme.accent,
+        onBack: () => controller.switchTab(0),
+      );
+    }
+
     if (selectedSquare != null &&
         !puzzle.targetsBySource.containsKey(selectedSquare)) {
       selectedSquare = null;
@@ -868,193 +362,74 @@ class _PuzzleTabState extends ConsumerState<_PuzzleTab> {
             viewState.puzzle.hintMove!.substring(2, 4),
           };
 
-    return _TabScroll(
+    return _PhonePage(
+      backgroundColor: const Color(0xFFF9F3EA),
+      bottomPadding: 18,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _RevealOnMount(
-            child: _SectionHeader(
-              title: 'Daily puzzle',
-              subtitle:
-                  'A local tactic loop that resets with device date, no backend ceremony required.',
-              accent: widget.theme.accent,
+          _ReferenceTopBar(
+            title: 'Daily Puzzle',
+            leading: _IconTap(
+              icon: Icons.arrow_back_rounded,
+              onTap: () => controller.switchTab(0),
+            ),
+            trailing: _IconTap(
+              icon: Icons.bar_chart_rounded,
+              onTap: controller.clearBanner,
             ),
           ),
-          const SizedBox(height: 18),
-          _RevealOnMount(
-            delay: const Duration(milliseconds: 80),
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final bool wide = constraints.maxWidth >= 920;
-                final Widget puzzleBoard = _SurfaceCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          _StagePill(label: puzzle.puzzle.theme),
-                          const SizedBox(width: 8),
-                          _StagePill(
-                            label: 'Difficulty ${puzzle.puzzle.difficulty}/5',
-                          ),
-                          const Spacer(),
-                          Text(
-                            'Solved ${viewState.puzzle.completedPuzzleIds.length}/500',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      RepaintBoundary(
-                        child: ChessBoard(
-                          fen: puzzle.fen,
-                          themePack: widget.theme,
-                          flipped: viewState.profile.boardFlipped,
-                          selectedSquare: selectedSquare,
-                          highlightedSquares: highlighted,
-                          hintSquares: hintSquares,
-                          onSquareTap: (String square) =>
-                              _handleTap(square, puzzle, viewState, controller),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        puzzle.completed
-                            ? 'Puzzle solved.'
-                            : puzzle.puzzle.prompt,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        puzzle.statusDetail,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium?.copyWith(height: 1.45),
-                      ),
-                      const SizedBox(height: 18),
-                      if (!puzzle.completed)
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: ShadButton.outline(
-                                onPressed: controller.unlockPuzzleHint,
-                                leading: const Icon(
-                                  Icons.lightbulb_outline_rounded,
-                                ),
-                                child: const Text('Hint'),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: ShadButton.secondary(
-                                onPressed: controller.switchToDailyPuzzle,
-                                leading: const Icon(Icons.refresh_rounded),
-                                child: const Text('Reset'),
-                              ),
-                            ),
-                          ],
-                        ),
-                    ],
+          const SizedBox(height: 10),
+          _SoftPanel(
+            padding: const EdgeInsets.all(8),
+            color: _RefColor.matchPanel,
+            borderColor: _RefColor.matchPanel,
+            child: Row(
+              children: <Widget>[
+                _DarkChip('Puzzle ${puzzle.puzzle.id.split('_').last}'),
+                const Spacer(),
+                Icon(Icons.circle, size: 8, color: widget.theme.accent),
+                const SizedBox(width: 6),
+                Text(
+                  _difficultyLabel(puzzle.puzzle.difficulty),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Colors.white.withValues(alpha: 0.82),
                   ),
-                );
-
-                final Widget aside = puzzle.completed
-                    ? _PuzzleVictoryPanel(
-                        accent: widget.theme.accent,
-                        onContinue: controller.switchToDailyPuzzle,
-                      )
-                    : Column(
-                        children: <Widget>[
-                          _SurfaceCard(
-                            backgroundColor: widget.theme.darkSquare.withValues(
-                              alpha: 0.05,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                _SectionEyebrow(
-                                  label: 'Daily role',
-                                  accent: widget.theme.darkSquare,
-                                ),
-                                const SizedBox(height: 12),
-                                Text(
-                                  'This is the cleanest reason to reopen tomorrow.',
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                                const SizedBox(height: 10),
-                                const _ChecklistLine(
-                                  text:
-                                      'Date-driven rotation works fully offline.',
-                                ),
-                                const _ChecklistLine(
-                                  text:
-                                      'Hints monetize without breaking the board.',
-                                ),
-                                const _ChecklistLine(
-                                  text:
-                                      'Solved count strengthens the daily habit.',
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 18),
-                          _GlassPanel(
-                            blurSigma: 14,
-                            padding: const EdgeInsets.all(22),
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: <Color>[
-                                widget.theme.accent.withValues(alpha: 0.94),
-                                widget.theme.darkSquare.withValues(alpha: 0.84),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                _BadgePill(
-                                  label: puzzle.statusTitle,
-                                  foreground: Colors.white,
-                                  background: Colors.white.withValues(
-                                    alpha: 0.14,
-                                  ),
-                                ),
-                                const SizedBox(height: 14),
-                                Text(
-                                  'Return fast, solve one precise idea, keep the streak moving.',
-                                  style: Theme.of(context).textTheme.bodyLarge
-                                      ?.copyWith(
-                                        color: Colors.white.withValues(
-                                          alpha: 0.88,
-                                        ),
-                                        height: 1.45,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-
-                if (wide) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(flex: 6, child: puzzleBoard),
-                      const SizedBox(width: 18),
-                      Expanded(flex: 4, child: aside),
-                    ],
-                  );
-                }
-
-                return Column(
-                  children: <Widget>[
-                    puzzleBoard,
-                    const SizedBox(height: 18),
-                    aside,
-                  ],
-                );
-              },
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+          _FadeIn(
+            child: ChessBoard(
+              fen: puzzle.fen,
+              themePack: widget.theme,
+              flipped: viewState.profile.boardFlipped,
+              selectedSquare: selectedSquare,
+              highlightedSquares: highlighted,
+              hintSquares: hintSquares,
+              onSquareTap: (String square) =>
+                  _handleTap(square, puzzle, viewState, controller),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            puzzle.puzzle.prompt,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: _RefColor.ink,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 22),
+          OutlinedButton.icon(
+            onPressed: controller.unlockPuzzleHint,
+            icon: const Icon(Icons.lightbulb_outline_rounded),
+            label: const Text('Hint'),
+            style: OutlinedButton.styleFrom(
+              minimumSize: const Size.fromHeight(48),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
           ),
         ],
@@ -1071,7 +446,6 @@ class _PuzzleTabState extends ConsumerState<_PuzzleTab> {
     if (puzzle.completed) {
       return;
     }
-
     if (viewState.profile.hapticsEnabled) {
       HapticFeedback.selectionClick();
     }
@@ -1083,7 +457,7 @@ class _PuzzleTabState extends ConsumerState<_PuzzleTab> {
     if (selectedSquare != null && currentTargets.contains(square)) {
       final String from = selectedSquare!;
       setState(() => selectedSquare = null);
-      controller.playPuzzleMove(from, square);
+      unawaited(controller.playPuzzleMove(from, square));
       if (viewState.profile.soundEnabled) {
         SystemSound.play(SystemSoundType.click);
       }
@@ -1095,12 +469,11 @@ class _PuzzleTabState extends ConsumerState<_PuzzleTab> {
       return;
     }
 
-    if (puzzle.targetsBySource.containsKey(square)) {
-      setState(() => selectedSquare = square);
-      return;
-    }
-
-    setState(() => selectedSquare = null);
+    setState(() {
+      selectedSquare = puzzle.targetsBySource.containsKey(square)
+          ? square
+          : null;
+    });
   }
 }
 
@@ -1116,133 +489,57 @@ class _ShopTab extends ConsumerWidget {
       appControllerProvider.notifier,
     );
 
-    return _TabScroll(
+    return _PhonePage(
+      bottomPadding: 112,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _RevealOnMount(
-            child: _SectionHeader(
-              title: 'Shop',
-              subtitle:
-                  'Premium surfaces should feel cleaner than the free tier, not louder.',
-              accent: theme.accent,
+          _ReferenceTopBar(
+            title: 'Shop',
+            leading: _IconTap(
+              icon: Icons.arrow_back_rounded,
+              onTap: () => controller.switchTab(0),
             ),
+            trailing: _CoinBadge(value: '250'),
           ),
-          const SizedBox(height: 18),
-          _RevealOnMount(
-            delay: const Duration(milliseconds: 80),
-            child: _SurfaceCard(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: const <Widget>[
-                          _StagePill(label: 'Themes'),
-                          _StagePill(label: 'Pieces'),
-                          _StagePill(label: 'Boards'),
-                          _StagePill(label: 'Avatars'),
-                        ],
-                      ),
-                      const Spacer(),
-                      _StagePill(label: '250'),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Collect board materials, not noisy skins.',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Premium surfaces should feel like a refined cabinet: calmer previews, clearer ownership, and no fake scarcity tricks.',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium?.copyWith(height: 1.45),
-                  ),
-                ],
-              ),
+          const SizedBox(height: 8),
+          _ShopTabs(),
+          const SizedBox(height: 12),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: themePacks.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 0.70,
             ),
+            itemBuilder: (BuildContext context, int index) {
+              final AppThemePack pack = themePacks[index];
+              final bool unlocked = viewState.profile.unlockedThemeIds.contains(
+                pack.id,
+              );
+              final bool selected =
+                  viewState.profile.selectedThemeId == pack.id;
+              return _ThemeShopCard(
+                pack: pack,
+                unlocked: unlocked,
+                selected: selected,
+                onTap: unlocked
+                    ? () => unawaited(controller.selectTheme(pack.id))
+                    : () => unawaited(controller.purchase('theme_pack')),
+              );
+            },
           ),
-          const SizedBox(height: 18),
-          _RevealOnMount(
-            delay: const Duration(milliseconds: 120),
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final int columns = constraints.maxWidth >= 920
-                    ? 4
-                    : constraints.maxWidth >= 620
-                    ? 2
-                    : 1;
-                return GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: themePacks.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: columns,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 0.80,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    final AppThemePack pack = themePacks[index];
-                    final bool unlocked = viewState.profile.unlockedThemeIds
-                        .contains(pack.id);
-                    final bool selected =
-                        viewState.profile.selectedThemeId == pack.id;
-                    return _ThemePreviewCard(
-                      pack: pack,
-                      unlocked: unlocked,
-                      selected: selected,
-                      onSelect: () => controller.selectTheme(pack.id),
-                      onUnlock: () => controller.purchase('theme_pack'),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 18),
-          _RevealOnMount(
-            delay: const Duration(milliseconds: 160),
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final bool wide = constraints.maxWidth >= 760;
-                final List<Widget> offerCards = productOffers.map((
-                  ProductOffer offer,
-                ) {
-                  final bool owned = viewState.profile.ownedProductIds.contains(
-                    offer.id,
-                  );
-                  return _OfferFeatureCard(
-                    offer: offer,
-                    owned: owned,
-                    accent: theme.accent,
-                    onTap: owned ? null : () => controller.purchase(offer.id),
-                  );
-                }).toList();
-                if (wide) {
-                  return Row(
-                    children: <Widget>[
-                      Expanded(child: offerCards[0]),
-                      const SizedBox(width: 12),
-                      Expanded(child: offerCards[1]),
-                    ],
-                  );
-                }
-                return Column(
-                  children: <Widget>[
-                    offerCards[0],
-                    const SizedBox(height: 12),
-                    offerCards[1],
-                  ],
-                );
-              },
-            ),
+          const SizedBox(height: 14),
+          _GoldButton(
+            label: viewState.profile.premiumUnlocked
+                ? 'Premium Active'
+                : 'Unlock Premium',
+            subtitle: 'Remove ads and open every board',
+            icon: Icons.workspace_premium_rounded,
+            onTap: () => unawaited(controller.purchase('pro_pack')),
           ),
         ],
       ),
@@ -1262,258 +559,107 @@ class _SettingsTab extends ConsumerWidget {
       appControllerProvider.notifier,
     );
 
-    return _TabScroll(
+    return _PhonePage(
+      bottomPadding: 22,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _RevealOnMount(
-            child: _SectionHeader(
-              title: 'Settings',
-              subtitle:
-                  'Comfort controls and launch hardening should feel like part of the product, not a dump zone.',
-              accent: theme.accent,
+          _ReferenceTopBar(
+            title: 'Settings',
+            leading: _IconTap(
+              icon: Icons.arrow_back_rounded,
+              onTap: () => controller.switchTab(0),
             ),
           ),
-          const SizedBox(height: 18),
-          _RevealOnMount(
-            delay: const Duration(milliseconds: 80),
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 760),
-                child: Column(
-                  children: <Widget>[
-                    _SettingsSectionCard(
-                      title: 'Account',
-                      children: <Widget>[
-                        _SettingsValueRow(
-                          icon: Icons.person_outline_rounded,
-                          title: 'Profile',
-                          value: 'Local Player',
-                        ),
-                        _SettingsValueRow(
-                          icon: Icons.link_rounded,
-                          title: 'Linked Account',
-                          value: 'Offline only',
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 14),
-                    _SettingsSectionCard(
-                      title: 'Preferences',
-                      children: <Widget>[
-                        _SettingsValueRow(
-                          icon: Icons.dashboard_customize_outlined,
-                          title: 'Board Theme',
-                          value: theme.name,
-                        ),
-                        const _SettingsValueRow(
-                          icon: Icons.extension_outlined,
-                          title: 'Piece Set',
-                          value: 'Staunton',
-                        ),
-                        _SettingToggleRow(
-                          title: 'Move sound',
-                          detail: 'Piece interaction clicks',
-                          value: viewState.profile.soundEnabled,
-                          onChanged: controller.toggleSound,
-                        ),
-                        _SettingToggleRow(
-                          title: 'Vibration',
-                          detail: 'Light haptic reinforcement',
-                          value: viewState.profile.hapticsEnabled,
-                          onChanged: controller.toggleHaptics,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 14),
-                    _SettingsSectionCard(
-                      title: 'Gameplay',
-                      children: <Widget>[
-                        _SettingsValueRow(
-                          icon: Icons.flag_outlined,
-                          title: 'Play as',
-                          value: viewState.profile.boardFlipped
-                              ? 'Black'
-                              : 'White',
-                        ),
-                        _SettingToggleRow(
-                          title: 'Flip board',
-                          detail: 'Review from the opposite side',
-                          value: viewState.profile.boardFlipped,
-                          onChanged: (_) => controller.toggleBoardFlip(),
-                        ),
-                        const _SettingsValueRow(
-                          icon: Icons.remove_red_eye_outlined,
-                          title: 'Hint Surface',
-                          value: 'Rewarded only',
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 14),
-                    _SettingsSectionCard(
-                      title: 'About',
-                      children: const <Widget>[
-                        _SettingsValueRow(
-                          icon: Icons.privacy_tip_outlined,
-                          title: 'Privacy Policy',
-                          value: 'Required before launch',
-                        ),
-                        _SettingsValueRow(
-                          icon: Icons.description_outlined,
-                          title: 'Terms of Service',
-                          value: 'Store-ready draft',
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 14),
-                    _GlassPanel(
-                      blurSigma: 12,
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          _SectionEyebrow(
-                            label: 'Purchases',
-                            accent: theme.accent,
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            'Restore ownership cleanly when the player moves devices or reinstalls.',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyLarge?.copyWith(height: 1.45),
-                          ),
-                          const SizedBox(height: 18),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ShadButton.secondary(
-                              onPressed: controller.restorePurchases,
-                              leading: const Icon(Icons.restore),
-                              child: const Text('Restore Purchases'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+          const SizedBox(height: 8),
+          _SettingsSection(
+            title: 'Account',
+            children: <Widget>[
+              const _SettingsRow(
+                icon: Icons.person_outline_rounded,
+                title: 'Profile',
+                value: 'Local Player',
               ),
-            ),
+              const _SettingsRow(
+                icon: Icons.link_rounded,
+                title: 'Linked Account',
+                value: 'Offline',
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          _SettingsSection(
+            title: 'Preferences',
+            children: <Widget>[
+              _SettingsRow(
+                icon: Icons.dashboard_customize_outlined,
+                title: 'Board Theme',
+                value: theme.name,
+              ),
+              const _SettingsRow(
+                icon: Icons.extension_outlined,
+                title: 'Piece Set',
+                value: 'Staunton',
+              ),
+              _SwitchRow(
+                icon: Icons.volume_up_outlined,
+                title: 'Sound',
+                value: viewState.profile.soundEnabled,
+                onChanged: controller.toggleSound,
+              ),
+              _SwitchRow(
+                icon: Icons.vibration_rounded,
+                title: 'Vibration',
+                value: viewState.profile.hapticsEnabled,
+                onChanged: controller.toggleHaptics,
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          _SettingsSection(
+            title: 'Gameplay',
+            children: <Widget>[
+              _SettingsRow(
+                icon: Icons.shield_outlined,
+                title: 'Play as',
+                value: viewState.profile.boardFlipped ? 'Black' : 'White',
+              ),
+              _SwitchRow(
+                icon: Icons.flip_rounded,
+                title: 'Flip Board',
+                value: viewState.profile.boardFlipped,
+                onChanged: (_) => unawaited(controller.toggleBoardFlip()),
+              ),
+              const _SettingsRow(
+                icon: Icons.remove_red_eye_outlined,
+                title: 'Show Hints',
+                value: 'Rewarded',
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          _SettingsSection(
+            title: 'About',
+            children: const <Widget>[
+              _SettingsRow(
+                icon: Icons.privacy_tip_outlined,
+                title: 'Privacy Policy',
+                value: 'Draft',
+              ),
+              _SettingsRow(
+                icon: Icons.description_outlined,
+                title: 'Terms of Service',
+                value: 'Draft',
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          OutlinedButton.icon(
+            onPressed: controller.restorePurchases,
+            icon: const Icon(Icons.restore_rounded),
+            label: const Text('Restore Purchases'),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _MissionProgressCard extends StatelessWidget {
-  const _MissionProgressCard({required this.mission, required this.accent});
-
-  final StarterMission mission;
-  final Color accent;
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(22),
-        color: Colors.white.withValues(alpha: 0.7),
-        border: Border.all(
-          color: mission.completed
-              ? accent.withValues(alpha: 0.28)
-              : Colors.black.withValues(alpha: 0.06),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                _BadgePill(
-                  label: mission.completed ? 'Complete' : 'In progress',
-                  foreground: mission.completed ? Colors.white : accent,
-                  background: mission.completed
-                      ? accent
-                      : accent.withValues(alpha: 0.12),
-                ),
-                const Spacer(),
-                Text(
-                  '${mission.progress}/${mission.target}',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(mission.title, style: Theme.of(context).textTheme.titleLarge),
-            const SizedBox(height: 6),
-            Text(
-              mission.description,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(height: 1.45),
-            ),
-            const SizedBox(height: 12),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(999),
-              child: LinearProgressIndicator(
-                minHeight: 8,
-                value: (mission.progress / mission.target).clamp(0, 1),
-                backgroundColor: accent.withValues(alpha: 0.10),
-                color: accent,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _SettingToggleRow extends StatelessWidget {
-  const _SettingToggleRow({
-    required this.title,
-    required this.detail,
-    required this.value,
-    required this.onChanged,
-  });
-
-  final String title;
-  final String detail;
-  final bool value;
-  final ValueChanged<bool> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        color: Colors.white.withValues(alpha: 0.72),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(title, style: Theme.of(context).textTheme.titleMedium),
-                  const SizedBox(height: 4),
-                  Text(
-                    detail,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium?.copyWith(height: 1.4),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 12),
-            ShadSwitch(value: value, onChanged: onChanged),
-          ],
-        ),
       ),
     );
   }
@@ -1527,213 +673,135 @@ int _estimatedRating(AppProfile profile) {
       .clamp(1100, 1850);
 }
 
-String _resultScoreLabel(String? resultTitle) {
-  final String normalized = (resultTitle ?? '').toLowerCase();
-  if (normalized.contains('draw') || normalized.contains('stalemate')) {
-    return '1/2-1/2';
+String _difficultyLabel(int difficulty) {
+  if (difficulty <= 2) {
+    return 'Easy';
   }
-  if (normalized.contains('lost') ||
-      normalized.contains('defeat') ||
-      normalized.contains('black')) {
-    return '0-1';
+  if (difficulty == 3) {
+    return 'Medium';
   }
-  return '1-0';
+  return 'Hard';
 }
 
-class _StagePill extends StatelessWidget {
-  const _StagePill({required this.label, this.dark = false});
-
-  final String label;
-  final bool dark;
-
-  @override
-  Widget build(BuildContext context) {
-    final Color background = dark
-        ? Colors.white.withValues(alpha: 0.08)
-        : Theme.of(context).colorScheme.primary.withValues(alpha: 0.10);
-    final Color foreground = dark
-        ? Colors.white.withValues(alpha: 0.86)
-        : Theme.of(context).colorScheme.primary;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(999),
-        color: background,
-        border: Border.all(
-          color: dark
-              ? Colors.white.withValues(alpha: 0.08)
-              : Theme.of(context).colorScheme.primary.withValues(alpha: 0.14),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: Text(
-          label,
-          style: Theme.of(
-            context,
-          ).textTheme.labelLarge?.copyWith(color: foreground),
-        ),
-      ),
-    );
-  }
-}
-
-class _DashboardOverviewCard extends StatelessWidget {
-  const _DashboardOverviewCard({
+class _StatCard extends StatelessWidget {
+  const _StatCard({
+    required this.icon,
     required this.title,
     required this.value,
-    required this.subtitle,
+    required this.suffix,
     required this.accent,
-    required this.leading,
-    this.footer,
-    this.valueStyle,
+    this.child,
   });
 
+  final IconData icon;
   final String title;
   final String value;
-  final String subtitle;
+  final String suffix;
   final Color accent;
-  final IconData leading;
-  final Widget? footer;
-  final TextStyle? valueStyle;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white.withValues(alpha: 0.88),
-        border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Icon(leading, size: 18, color: accent),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
+    return _SoftPanel(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(title, style: Theme.of(context).textTheme.bodySmall),
+          const SizedBox(height: 12),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Icon(icon, size: 22, color: accent),
+              const SizedBox(width: 6),
+              Text(
+                value,
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontSize: 28,
+                  color: _RefColor.ink,
                 ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Text(
-              value,
-              style:
-                  valueStyle ??
-                  Theme.of(
-                    context,
-                  ).textTheme.headlineSmall?.copyWith(fontSize: 34),
-            ),
-            const SizedBox(height: 2),
-            Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
-            if (footer != null) ...<Widget>[
-              const SizedBox(height: 10),
-              footer!,
+              ),
+              const SizedBox(width: 4),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Text(
+                  suffix,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
             ],
-          ],
-        ),
+          ),
+          if (child != null) ...<Widget>[const SizedBox(height: 12), child!],
+        ],
       ),
     );
   }
 }
 
-class _WeekProgressDots extends StatelessWidget {
-  const _WeekProgressDots({required this.activeCount, required this.accent});
+class _WeekDots extends StatelessWidget {
+  const _WeekDots({required this.active, required this.accent});
 
-  final int activeCount;
+  final int active;
   final Color accent;
 
   @override
   Widget build(BuildContext context) {
     const List<String> labels = <String>['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-    final int clamped = activeCount.clamp(0, labels.length);
-    return Column(
-      children: <Widget>[
-        Row(
-          children: List<Widget>.generate(labels.length, (int index) {
-            return Expanded(
-              child: Center(
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: index < clamped ? accent : Colors.transparent,
-                    border: Border.all(
-                      color: index < clamped
-                          ? accent
-                          : accent.withValues(alpha: 0.34),
-                    ),
+    final int count = active.clamp(0, labels.length);
+    return Row(
+      children: List<Widget>.generate(labels.length, (int index) {
+        return Expanded(
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: 9,
+                height: 9,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: index < count ? accent : Colors.transparent,
+                  border: Border.all(
+                    color: index < count
+                        ? accent
+                        : _RefColor.ink.withValues(alpha: 0.28),
                   ),
                 ),
               ),
-            );
-          }),
-        ),
-        const SizedBox(height: 6),
-        Row(
-          children: labels.map((String label) {
-            return Expanded(
-              child: Center(
-                child: Text(
-                  label,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      ],
+              const SizedBox(height: 4),
+              Text(labels[index], style: Theme.of(context).textTheme.bodySmall),
+            ],
+          ),
+        );
+      }),
     );
   }
 }
 
-class _QuickHomeTile extends StatelessWidget {
-  const _QuickHomeTile({
+class _HomeShortcut extends StatelessWidget {
+  const _HomeShortcut({
     required this.icon,
     required this.title,
     required this.subtitle,
-    required this.accent,
-    this.onTap,
+    required this.onTap,
   });
 
   final IconData icon;
   final String title;
   final String subtitle;
-  final Color accent;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(18),
-      onTap: onTap,
-      child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          color: Colors.white.withValues(alpha: 0.88),
-          border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
-        ),
+    return _SoftPanel(
+      padding: EdgeInsets.zero,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(12),
           child: Row(
             children: <Widget>[
-              Container(
-                width: 38,
-                height: 38,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  color: accent.withValues(alpha: 0.12),
-                ),
-                child: Icon(icon, size: 18, color: accent),
-              ),
-              const SizedBox(width: 12),
+              Icon(icon, color: _RefColor.ink, size: 24),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1742,6 +810,8 @@ class _QuickHomeTile extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       subtitle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -1755,14 +825,14 @@ class _QuickHomeTile extends StatelessWidget {
   }
 }
 
-class _AchievementMedallion extends StatelessWidget {
-  const _AchievementMedallion({
-    required this.label,
+class _MedalTile extends StatelessWidget {
+  const _MedalTile({
+    required this.title,
     required this.unlocked,
     required this.accent,
   });
 
-  final String label;
+  final String title;
   final bool unlocked;
   final Color accent;
 
@@ -1771,39 +841,33 @@ class _AchievementMedallion extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          width: 54,
-          height: 54,
+          width: 48,
+          height: 48,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             gradient: unlocked
-                ? LinearGradient(
+                ? const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: <Color>[
-                      accent.withValues(alpha: 0.92),
-                      accent.withValues(alpha: 0.68),
-                    ],
+                    colors: <Color>[_RefColor.gold, _RefColor.goldDark],
                   )
                 : null,
-            color: unlocked ? null : Colors.black.withValues(alpha: 0.06),
+            color: unlocked ? null : Colors.white.withValues(alpha: 0.38),
             border: Border.all(
               color: unlocked
-                  ? accent.withValues(alpha: 0.24)
-                  : Colors.black.withValues(alpha: 0.06),
+                  ? _RefColor.goldDark.withValues(alpha: 0.38)
+                  : _RefColor.line,
             ),
           ),
           child: Icon(
-            unlocked
-                ? Icons.workspace_premium_rounded
-                : Icons.lock_outline_rounded,
-            color: unlocked
-                ? Colors.white
-                : Colors.black.withValues(alpha: 0.22),
+            unlocked ? Icons.workspace_premium_rounded : Icons.lock_rounded,
+            size: 20,
+            color: unlocked ? Colors.white : _RefColor.line,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         Text(
-          label,
+          title,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
@@ -1814,129 +878,190 @@ class _AchievementMedallion extends StatelessWidget {
   }
 }
 
-class _PremiumRibbon extends StatelessWidget {
-  const _PremiumRibbon({
-    required this.accent,
-    required this.owned,
-    required this.onTap,
-  });
+class _PremiumStrip extends StatelessWidget {
+  const _PremiumStrip({required this.owned, required this.onTap});
 
-  final Color accent;
   final bool owned;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: <Color>[const Color(0xFF26211D), const Color(0xFF463225)],
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        child: Row(
-          children: <Widget>[
-            Icon(Icons.workspace_premium_rounded, color: accent),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Premium',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium?.copyWith(color: Colors.white),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    owned
-                        ? 'All premium themes unlocked.'
-                        : 'Unlock refined themes and full analysis.',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.white.withValues(alpha: 0.72),
-                    ),
-                  ),
-                ],
+    return Material(
+      color: _RefColor.match,
+      borderRadius: BorderRadius.circular(8),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: <Widget>[
+              const Icon(
+                Icons.workspace_premium_rounded,
+                color: _RefColor.gold,
               ),
-            ),
-            const SizedBox(width: 10),
-            ShadButton(
-              backgroundColor: accent,
-              foregroundColor: Colors.white,
-              onPressed: onTap,
-              child: Text(owned ? 'View Shop' : 'View Shop'),
-            ),
-          ],
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      owned ? 'Premium Active' : 'Premium',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleMedium?.copyWith(color: Colors.white),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      owned
+                          ? 'All premium themes unlocked'
+                          : 'Unlock premium themes',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Colors.white.withValues(alpha: 0.70),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              _GoldButton(label: 'View Shop', compact: true, onTap: onTap),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _MatchSideStrip extends StatelessWidget {
-  const _MatchSideStrip({
+class _MatchPlayerStrip extends StatelessWidget {
+  const _MatchPlayerStrip({
+    required this.pieceCode,
     required this.title,
-    required this.value,
-    required this.accent,
+    required this.rating,
+    required this.tag,
+    this.accent = _RefColor.gold,
     this.dark = false,
   });
 
+  final int pieceCode;
   final String title;
-  final String value;
+  final String rating;
+  final String tag;
   final Color accent;
   final bool dark;
 
   @override
   Widget build(BuildContext context) {
+    return _SoftPanel(
+      color: dark ? _RefColor.matchPanel : Colors.white.withValues(alpha: 0.55),
+      borderColor: dark ? Colors.white.withValues(alpha: 0.06) : _RefColor.line,
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        children: <Widget>[
+          Container(
+            width: 40,
+            height: 40,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: dark
+                  ? Colors.black.withValues(alpha: 0.22)
+                  : accent.withValues(alpha: 0.12),
+            ),
+            child: _PieceGlyph(
+              codePoint: pieceCode,
+              size: 26,
+              color: pieceCode == 0x2654 ? Colors.white : Colors.black,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: dark ? Colors.white : _RefColor.ink,
+                  ),
+                ),
+                const SizedBox(height: 1),
+                Text(
+                  rating,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: dark
+                        ? Colors.white.withValues(alpha: 0.60)
+                        : _RefColor.muted,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _DarkChip(tag),
+        ],
+      ),
+    );
+  }
+}
+
+class _DarkChip extends StatelessWidget {
+  const _DarkChip(this.label);
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: dark
-            ? Colors.white.withValues(alpha: 0.08)
-            : accent.withValues(alpha: 0.08),
-        border: Border.all(
-          color: dark
-              ? Colors.white.withValues(alpha: 0.08)
-              : accent.withValues(alpha: 0.12),
-        ),
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.white.withValues(alpha: 0.08),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+        child: Text(
+          label,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Colors.white.withValues(alpha: 0.82),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MatchDock extends StatelessWidget {
+  const _MatchDock({
+    required this.onUndo,
+    required this.onHint,
+    required this.onRestart,
+  });
+
+  final VoidCallback onUndo;
+  final VoidCallback onHint;
+  final VoidCallback onRestart;
+
+  @override
+  Widget build(BuildContext context) {
+    return _SoftPanel(
+      color: const Color(0xFF231F1A),
+      borderColor: Colors.white.withValues(alpha: 0.08),
+      padding: EdgeInsets.zero,
+      child: SizedBox(
+        height: 66,
         child: Row(
           children: <Widget>[
-            CircleAvatar(
-              radius: 16,
-              backgroundColor: accent.withValues(alpha: dark ? 0.18 : 0.14),
-              child: Icon(
-                Icons.person_rounded,
-                size: 16,
-                color: dark ? Colors.white : accent,
-              ),
+            _DockButton(icon: Icons.undo_rounded, label: 'Undo', onTap: onUndo),
+            _DockDivider(),
+            _DockButton(
+              icon: Icons.lightbulb_outline_rounded,
+              label: 'Hint',
+              onTap: onHint,
             ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: dark ? Colors.white : null,
-                    ),
-                  ),
-                  Text(
-                    value,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: dark ? Colors.white.withValues(alpha: 0.66) : null,
-                    ),
-                  ),
-                ],
-              ),
+            _DockDivider(),
+            _DockButton(
+              icon: Icons.restart_alt_rounded,
+              label: 'Restart',
+              onTap: onRestart,
             ),
           ],
         ),
@@ -1945,8 +1070,8 @@ class _MatchSideStrip extends StatelessWidget {
   }
 }
 
-class _DockActionButton extends StatelessWidget {
-  const _DockActionButton({
+class _DockButton extends StatelessWidget {
+  const _DockButton({
     required this.icon,
     required this.label,
     required this.onTap,
@@ -1958,20 +1083,18 @@ class _DockActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(14),
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(icon, size: 18, color: Colors.white.withValues(alpha: 0.84)),
-            const SizedBox(height: 6),
+            Icon(icon, size: 19, color: Colors.white.withValues(alpha: 0.82)),
+            const SizedBox(height: 5),
             Text(
               label,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.white.withValues(alpha: 0.72),
+                color: Colors.white.withValues(alpha: 0.68),
               ),
             ),
           ],
@@ -1981,135 +1104,39 @@ class _DockActionButton extends StatelessWidget {
   }
 }
 
-class _StageNotice extends StatelessWidget {
-  const _StageNotice({
-    required this.icon,
-    required this.title,
-    required this.detail,
-    required this.actionLabel,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String title;
-  final String detail;
-  final String actionLabel;
-  final VoidCallback onTap;
-
+class _DockDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: Row(
-          children: <Widget>[
-            Icon(icon, color: Theme.of(context).colorScheme.primary),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(title, style: Theme.of(context).textTheme.titleMedium),
-                  const SizedBox(height: 2),
-                  Text(detail, style: Theme.of(context).textTheme.bodySmall),
-                ],
-              ),
-            ),
-            const SizedBox(width: 12),
-            ShadButton.secondary(onPressed: onTap, child: Text(actionLabel)),
-          ],
-        ),
-      ),
+    return SizedBox(
+      width: 1,
+      height: 46,
+      child: ColoredBox(color: Colors.white.withValues(alpha: 0.08)),
     );
   }
 }
 
-class _MatchResultPanel extends StatelessWidget {
-  const _MatchResultPanel({
-    required this.accent,
-    required this.youRating,
-    required this.aiRating,
-    required this.resultTitle,
-    required this.resultDetail,
-    required this.scoreLabel,
-    required this.analysisSummary,
-    required this.analysisUnlocked,
-    required this.premiumUnlocked,
-    required this.onReview,
-  });
+class _ThinkingStrip extends StatelessWidget {
+  const _ThinkingStrip({required this.accent});
 
   final Color accent;
-  final int youRating;
-  final int aiRating;
-  final String resultTitle;
-  final String resultDetail;
-  final String scoreLabel;
-  final String? analysisSummary;
-  final bool analysisUnlocked;
-  final bool premiumUnlocked;
-  final VoidCallback onReview;
 
   @override
   Widget build(BuildContext context) {
-    return _SurfaceCard(
-      backgroundColor: accent.withValues(alpha: 0.08),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return _SoftPanel(
+      color: _RefColor.matchPanel,
+      borderColor: Colors.white.withValues(alpha: 0.08),
+      child: Row(
         children: <Widget>[
-          Text(resultTitle, style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: 12),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: _ResultAvatarCard(
-                  title: 'You',
-                  rating: '$youRating',
-                  accent: accent,
-                  active: true,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text(
-                  scoreLabel,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.headlineSmall?.copyWith(fontSize: 28),
-                ),
-              ),
-              Expanded(
-                child: _ResultAvatarCard(
-                  title: 'Black (AI)',
-                  rating: '$aiRating',
-                  accent: Colors.black.withValues(alpha: 0.58),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text('Key moments', style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 10),
-          const _MiniTrendChart(),
-          const SizedBox(height: 14),
-          Text(
-            analysisUnlocked && analysisSummary != null
-                ? analysisSummary!
-                : resultDetail,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(height: 1.45),
-          ),
-          const SizedBox(height: 16),
           SizedBox(
-            width: double.infinity,
-            child: ShadButton(
-              onPressed: onReview,
-              leading: const Icon(Icons.analytics_outlined),
-              child: Text(premiumUnlocked ? 'Review Game' : 'Unlock Analysis'),
+            width: 18,
+            height: 18,
+            child: CircularProgressIndicator(strokeWidth: 2, color: accent),
+          ),
+          const SizedBox(width: 10),
+          Text(
+            'Engine thinking',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.white.withValues(alpha: 0.72),
             ),
           ),
         ],
@@ -2118,51 +1145,211 @@ class _MatchResultPanel extends StatelessWidget {
   }
 }
 
-class _ResultAvatarCard extends StatelessWidget {
-  const _ResultAvatarCard({
+class _ResultScreen extends StatelessWidget {
+  const _ResultScreen({
+    required this.theme,
+    required this.game,
+    required this.profile,
+    required this.onBack,
+    required this.onReview,
+    required this.onRestart,
+  });
+
+  final AppThemePack theme;
+  final LiveGameState game;
+  final AppProfile profile;
+  final VoidCallback onBack;
+  final VoidCallback onReview;
+  final VoidCallback onRestart;
+
+  @override
+  Widget build(BuildContext context) {
+    final bool won = (game.resultTitle ?? '').toLowerCase().contains('secured');
+    return _PhonePage(
+      bottomPadding: 20,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          _ReferenceTopBar(
+            title: won ? 'You Won' : game.resultTitle ?? 'Game Over',
+            subtitle: won ? 'by Checkmate' : 'Match complete',
+            leading: _IconTap(icon: Icons.arrow_back_rounded, onTap: onBack),
+            trailing: _IconTap(icon: Icons.share_rounded, onTap: onReview),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: _ResultPlayerCard(
+                  title: 'You',
+                  rating: '${_estimatedRating(profile)}',
+                  active: won,
+                  pieceCode: 0x2654,
+                ),
+              ),
+              SizedBox(
+                width: 70,
+                child: Center(
+                  child: Text(
+                    won ? '1-0' : '0-1',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ),
+              ),
+              const Expanded(
+                child: _ResultPlayerCard(
+                  title: 'Black (AI)',
+                  rating: '1200',
+                  active: false,
+                  pieceCode: 0x265F,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          _SoftPanel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Game Accuracy',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: _ScoreBox(
+                        label: 'You',
+                        value: won ? '92.4' : '68.1',
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: _ScoreBox(
+                        label: 'AI',
+                        value: won ? '68.1' : '92.4',
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          _SoftPanel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Key Moments',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                _TrendLine(accent: theme.accent),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          _SoftPanel(
+            child: Text(
+              game.resultDetail ?? 'Review the match and start a cleaner run.',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+          const SizedBox(height: 18),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: _GoldButton(
+                  label: 'Review Game',
+                  compact: true,
+                  onTap: onReview,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: onRestart,
+                  child: const Text('Play Again'),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ResultPlayerCard extends StatelessWidget {
+  const _ResultPlayerCard({
     required this.title,
     required this.rating,
-    required this.accent,
-    this.active = false,
+    required this.active,
+    required this.pieceCode,
   });
 
   final String title;
   final String rating;
-  final Color accent;
   final bool active;
+  final int pieceCode;
+
+  @override
+  Widget build(BuildContext context) {
+    return _SoftPanel(
+      color: active ? const Color(0xFF6B7E45) : const Color(0xFFE2DED8),
+      borderColor: active ? const Color(0xFF6B7E45) : _RefColor.line,
+      child: Column(
+        children: <Widget>[
+          _PieceGlyph(
+            codePoint: pieceCode,
+            size: 48,
+            color: active ? Colors.white : _RefColor.ink,
+          ),
+          const SizedBox(height: 6),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: active ? Colors.white : _RefColor.ink,
+            ),
+          ),
+          Text(
+            rating,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: active
+                  ? Colors.white.withValues(alpha: 0.78)
+                  : _RefColor.muted,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ScoreBox extends StatelessWidget {
+  const _ScoreBox({required this.label, required this.value});
+
+  final String label;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        color: active
-            ? accent.withValues(alpha: 0.12)
-            : Colors.white.withValues(alpha: 0.66),
-        border: Border.all(
-          color: active
-              ? accent.withValues(alpha: 0.24)
-              : Colors.black.withValues(alpha: 0.06),
-        ),
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.white.withValues(alpha: 0.54),
+        border: Border.all(color: _RefColor.line),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(14),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            CircleAvatar(
-              radius: 20,
-              backgroundColor: active
-                  ? accent.withValues(alpha: 0.18)
-                  : Colors.black.withValues(alpha: 0.08),
-              child: Icon(
-                Icons.person_rounded,
-                color: active ? accent : Colors.black54,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(title, style: Theme.of(context).textTheme.titleMedium),
+            Text(value, style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: 2),
-            Text(rating, style: Theme.of(context).textTheme.bodySmall),
+            Text(label, style: Theme.of(context).textTheme.bodySmall),
           ],
         ),
       ),
@@ -2170,37 +1357,205 @@ class _ResultAvatarCard extends StatelessWidget {
   }
 }
 
-class _MiniTrendChart extends StatelessWidget {
-  const _MiniTrendChart();
+class _TrendLine extends StatelessWidget {
+  const _TrendLine({required this.accent});
+
+  final Color accent;
 
   @override
   Widget build(BuildContext context) {
-    const List<double> bars = <double>[0.10, 0.24, 0.28, 0.48, 0.62, 0.74];
-    return Container(
-      height: 82,
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        color: Colors.white.withValues(alpha: 0.70),
-        border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
+    return SizedBox(
+      height: 70,
+      child: CustomPaint(painter: _TrendPainter(accent)),
+    );
+  }
+}
+
+class _TrendPainter extends CustomPainter {
+  const _TrendPainter(this.accent);
+
+  final Color accent;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint grid = Paint()
+      ..color = _RefColor.line
+      ..strokeWidth = 1;
+    for (int i = 1; i < 4; i++) {
+      final double y = size.height * i / 4;
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
+    }
+    final List<Offset> points = <Offset>[
+      Offset(0, size.height * 0.70),
+      Offset(size.width * 0.18, size.height * 0.64),
+      Offset(size.width * 0.34, size.height * 0.58),
+      Offset(size.width * 0.52, size.height * 0.46),
+      Offset(size.width * 0.70, size.height * 0.30),
+      Offset(size.width, size.height * 0.20),
+    ];
+    final Path path = Path()..moveTo(points.first.dx, points.first.dy);
+    for (final Offset point in points.skip(1)) {
+      path.lineTo(point.dx, point.dy);
+    }
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = accent
+        ..strokeWidth = 2
+        ..style = PaintingStyle.stroke,
+    );
+    for (final Offset point in points) {
+      canvas.drawCircle(point, 3, Paint()..color = accent);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _TrendPainter oldDelegate) {
+    return oldDelegate.accent != accent;
+  }
+}
+
+class _PuzzleSolvedScreen extends StatelessWidget {
+  const _PuzzleSolvedScreen({required this.accent, required this.onBack});
+
+  final Color accent;
+  final VoidCallback onBack;
+
+  @override
+  Widget build(BuildContext context) {
+    return _PhonePage(
+      backgroundColor: _RefColor.reward,
+      bottomPadding: 20,
+      scroll: false,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          _ReferenceTopBar(
+            title: 'Excellent!',
+            subtitle: 'Puzzle Solved',
+            dark: true,
+            leading: _IconTap(
+              icon: Icons.arrow_back_rounded,
+              dark: true,
+              onTap: onBack,
+            ),
+          ),
+          const SizedBox(height: 36),
+          Expanded(
+            child: Center(
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.energy_savings_leaf_outlined,
+                    size: 190,
+                    color: accent.withValues(alpha: 0.20),
+                  ),
+                  _PieceGlyph(
+                    codePoint: 0x2658,
+                    size: 128,
+                    color: const Color(0xFFF8E3B8),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Text(
+            '+10',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              color: const Color(0xFFF8E3B8),
+              fontSize: 34,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Streak Bonus',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Colors.white.withValues(alpha: 0.72),
+            ),
+          ),
+          const SizedBox(height: 22),
+          _SoftPanel(
+            color: Colors.transparent,
+            borderColor: accent.withValues(alpha: 0.56),
+            shadow: false,
+            child: Text(
+              'Solved in this daily run',
+              textAlign: TextAlign.center,
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(color: Colors.white),
+            ),
+          ),
+          const SizedBox(height: 18),
+          _GoldButton(label: 'Continue', onTap: onBack),
+        ],
       ),
+    );
+  }
+}
+
+class _CoinBadge extends StatelessWidget {
+  const _CoinBadge({required this.value});
+
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(999),
+        color: _RefColor.ink,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Icon(
+              Icons.workspace_premium_rounded,
+              size: 15,
+              color: _RefColor.gold,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              value,
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ShopTabs extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    const List<String> tabs = <String>['Themes', 'Pieces', 'Boards', 'Avatars'];
+    return _SoftPanel(
+      padding: const EdgeInsets.all(5),
+      shadow: false,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: bars.map((double bar) {
+        children: tabs.map((String tab) {
+          final bool selected = tab == 'Themes';
           return Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 12 + (bar * 52),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(999),
-                    gradient: const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[Color(0xFFC39A5B), Color(0xFF8A6A43)],
-                    ),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: selected ? _RefColor.gold.withValues(alpha: 0.16) : null,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  tab,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: selected ? _RefColor.goldDark : _RefColor.muted,
                   ),
                 ),
               ),
@@ -2212,293 +1567,164 @@ class _MiniTrendChart extends StatelessWidget {
   }
 }
 
-class _PuzzleVictoryPanel extends StatelessWidget {
-  const _PuzzleVictoryPanel({required this.accent, required this.onContinue});
-
-  final Color accent;
-  final VoidCallback onContinue;
-
-  @override
-  Widget build(BuildContext context) {
-    return _SurfaceCard(
-      backgroundColor: const Color(0xFF203327),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Excellent!',
-            style: Theme.of(
-              context,
-            ).textTheme.headlineSmall?.copyWith(color: const Color(0xFFF5E0B8)),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Puzzle Solved',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.white.withValues(alpha: 0.76),
-            ),
-          ),
-          const SizedBox(height: 22),
-          Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              Icon(
-                Icons.energy_savings_leaf_outlined,
-                size: 110,
-                color: accent.withValues(alpha: 0.22),
-              ),
-              Text(
-                '♘',
-                style: TextStyle(
-                  fontSize: 110,
-                  color: const Color(0xFFF5E0B8),
-                  shadows: <Shadow>[
-                    Shadow(
-                      color: Colors.black.withValues(alpha: 0.22),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Text(
-            '+10 streak bonus',
-            style: Theme.of(
-              context,
-            ).textTheme.titleMedium?.copyWith(color: const Color(0xFFF5E0B8)),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Solved cleanly. Continue into the next loop.',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.white.withValues(alpha: 0.76),
-              height: 1.45,
-            ),
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            width: double.infinity,
-            child: ShadButton(
-              backgroundColor: accent,
-              foregroundColor: Colors.white,
-              onPressed: onContinue,
-              child: const Text('Continue'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _OfferFeatureCard extends StatelessWidget {
-  const _OfferFeatureCard({
-    required this.offer,
-    required this.owned,
-    required this.accent,
-    required this.onTap,
-  });
-
-  final ProductOffer offer;
-  final bool owned;
-  final Color accent;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return _SurfaceCard(
-      backgroundColor: offer.id == 'pro_pack'
-          ? accent.withValues(alpha: 0.08)
-          : Colors.white.withValues(alpha: 0.92),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _SectionEyebrow(
-            label: offer.priceLabel,
-            accent: offer.id == 'pro_pack' ? accent : Colors.black87,
-          ),
-          const SizedBox(height: 12),
-          Text(offer.title, style: Theme.of(context).textTheme.titleLarge),
-          const SizedBox(height: 8),
-          Text(
-            offer.subtitle,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(height: 1.45),
-          ),
-          const SizedBox(height: 14),
-          Text(offer.highlight, style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 14),
-          SizedBox(
-            width: double.infinity,
-            child: ShadButton(
-              onPressed: onTap,
-              child: Text(owned ? 'Owned' : 'Unlock'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ThemePreviewCard extends StatelessWidget {
-  const _ThemePreviewCard({
+class _ThemeShopCard extends StatelessWidget {
+  const _ThemeShopCard({
     required this.pack,
     required this.unlocked,
     required this.selected,
-    required this.onSelect,
-    required this.onUnlock,
+    required this.onTap,
   });
 
   final AppThemePack pack;
   final bool unlocked;
   final bool selected;
-  final VoidCallback onSelect;
-  final VoidCallback onUnlock;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return _SurfaceCard(
-      backgroundColor: selected
-          ? pack.accent.withValues(alpha: 0.08)
-          : Colors.white.withValues(alpha: 0.92),
-      padding: const EdgeInsets.all(14),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            height: 150,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: <Color>[
-                  pack.darkSquare.withValues(alpha: 0.96),
-                  Color.alphaBlend(
-                    pack.accent.withValues(alpha: 0.14),
-                    pack.darkSquare,
-                  ),
-                ],
-              ),
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(8),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: onTap,
+        child: Ink(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: _RefColor.match,
+            border: Border.all(
+              color: selected
+                  ? pack.accent
+                  : Colors.black.withValues(alpha: 0.08),
             ),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
             child: Stack(
               children: <Widget>[
+                Positioned.fill(child: _ThemeBoardArt(pack: pack)),
                 Positioned.fill(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      children: List<Widget>.generate(3, (int rank) {
-                        return Expanded(
-                          child: Row(
-                            children: List<Widget>.generate(3, (int file) {
-                              final bool isLight = (rank + file).isEven;
-                              return Expanded(
-                                child: Container(
-                                  margin: const EdgeInsets.all(2),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6),
-                                    color: isLight
-                                        ? pack.lightSquare
-                                        : pack.darkSquare.withValues(
-                                            alpha: 0.72,
-                                          ),
-                                  ),
-                                ),
-                              );
-                            }),
-                          ),
-                        );
-                      }),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: <Color>[
+                          Colors.transparent,
+                          Colors.black.withValues(alpha: 0.72),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 Positioned(
-                  right: 10,
+                  left: 10,
+                  right: 34,
                   bottom: 10,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        pack.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleMedium?.copyWith(color: Colors.white),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        unlocked ? 'Owned' : 'Premium',
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodySmall?.copyWith(color: pack.accent),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  right: 10,
+                  bottom: 12,
                   child: Icon(
                     selected
                         ? Icons.check_circle_rounded
                         : unlocked
-                        ? Icons.circle_outlined
+                        ? Icons.radio_button_unchecked_rounded
                         : Icons.lock_rounded,
+                    size: 20,
                     color: selected
                         ? pack.accent
-                        : Colors.white.withValues(alpha: 0.88),
+                        : Colors.white.withValues(alpha: 0.86),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 12),
-          Text(pack.name, style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 4),
-          Text(
-            pack.description,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(height: 1.4),
-          ),
-          const Spacer(),
-          if (pack.premium)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: _StagePill(label: 'Premium'),
-            ),
-          SizedBox(
-            width: double.infinity,
-            child: unlocked
-                ? ShadButton.secondary(
-                    onPressed: selected ? null : onSelect,
-                    child: Text(selected ? 'Selected' : 'Equip'),
-                  )
-                : ShadButton.outline(
-                    onPressed: onUnlock,
-                    child: const Text('Unlock'),
-                  ),
-          ),
-        ],
+        ),
       ),
     );
   }
 }
 
-class _SettingsSectionCard extends StatelessWidget {
-  const _SettingsSectionCard({required this.title, required this.children});
+class _ThemeBoardArt extends StatelessWidget {
+  const _ThemeBoardArt({required this.pack});
+
+  final AppThemePack pack;
+
+  @override
+  Widget build(BuildContext context) {
+    return Transform.rotate(
+      angle: -0.18,
+      child: Transform.scale(
+        scale: 1.28,
+        child: Column(
+          children: List<Widget>.generate(6, (int rank) {
+            return Expanded(
+              child: Row(
+                children: List<Widget>.generate(6, (int file) {
+                  final bool light = (rank + file).isEven;
+                  return Expanded(
+                    child: ColoredBox(
+                      color: light ? pack.lightSquare : pack.darkSquare,
+                    ),
+                  );
+                }),
+              ),
+            );
+          }),
+        ),
+      ),
+    );
+  }
+}
+
+class _SettingsSection extends StatelessWidget {
+  const _SettingsSection({required this.title, required this.children});
 
   final String title;
   final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
-    return _SurfaceCard(
+    return _SoftPanel(
+      padding: const EdgeInsets.fromLTRB(10, 8, 10, 6),
+      shadow: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: 12),
-          ...children.map((Widget child) {
-            final int index = children.indexOf(child);
-            return Padding(
-              padding: EdgeInsets.only(
-                bottom: index == children.length - 1 ? 0 : 8,
-              ),
-              child: child,
-            );
-          }),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(4, 2, 4, 8),
+            child: Text(title, style: Theme.of(context).textTheme.bodySmall),
+          ),
+          ...children,
         ],
       ),
     );
   }
 }
 
-class _SettingsValueRow extends StatelessWidget {
-  const _SettingsValueRow({
+class _SettingsRow extends StatelessWidget {
+  const _SettingsRow({
     required this.icon,
     required this.title,
     required this.value,
@@ -2510,33 +1736,54 @@ class _SettingsValueRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        color: Colors.white.withValues(alpha: 0.72),
+    return SizedBox(
+      height: 42,
+      child: Row(
+        children: <Widget>[
+          Icon(icon, size: 16, color: _RefColor.ink),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(title, style: Theme.of(context).textTheme.bodyMedium),
+          ),
+          Text(value, style: Theme.of(context).textTheme.bodySmall),
+          const SizedBox(width: 4),
+          const Icon(
+            Icons.chevron_right_rounded,
+            size: 18,
+            color: _RefColor.muted,
+          ),
+        ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        child: Row(
-          children: <Widget>[
-            Icon(icon, size: 18, color: Theme.of(context).colorScheme.primary),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Text(value, style: Theme.of(context).textTheme.bodySmall),
-            const SizedBox(width: 6),
-            Icon(
-              Icons.chevron_right_rounded,
-              size: 18,
-              color: Colors.black.withValues(alpha: 0.22),
-            ),
-          ],
-        ),
+    );
+  }
+}
+
+class _SwitchRow extends StatelessWidget {
+  const _SwitchRow({
+    required this.icon,
+    required this.title,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final IconData icon;
+  final String title;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 42,
+      child: Row(
+        children: <Widget>[
+          Icon(icon, size: 16, color: _RefColor.ink),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(title, style: Theme.of(context).textTheme.bodyMedium),
+          ),
+          Switch(value: value, onChanged: onChanged),
+        ],
       ),
     );
   }

@@ -1,5 +1,17 @@
 part of 'home_shell.dart';
 
+class _RefColor {
+  static const Color paper = Color(0xFFF5EFE3);
+  static const Color ink = Color(0xFF241E18);
+  static const Color muted = Color(0xFF7B7168);
+  static const Color line = Color(0x1F241E18);
+  static const Color gold = Color(0xFFC1924F);
+  static const Color goldDark = Color(0xFF946833);
+  static const Color match = Color(0xFF181612);
+  static const Color matchPanel = Color(0xFF27221C);
+  static const Color reward = Color(0xFF14281C);
+}
+
 class _AmbientBackdrop extends StatelessWidget {
   const _AmbientBackdrop({required this.theme});
 
@@ -8,564 +20,393 @@ class _AmbientBackdrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: RadialGradient(
-          center: const Alignment(-0.18, -0.92),
-          radius: 1.28,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
           colors: <Color>[
-            Colors.white,
-            theme.background,
-            Color.alphaBlend(
-              theme.accent.withValues(alpha: 0.08),
-              theme.surface,
-            ),
+            Color(0xFFFBF7EF),
+            Color(0xFFF2E8D9),
+            Color(0xFFE4D7C5),
           ],
         ),
       ),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: -90,
-            right: -30,
-            child: _GlowOrb(
-              color: theme.accent.withValues(alpha: 0.18),
-              size: 260,
-            ),
-          ),
-          Positioned(
-            top: 84,
-            left: -14,
-            child: _BackdropPieceSilhouette(
-              glyph: '♔',
-              color: theme.darkSquare.withValues(alpha: 0.08),
-              size: 300,
-              blurSigma: 2,
-              angle: -0.08,
-            ),
-          ),
-          Positioned(
-            top: 190,
-            right: 28,
-            child: _BackdropPieceSilhouette(
-              glyph: '♟',
-              color: theme.darkSquare.withValues(alpha: 0.10),
-              size: 180,
-              blurSigma: 4,
-              angle: 0.06,
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: _BackdropBoardField(theme: theme),
-          ),
-        ],
-      ),
+      child: CustomPaint(painter: _MarblePainter(theme.accent)),
     );
   }
 }
 
-class _GlowOrb extends StatelessWidget {
-  const _GlowOrb({required this.color, required this.size});
+class _MarblePainter extends CustomPainter {
+  const _MarblePainter(this.accent);
 
-  final Color color;
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    return IgnorePointer(
-      child: Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          gradient: RadialGradient(colors: <Color>[color, Colors.transparent]),
-        ),
-      ),
-    );
-  }
-}
-
-class _BackdropPieceSilhouette extends StatelessWidget {
-  const _BackdropPieceSilhouette({
-    required this.glyph,
-    required this.color,
-    required this.size,
-    this.blurSigma = 0,
-    this.angle = 0,
-  });
-
-  final String glyph;
-  final Color color;
-  final double size;
-  final double blurSigma;
-  final double angle;
+  final Color accent;
 
   @override
-  Widget build(BuildContext context) {
-    Widget child = Transform.rotate(
-      angle: angle,
-      child: Text(
-        glyph,
-        style: TextStyle(
-          fontSize: size,
-          height: 1,
-          color: color,
-          fontFamily: 'serif',
-        ),
-      ),
-    );
-    if (blurSigma > 0) {
-      child = ImageFiltered(
-        imageFilter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
-        child: child,
-      );
+  void paint(Canvas canvas, Size size) {
+    final Paint vein = Paint()
+      ..color = const Color(0xFFB7A993).withValues(alpha: 0.14)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.1;
+    final Paint warm = Paint()
+      ..color = accent.withValues(alpha: 0.08)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.6;
+
+    for (int i = 0; i < 7; i++) {
+      final double y = size.height * (0.08 + (i * 0.14));
+      final Path path = Path()
+        ..moveTo(-24, y)
+        ..cubicTo(
+          size.width * 0.22,
+          y - 42,
+          size.width * 0.58,
+          y + 38,
+          size.width + 24,
+          y - 18,
+        );
+      canvas.drawPath(path, i.isEven ? vein : warm);
     }
-    return IgnorePointer(child: child);
   }
-}
-
-class _BackdropBoardField extends StatelessWidget {
-  const _BackdropBoardField({required this.theme});
-
-  final AppThemePack theme;
 
   @override
-  Widget build(BuildContext context) {
-    const int tiles = 8;
-    return IgnorePointer(
-      child: Opacity(
-        opacity: 0.22,
-        child: SizedBox(
-          height: 220,
-          child: Stack(
-            children: <Widget>[
-              Column(
-                children: List<Widget>.generate(tiles, (int rank) {
-                  return Expanded(
-                    child: Row(
-                      children: List<Widget>.generate(tiles, (int file) {
-                        final bool isLight = (rank + file).isEven;
-                        return Expanded(
-                          child: ColoredBox(
-                            color: isLight
-                                ? theme.lightSquare.withValues(alpha: 0.72)
-                                : theme.darkSquare.withValues(alpha: 0.56),
-                          ),
-                        );
-                      }),
-                    ),
-                  );
-                }),
-              ),
-              Positioned.fill(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        theme.background,
-                        Colors.transparent,
-                        theme.background.withValues(alpha: 0.20),
-                      ],
-                      stops: const <double>[0.0, 0.42, 1.0],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  bool shouldRepaint(covariant _MarblePainter oldDelegate) {
+    return oldDelegate.accent != accent;
   }
 }
 
-class _TopShellBar extends StatelessWidget {
-  const _TopShellBar({required this.theme, required this.profile});
-
-  final AppThemePack theme;
-  final AppProfile profile;
-
-  @override
-  Widget build(BuildContext context) {
-    return _GlassPanel(
-      blurSigma: 16,
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: <Color>[
-                  theme.accent.withValues(alpha: 0.92),
-                  theme.accent.withValues(alpha: 0.72),
-                ],
-              ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: theme.accent.withValues(alpha: 0.18),
-                  blurRadius: 18,
-                  offset: const Offset(0, 10),
-                ),
-              ],
-            ),
-            child: const Icon(
-              Icons.workspace_premium_rounded,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Daily Gambit',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  'One calm match. One clean return.',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            alignment: WrapAlignment.end,
-            children: <Widget>[
-              _BadgePill(
-                label: 'Streak ${profile.streakDays}',
-                foreground: theme.darkSquare,
-                background: theme.accent.withValues(alpha: 0.12),
-              ),
-              _BadgePill(
-                label: profile.premiumUnlocked ? 'Pro unlocked' : 'Free tier',
-                foreground: profile.premiumUnlocked
-                    ? Colors.white
-                    : theme.darkSquare,
-                background: profile.premiumUnlocked
-                    ? theme.darkSquare
-                    : Colors.white.withValues(alpha: 0.75),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _FloatingNavShell extends StatelessWidget {
-  const _FloatingNavShell({required this.theme, required this.child});
-
-  final AppThemePack theme;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: theme.darkSquare.withValues(alpha: 0.08)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: theme.darkSquare.withValues(alpha: 0.12),
-            blurRadius: 30,
-            offset: const Offset(0, 16),
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(28),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-          child: ColoredBox(
-            color: Colors.white.withValues(alpha: 0.88),
-            child: child,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _GlassPanel extends StatelessWidget {
-  const _GlassPanel({
+class _PhonePage extends StatelessWidget {
+  const _PhonePage({
     required this.child,
-    this.padding = const EdgeInsets.all(20),
-    this.blurSigma = 14,
-    this.gradient,
-    this.borderColor,
+    this.backgroundColor = _RefColor.paper,
+    this.bottomPadding = 96,
+    this.scroll = true,
   });
 
   final Widget child;
-  final EdgeInsetsGeometry padding;
-  final double blurSigma;
-  final Gradient? gradient;
-  final Color? borderColor;
+  final Color backgroundColor;
+  final double bottomPadding;
+  final bool scroll;
 
   @override
   Widget build(BuildContext context) {
-    final BorderRadius borderRadius = BorderRadius.circular(28);
-    return ClipRRect(
-      borderRadius: borderRadius,
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: borderRadius,
-            gradient:
-                gradient ??
-                LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[
-                    Colors.white.withValues(alpha: 0.90),
-                    Colors.white.withValues(alpha: 0.74),
-                  ],
-                ),
-            border: Border.all(
-              color:
-                  borderColor ??
-                  Theme.of(context).colorScheme.outline.withValues(alpha: 0.26),
-            ),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 24,
-                offset: const Offset(0, 12),
-              ),
-            ],
-          ),
-          child: Padding(padding: padding, child: child),
-        ),
-      ),
-    );
-  }
-}
-
-class _SurfaceCard extends StatelessWidget {
-  const _SurfaceCard({
-    required this.child,
-    this.padding = const EdgeInsets.all(20),
-    this.backgroundColor,
-  });
-
-  final Widget child;
-  final EdgeInsetsGeometry padding;
-  final Color? backgroundColor;
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    return ShadCard(
-      padding: padding,
-      backgroundColor:
-          backgroundColor ??
-          Color.alphaBlend(
-            Colors.white.withValues(alpha: 0.92),
-            theme.colorScheme.surface,
-          ),
-      radius: BorderRadius.circular(28),
-      border: ShadBorder.all(
-        color: theme.colorScheme.outline.withValues(alpha: 0.22),
-      ),
-      shadows: <BoxShadow>[
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.045),
-          blurRadius: 22,
-          offset: const Offset(0, 12),
-        ),
-      ],
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: <Color>[
-              Colors.white.withValues(alpha: 0.06),
-              theme.colorScheme.surface.withValues(alpha: 0.16),
-            ],
-          ),
-        ),
-        child: child,
-      ),
-    );
-  }
-}
-
-class _TabScroll extends StatelessWidget {
-  const _TabScroll({required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 120),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1120),
+    final Widget content = Align(
+      alignment: Alignment.topCenter,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 430),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 10, 16, bottomPadding),
           child: child,
         ),
       ),
     );
-  }
-}
 
-class _RevealOnMount extends StatefulWidget {
-  const _RevealOnMount({required this.child, this.delay = Duration.zero});
-
-  final Widget child;
-  final Duration delay;
-
-  @override
-  State<_RevealOnMount> createState() => _RevealOnMountState();
-}
-
-class _RevealOnMountState extends State<_RevealOnMount> {
-  bool _visible = false;
-
-  @override
-  void initState() {
-    super.initState();
-    Future<void>.delayed(widget.delay, () {
-      if (!mounted) {
-        return;
-      }
-      setState(() => _visible = true);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedSlide(
-      duration: const Duration(milliseconds: 360),
-      curve: Curves.easeOutCubic,
-      offset: _visible ? Offset.zero : const Offset(0, 0.05),
-      child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 320),
-        curve: Curves.easeOut,
-        opacity: _visible ? 1 : 0,
-        child: widget.child,
-      ),
+    return ColoredBox(
+      color: backgroundColor,
+      child: scroll ? SingleChildScrollView(child: content) : content,
     );
   }
 }
 
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({
+class _ReferenceTopBar extends StatelessWidget {
+  const _ReferenceTopBar({
     required this.title,
-    required this.subtitle,
-    required this.accent,
+    this.subtitle,
+    this.leading,
+    this.trailing,
+    this.dark = false,
   });
 
   final String title;
-  final String subtitle;
-  final Color accent;
+  final String? subtitle;
+  final Widget? leading;
+  final Widget? trailing;
+  final bool dark;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        _SectionEyebrow(label: title, accent: accent),
-        const SizedBox(height: 10),
-        Text(subtitle, style: Theme.of(context).textTheme.headlineSmall),
-      ],
-    );
-  }
-}
-
-class _SectionEyebrow extends StatelessWidget {
-  const _SectionEyebrow({required this.label, required this.accent});
-
-  final String label;
-  final Color accent;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label.toUpperCase(),
-      style: Theme.of(
-        context,
-      ).textTheme.labelLarge?.copyWith(color: accent, letterSpacing: 1.3),
-    );
-  }
-}
-
-class _BadgePill extends StatelessWidget {
-  const _BadgePill({
-    required this.label,
-    required this.foreground,
-    required this.background,
-  });
-
-  final String label;
-  final Color foreground;
-  final Color background;
-
-  @override
-  Widget build(BuildContext context) {
-    return ShadBadge.raw(
-      variant: ShadBadgeVariant.outline,
-      backgroundColor: background,
-      foregroundColor: foreground,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      child: Text(
-        label,
-        style: Theme.of(
-          context,
-        ).textTheme.labelLarge?.copyWith(color: foreground),
+    final Color color = dark ? Colors.white : _RefColor.ink;
+    return SizedBox(
+      height: 50,
+      child: Row(
+        children: <Widget>[
+          SizedBox(width: 42, child: leading ?? const SizedBox.shrink()),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(color: color, fontSize: 18),
+                ),
+                if (subtitle != null) ...<Widget>[
+                  const SizedBox(height: 1),
+                  Text(
+                    subtitle!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: color.withValues(alpha: 0.62),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+          SizedBox(width: 42, child: trailing ?? const SizedBox.shrink()),
+        ],
       ),
     );
   }
 }
 
-class _CompactFeaturePill extends StatelessWidget {
-  const _CompactFeaturePill({required this.icon, required this.label});
+class _IconTap extends StatelessWidget {
+  const _IconTap({required this.icon, required this.onTap, this.dark = false});
 
   final IconData icon;
-  final String label;
+  final VoidCallback onTap;
+  final bool dark;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: dark ? Colors.white.withValues(alpha: 0.08) : Colors.transparent,
+      borderRadius: BorderRadius.circular(999),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(999),
+        onTap: onTap,
+        child: SizedBox(
+          width: 36,
+          height: 36,
+          child: Icon(
+            icon,
+            size: 19,
+            color: dark ? Colors.white : _RefColor.ink,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SoftPanel extends StatelessWidget {
+  const _SoftPanel({
+    required this.child,
+    this.padding = const EdgeInsets.all(12),
+    this.color,
+    this.borderColor,
+    this.shadow = true,
+  });
+
+  final Widget child;
+  final EdgeInsetsGeometry padding;
+  final Color? color;
+  final Color? borderColor;
+  final bool shadow;
 
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(999),
-        color: Colors.white.withValues(alpha: 0.14),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.24)),
+        borderRadius: BorderRadius.circular(8),
+        color: color ?? Colors.white.withValues(alpha: 0.48),
+        border: Border.all(color: borderColor ?? _RefColor.line),
+        boxShadow: shadow
+            ? <BoxShadow>[
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.055),
+                  blurRadius: 14,
+                  offset: const Offset(0, 8),
+                ),
+              ]
+            : null,
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(icon, size: 16, color: Colors.white),
-            const SizedBox(width: 8),
-            Text(
-              label,
-              style: Theme.of(
-                context,
-              ).textTheme.labelLarge?.copyWith(color: Colors.white),
+      child: Padding(padding: padding, child: child),
+    );
+  }
+}
+
+class _GoldButton extends StatelessWidget {
+  const _GoldButton({
+    required this.label,
+    required this.onTap,
+    this.subtitle,
+    this.icon,
+    this.compact = false,
+  });
+
+  final String label;
+  final String? subtitle;
+  final IconData? icon;
+  final VoidCallback onTap;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(8),
+      child: Ink(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: <Color>[_RefColor.gold, _RefColor.goldDark],
+          ),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: _RefColor.goldDark.withValues(alpha: 0.20),
+              blurRadius: 18,
+              offset: const Offset(0, 10),
             ),
           ],
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: onTap,
+          child: SizedBox(
+            height: compact ? 46 : 66,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: <Widget>[
+                  if (icon != null) ...<Widget>[
+                    Icon(icon, color: Colors.white, size: 19),
+                    const SizedBox(width: 10),
+                  ],
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: icon == null
+                          ? CrossAxisAlignment.center
+                          : CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(color: Colors.white, fontSize: 15),
+                        ),
+                        if (subtitle != null) ...<Widget>[
+                          const SizedBox(height: 2),
+                          Text(
+                            subtitle!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Colors.white.withValues(alpha: 0.78),
+                                ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  if (icon == null)
+                    Icon(
+                      Icons.chevron_right_rounded,
+                      color: Colors.white.withValues(alpha: 0.88),
+                    ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
+}
+
+class _BottomNav extends StatelessWidget {
+  const _BottomNav({
+    required this.theme,
+    required this.selectedIndex,
+    required this.onSelected,
+  });
+
+  final AppThemePack theme;
+  final int selectedIndex;
+  final ValueChanged<int> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<_NavItem> items = <_NavItem>[
+      const _NavItem(Icons.home_rounded, 'Home', 0),
+      const _NavItem(Icons.extension_rounded, 'Puzzles', 2),
+      const _NavItem(Icons.emoji_events_rounded, 'Play', 1),
+      const _NavItem(Icons.shopping_cart_rounded, 'Shop', 3),
+      const _NavItem(Icons.person_rounded, 'Profile', 4),
+    ];
+
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(14, 0, 14, 12),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: const Color(0xFFF9F4EA),
+            border: Border.all(color: _RefColor.line),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.10),
+                blurRadius: 18,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: SizedBox(
+            height: 64,
+            child: Row(
+              children: items.map((_NavItem item) {
+                final bool selected = selectedIndex == item.index;
+                return Expanded(
+                  child: InkWell(
+                    onTap: () => onSelected(item.index),
+                    child: AnimatedDefaultTextStyle(
+                      duration: const Duration(milliseconds: 160),
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: selected ? theme.accent : _RefColor.muted,
+                        fontWeight: selected
+                            ? FontWeight.w700
+                            : FontWeight.w500,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            item.icon,
+                            size: 20,
+                            color: selected ? theme.accent : _RefColor.muted,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(item.label, maxLines: 1),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NavItem {
+  const _NavItem(this.icon, this.label, this.index);
+
+  final IconData icon;
+  final String label;
+  final int index;
 }
 
 class _InlineBanner extends StatelessWidget {
@@ -581,107 +422,117 @@ class _InlineBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _GlassPanel(
-      blurSigma: 12,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+    return _SoftPanel(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      color: const Color(0xFFFFFAF0),
       borderColor: accent.withValues(alpha: 0.22),
       child: Row(
         children: <Widget>[
-          Icon(Icons.info_outline_rounded, color: accent),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(message, style: Theme.of(context).textTheme.bodyMedium),
-          ),
-          IconButton(onPressed: onClose, icon: const Icon(Icons.close_rounded)),
-        ],
-      ),
-    );
-  }
-}
-
-class _MetricTile extends StatelessWidget {
-  const _MetricTile({
-    required this.label,
-    required this.value,
-    required this.caption,
-    required this.accent,
-    this.icon,
-    this.emphasized = false,
-  });
-
-  final String label;
-  final String value;
-  final String caption;
-  final Color accent;
-  final IconData? icon;
-  final bool emphasized;
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    return _SurfaceCard(
-      backgroundColor: emphasized
-          ? accent.withValues(alpha: 0.12)
-          : Colors.white.withValues(alpha: 0.92),
-      padding: const EdgeInsets.all(18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              if (icon != null) ...<Widget>[
-                Icon(icon, size: 18, color: accent),
-                const SizedBox(width: 8),
-              ],
-              Expanded(child: Text(label, style: theme.textTheme.titleMedium)),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            value,
-            style: theme.textTheme.displaySmall?.copyWith(
-              fontSize: emphasized ? 38 : 30,
-              color: const Color(0xFF1A1B1D),
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            caption,
-            style: theme.textTheme.bodyMedium?.copyWith(height: 1.4),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ChecklistLine extends StatelessWidget {
-  const _ChecklistLine({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(top: 2),
-            child: Icon(Icons.check_circle_outline_rounded, size: 18),
-          ),
-          const SizedBox(width: 10),
+          Icon(Icons.info_outline_rounded, size: 18, color: accent),
+          const SizedBox(width: 8),
           Expanded(
             child: Text(
-              text,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(height: 1.45),
+              message,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
+          _IconTap(icon: Icons.close_rounded, onTap: onClose),
         ],
       ),
+    );
+  }
+}
+
+class _PieceGlyph extends StatelessWidget {
+  const _PieceGlyph({
+    required this.codePoint,
+    required this.size,
+    required this.color,
+    this.shadow = true,
+  });
+
+  final int codePoint;
+  final double size;
+  final Color color;
+  final bool shadow;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      String.fromCharCode(codePoint),
+      style: TextStyle(
+        fontSize: size,
+        height: 1,
+        color: color,
+        fontFamily: 'serif',
+        shadows: shadow
+            ? <Shadow>[
+                Shadow(
+                  color: Colors.black.withValues(alpha: 0.22),
+                  blurRadius: 16,
+                  offset: const Offset(0, 8),
+                ),
+              ]
+            : null,
+      ),
+    );
+  }
+}
+
+class _FadeIn extends StatefulWidget {
+  const _FadeIn({required this.child, this.delay = Duration.zero});
+
+  final Widget child;
+  final Duration delay;
+
+  @override
+  State<_FadeIn> createState() => _FadeInState();
+}
+
+class _FadeInState extends State<_FadeIn> {
+  bool _show = false;
+
+  @override
+  void initState() {
+    super.initState();
+    Future<void>.delayed(widget.delay, () {
+      if (mounted) {
+        setState(() => _show = true);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 220),
+      curve: Curves.easeOut,
+      opacity: _show ? 1 : 0,
+      child: AnimatedSlide(
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOutCubic,
+        offset: _show ? Offset.zero : const Offset(0, 0.015),
+        child: widget.child,
+      ),
+    );
+  }
+}
+
+class _SmallLabel extends StatelessWidget {
+  const _SmallLabel(this.text, {this.color = _RefColor.muted});
+
+  final String text;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: color),
     );
   }
 }

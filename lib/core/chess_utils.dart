@@ -59,29 +59,29 @@ int dayOfYear(DateTime date) => int.parse(DateFormat('D').format(date));
 String pieceGlyph(String piece) {
   switch (piece) {
     case 'K':
-      return '♔';
+      return String.fromCharCode(0x2654);
     case 'Q':
-      return '♕';
+      return String.fromCharCode(0x2655);
     case 'R':
-      return '♖';
+      return String.fromCharCode(0x2656);
     case 'B':
-      return '♗';
+      return String.fromCharCode(0x2657);
     case 'N':
-      return '♘';
+      return String.fromCharCode(0x2658);
     case 'P':
-      return '♙';
+      return String.fromCharCode(0x2659);
     case 'k':
-      return '♚';
+      return String.fromCharCode(0x265A);
     case 'q':
-      return '♛';
+      return String.fromCharCode(0x265B);
     case 'r':
-      return '♜';
+      return String.fromCharCode(0x265C);
     case 'b':
-      return '♝';
+      return String.fromCharCode(0x265D);
     case 'n':
-      return '♞';
+      return String.fromCharCode(0x265E);
     case 'p':
-      return '♟';
+      return String.fromCharCode(0x265F);
   }
   return '';
 }
@@ -92,7 +92,7 @@ String readableMove(String move) {
   if (move.length < 4) {
     return move;
   }
-  return '${move.substring(0, 2)} → ${move.substring(2, 4)}';
+  return '${move.substring(0, 2)} -> ${move.substring(2, 4)}';
 }
 
 String _squareName(int file, int rank) {
