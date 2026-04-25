@@ -536,6 +536,15 @@ class DailyGambitController extends Notifier<AppViewState> {
     await _persistProfile(profile);
   }
 
+  Future<void> setGraphicsQuality(GraphicsQuality quality) async {
+    final AppProfile profile = state.profile.copyWith(graphicsQuality: quality);
+    state = state.copyWith(
+      profile: profile,
+      bannerMessage: '${quality.label} graphics enabled.',
+    );
+    await _persistProfile(profile);
+  }
+
   Future<void> _finalizeMatch(PersistedGameState game) async {
     AppProfile profile = _bootstrap.progressService.recordMatch(
       state.profile,

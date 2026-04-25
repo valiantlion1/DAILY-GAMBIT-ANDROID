@@ -5,6 +5,173 @@ import 'package:flutter/material.dart';
 import '../core/chess_utils.dart';
 import '../core/models.dart';
 
+class _BoardRenderSpec {
+  const _BoardRenderSpec({
+    required this.quality,
+    required this.motionScale,
+    required this.minMoveMillis,
+    required this.maxMoveMillis,
+    required this.moveLift,
+    required this.pieceScale,
+    required this.pieceDepthLayers,
+    required this.depthStep,
+    required this.shadowBlur,
+    required this.richPieceShaders,
+    required this.enablePieceHighlights,
+    required this.enableSquarePulses,
+    required this.enableImpactEffects,
+    required this.squareTextureLines,
+    required this.frameGrainCount,
+    required this.trayScratchCount,
+    required this.impactSparkCount,
+    required this.targetPulseMillis,
+    required this.captureDropMillis,
+    required this.pileSettleMillis,
+    required this.captureTumbleTurns,
+    required this.captureDropDistance,
+    required this.captureBounce,
+    required this.captureSidePush,
+  });
+
+  factory _BoardRenderSpec.from(GraphicsQuality quality) {
+    switch (quality) {
+      case GraphicsQuality.performance:
+        return const _BoardRenderSpec(
+          quality: GraphicsQuality.performance,
+          motionScale: 0.82,
+          minMoveMillis: 210,
+          maxMoveMillis: 320,
+          moveLift: 0.10,
+          pieceScale: 0.73,
+          pieceDepthLayers: 2,
+          depthStep: 0.50,
+          shadowBlur: 5,
+          richPieceShaders: false,
+          enablePieceHighlights: false,
+          enableSquarePulses: false,
+          enableImpactEffects: false,
+          squareTextureLines: 1,
+          frameGrainCount: 5,
+          trayScratchCount: 2,
+          impactSparkCount: 0,
+          targetPulseMillis: 90,
+          captureDropMillis: 360,
+          pileSettleMillis: 120,
+          captureTumbleTurns: 0.75,
+          captureDropDistance: 1.25,
+          captureBounce: 0.10,
+          captureSidePush: 0.65,
+        );
+      case GraphicsQuality.balanced:
+        return const _BoardRenderSpec(
+          quality: GraphicsQuality.balanced,
+          motionScale: 0.92,
+          minMoveMillis: 230,
+          maxMoveMillis: 360,
+          moveLift: 0.13,
+          pieceScale: 0.75,
+          pieceDepthLayers: 3,
+          depthStep: 0.58,
+          shadowBlur: 7,
+          richPieceShaders: true,
+          enablePieceHighlights: false,
+          enableSquarePulses: true,
+          enableImpactEffects: true,
+          squareTextureLines: 2,
+          frameGrainCount: 9,
+          trayScratchCount: 4,
+          impactSparkCount: 3,
+          targetPulseMillis: 120,
+          captureDropMillis: 520,
+          pileSettleMillis: 180,
+          captureTumbleTurns: 1.20,
+          captureDropDistance: 1.75,
+          captureBounce: 0.18,
+          captureSidePush: 0.95,
+        );
+      case GraphicsQuality.high:
+        return const _BoardRenderSpec(
+          quality: GraphicsQuality.high,
+          motionScale: 1,
+          minMoveMillis: 260,
+          maxMoveMillis: 430,
+          moveLift: 0.18,
+          pieceScale: 0.78,
+          pieceDepthLayers: 5,
+          depthStep: 0.72,
+          shadowBlur: 9,
+          richPieceShaders: true,
+          enablePieceHighlights: true,
+          enableSquarePulses: true,
+          enableImpactEffects: true,
+          squareTextureLines: 3,
+          frameGrainCount: 13,
+          trayScratchCount: 7,
+          impactSparkCount: 6,
+          targetPulseMillis: 160,
+          captureDropMillis: 720,
+          pileSettleMillis: 280,
+          captureTumbleTurns: 2.40,
+          captureDropDistance: 2.80,
+          captureBounce: 0.30,
+          captureSidePush: 1.50,
+        );
+      case GraphicsQuality.ultra:
+        return const _BoardRenderSpec(
+          quality: GraphicsQuality.ultra,
+          motionScale: 1.08,
+          minMoveMillis: 285,
+          maxMoveMillis: 500,
+          moveLift: 0.22,
+          pieceScale: 0.80,
+          pieceDepthLayers: 7,
+          depthStep: 0.82,
+          shadowBlur: 12,
+          richPieceShaders: true,
+          enablePieceHighlights: true,
+          enableSquarePulses: true,
+          enableImpactEffects: true,
+          squareTextureLines: 5,
+          frameGrainCount: 18,
+          trayScratchCount: 10,
+          impactSparkCount: 10,
+          targetPulseMillis: 190,
+          captureDropMillis: 860,
+          pileSettleMillis: 340,
+          captureTumbleTurns: 3.30,
+          captureDropDistance: 3.25,
+          captureBounce: 0.38,
+          captureSidePush: 1.85,
+        );
+    }
+  }
+
+  final GraphicsQuality quality;
+  final double motionScale;
+  final int minMoveMillis;
+  final int maxMoveMillis;
+  final double moveLift;
+  final double pieceScale;
+  final int pieceDepthLayers;
+  final double depthStep;
+  final double shadowBlur;
+  final bool richPieceShaders;
+  final bool enablePieceHighlights;
+  final bool enableSquarePulses;
+  final bool enableImpactEffects;
+  final int squareTextureLines;
+  final int frameGrainCount;
+  final int trayScratchCount;
+  final int impactSparkCount;
+  final int targetPulseMillis;
+  final int captureDropMillis;
+  final int pileSettleMillis;
+  final double captureTumbleTurns;
+  final double captureDropDistance;
+  final double captureBounce;
+  final double captureSidePush;
+}
+
 class ChessBoard extends StatefulWidget {
   const ChessBoard({
     super.key,
@@ -12,6 +179,7 @@ class ChessBoard extends StatefulWidget {
     required this.themePack,
     required this.flipped,
     required this.onSquareTap,
+    this.graphicsQuality = GraphicsQuality.high,
     this.selectedSquare,
     this.highlightedSquares = const <String>{},
     this.hintSquares = const <String>{},
@@ -26,6 +194,7 @@ class ChessBoard extends StatefulWidget {
   final AppThemePack themePack;
   final bool flipped;
   final ValueChanged<String> onSquareTap;
+  final GraphicsQuality graphicsQuality;
   final String? selectedSquare;
   final Set<String> highlightedSquares;
   final Set<String> hintSquares;
@@ -116,6 +285,7 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final Map<String, String?> board = boardMapFromFen(widget.fen);
+    final _BoardRenderSpec spec = _BoardRenderSpec.from(widget.graphicsQuality);
     final List<int> ranks = widget.flipped
         ? <int>[1, 2, 3, 4, 5, 6, 7, 8]
         : <int>[8, 7, 6, 5, 4, 3, 2, 1];
@@ -126,114 +296,130 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
         ? _squaresForMove(widget.lastMove!)
         : widget.lastMoveSquares;
 
-    return AspectRatio(
-      aspectRatio: 1,
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          final double boardSize = constraints.maxWidth;
-          final double frame = (boardSize * 0.058).clamp(16.0, 24.0);
-          final double innerSize = boardSize - (frame * 2);
-          final double tileSize = innerSize / 8;
-          final _BoardLayout layout = _BoardLayout(
-            files: files,
-            ranks: ranks,
-            tileSize: tileSize,
-          );
+    return RepaintBoundary(
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final double boardSize = constraints.maxWidth;
+            final double frame = (boardSize * 0.058).clamp(16.0, 24.0);
+            final double innerSize = boardSize - (frame * 2);
+            final double tileSize = innerSize / 8;
+            final _BoardLayout layout = _BoardLayout(
+              files: files,
+              ranks: ranks,
+              tileSize: tileSize,
+            );
 
-          return DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: <Color>[
-                  Color(0xFF46301F),
-                  Color(0xFF1D1510),
-                  Color(0xFF604025),
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                    Color(0xFF46301F),
+                    Color(0xFF1D1510),
+                    Color(0xFF604025),
+                  ],
+                ),
+                border: Border.all(
+                  color: Colors.black.withValues(alpha: 0.42),
+                  width: 1.4,
+                ),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.34),
+                    blurRadius: 28,
+                    offset: const Offset(0, 18),
+                  ),
+                  BoxShadow(
+                    color: widget.themePack.accent.withValues(alpha: 0.12),
+                    blurRadius: 18,
+                    offset: const Offset(0, 4),
+                  ),
                 ],
               ),
-              border: Border.all(
-                color: Colors.black.withValues(alpha: 0.42),
-                width: 1.4,
-              ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.34),
-                  blurRadius: 28,
-                  offset: const Offset(0, 18),
-                ),
-                BoxShadow(
-                  color: widget.themePack.accent.withValues(alpha: 0.12),
-                  blurRadius: 18,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    child: CustomPaint(
-                      painter: _WoodFramePainter(widget.themePack.accent),
-                    ),
-                  ),
-                  ..._capturedPileWidgets(context, frame, innerSize),
-                  ..._coordinateLabels(context, frame, tileSize, files, ranks),
-                  Positioned(
-                    left: frame,
-                    top: frame,
-                    width: innerSize,
-                    height: innerSize,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(7),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black.withValues(alpha: 0.42),
-                            width: 1.6,
-                          ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: CustomPaint(
+                        painter: _WoodFramePainter(
+                          widget.themePack.accent,
+                          grainCount: spec.frameGrainCount,
                         ),
-                        child: Stack(
-                          children: <Widget>[
-                            ..._squareWidgets(board, layout, lastMoveSquares),
-                            Positioned.fill(
-                              child: IgnorePointer(
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: <Color>[
-                                        Colors.white.withValues(alpha: 0.12),
-                                        Colors.transparent,
-                                        Colors.black.withValues(alpha: 0.18),
-                                      ],
+                      ),
+                    ),
+                    ..._capturedPileWidgets(context, frame, innerSize, spec),
+                    ..._coordinateLabels(
+                      context,
+                      frame,
+                      tileSize,
+                      files,
+                      ranks,
+                    ),
+                    Positioned(
+                      left: frame,
+                      top: frame,
+                      width: innerSize,
+                      height: innerSize,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(7),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black.withValues(alpha: 0.42),
+                              width: 1.6,
+                            ),
+                          ),
+                          child: Stack(
+                            children: <Widget>[
+                              ..._squareWidgets(
+                                board,
+                                layout,
+                                lastMoveSquares,
+                                spec,
+                              ),
+                              Positioned.fill(
+                                child: IgnorePointer(
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: <Color>[
+                                          Colors.white.withValues(alpha: 0.12),
+                                          Colors.transparent,
+                                          Colors.black.withValues(alpha: 0.18),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            IgnorePointer(
-                              child: Stack(
-                                children: <Widget>[
-                                  ..._pieceWidgets(board, layout),
-                                  if (_animatedMove != null &&
-                                      _animatedPiece != null)
-                                    _movingPiece(layout),
-                                ],
+                              IgnorePointer(
+                                child: Stack(
+                                  children: <Widget>[
+                                    ..._pieceWidgets(board, layout, spec),
+                                    if (_animatedMove != null &&
+                                        _animatedPiece != null)
+                                      _movingPiece(layout, spec),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
@@ -242,6 +428,7 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
     BuildContext context,
     double frame,
     double innerSize,
+    _BoardRenderSpec spec,
   ) {
     final double trayHeight = math.max(18, frame - 6);
     return <Widget>[
@@ -253,6 +440,7 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
         child: _CapturedPile(
           pieces: widget.capturedByBlack,
           accent: widget.themePack.accent,
+          spec: spec,
           bottomSide: false,
           latestPiece:
               widget.capturedByBlack.isNotEmpty &&
@@ -269,6 +457,7 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
         child: _CapturedPile(
           pieces: widget.capturedByWhite,
           accent: widget.themePack.accent,
+          spec: spec,
           bottomSide: true,
           latestPiece:
               widget.capturedByWhite.isNotEmpty &&
@@ -284,6 +473,7 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
     Map<String, String?> board,
     _BoardLayout layout,
     Set<String> lastMoveSquares,
+    _BoardRenderSpec spec,
   ) {
     final List<Widget> widgets = <Widget>[];
     for (final int rank in layout.ranks) {
@@ -314,6 +504,7 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
                   ? _impactController.value
                   : 0,
               tapValue: _tapSquare == square ? _tapController.value : 0,
+              spec: spec,
               accent: widget.themePack.accent,
               lightColor: widget.themePack.lightSquare,
               darkColor: widget.themePack.darkSquare,
@@ -326,7 +517,11 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
     return widgets;
   }
 
-  List<Widget> _pieceWidgets(Map<String, String?> board, _BoardLayout layout) {
+  List<Widget> _pieceWidgets(
+    Map<String, String?> board,
+    _BoardLayout layout,
+    _BoardRenderSpec spec,
+  ) {
     final String? animatedDestination = _isMove(_animatedMove)
         ? _animatedMove!.substring(2, 4)
         : null;
@@ -348,13 +543,14 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
               piece: entry.value!,
               tileSize: layout.tileSize,
               selected: widget.selectedSquare == entry.key,
+              spec: spec,
             ),
           );
         })
         .toList();
   }
 
-  Widget _movingPiece(_BoardLayout layout) {
+  Widget _movingPiece(_BoardLayout layout, _BoardRenderSpec spec) {
     final String move = _animatedMove!;
     final Offset from = layout.offsetFor(move.substring(0, 2));
     final Offset to = layout.offsetFor(move.substring(2, 4));
@@ -364,7 +560,8 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
       builder: (BuildContext context, Widget? child) {
         final double t = Curves.easeOutCubic.transform(_moveController.value);
         final Offset offset = Offset.lerp(from, to, t)!;
-        final double lift = math.sin(t * math.pi) * (layout.tileSize * 0.18);
+        final double lift =
+            math.sin(t * math.pi) * (layout.tileSize * spec.moveLift);
         return Positioned(
           left: offset.dx,
           top: offset.dy - lift,
@@ -378,6 +575,7 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
         tileSize: layout.tileSize,
         selected: false,
         moving: true,
+        spec: spec,
       ),
     );
   }
@@ -458,10 +656,15 @@ class _ChessBoardState extends State<ChessBoard> with TickerProviderStateMixin {
   }
 
   int _moveDurationMillis(String move) {
+    final _BoardRenderSpec spec = _BoardRenderSpec.from(widget.graphicsQuality);
     final Offset from = _squareVector(move.substring(0, 2));
     final Offset to = _squareVector(move.substring(2, 4));
     final double distance = (to - from).distance;
-    return math.max(260, math.min(430, 215 + (distance * 42).round()));
+    final int base = 215 + (distance * 42).round();
+    return (base * spec.motionScale).round().clamp(
+      spec.minMoveMillis,
+      spec.maxMoveMillis,
+    );
   }
 
   Offset _squareVector(String square) {
@@ -487,6 +690,7 @@ class _BoardSquare extends StatelessWidget {
     required this.lastMove,
     required this.impactValue,
     required this.tapValue,
+    required this.spec,
     required this.accent,
     required this.lightColor,
     required this.darkColor,
@@ -501,6 +705,7 @@ class _BoardSquare extends StatelessWidget {
   final bool lastMove;
   final double impactValue;
   final double tapValue;
+  final _BoardRenderSpec spec;
   final Color accent;
   final Color lightColor;
   final Color darkColor;
@@ -553,8 +758,9 @@ class _BoardSquare extends StatelessWidget {
                     light: light,
                     accent: accent,
                     active: selected || hint || lastMove,
-                    tapValue: tapValue,
-                    impactValue: impactValue,
+                    tapValue: spec.enableSquarePulses ? tapValue : 0,
+                    impactValue: spec.enableImpactEffects ? impactValue : 0,
+                    textureLines: spec.squareTextureLines,
                   ),
                 ),
               ),
@@ -577,7 +783,7 @@ class _BoardSquare extends StatelessWidget {
             if (target)
               TweenAnimationBuilder<double>(
                 tween: Tween<double>(begin: 0.72, end: 1),
-                duration: const Duration(milliseconds: 160),
+                duration: Duration(milliseconds: spec.targetPulseMillis),
                 curve: Curves.easeOutBack,
                 builder: (BuildContext context, double value, Widget? child) {
                   return Transform.scale(scale: value, child: child);
@@ -617,13 +823,14 @@ class _BoardSquare extends StatelessWidget {
                   ),
                 ),
               ),
-            if (impactValue > 0)
+            if (impactValue > 0 && spec.enableImpactEffects)
               Positioned.fill(
                 child: IgnorePointer(
                   child: CustomPaint(
                     painter: _ImpactRingPainter(
                       progress: impactValue,
                       accent: accent,
+                      sparkCount: spec.impactSparkCount,
                     ),
                   ),
                 ),
@@ -652,12 +859,14 @@ class _CapturedPile extends StatelessWidget {
   const _CapturedPile({
     required this.pieces,
     required this.accent,
+    required this.spec,
     required this.bottomSide,
     this.latestPiece,
   });
 
   final List<String> pieces;
   final Color accent;
+  final _BoardRenderSpec spec;
   final bool bottomSide;
   final String? latestPiece;
 
@@ -676,7 +885,11 @@ class _CapturedPile extends StatelessWidget {
               );
 
         return CustomPaint(
-          painter: _CapturedTrayPainter(accent: accent, bottomSide: bottomSide),
+          painter: _CapturedTrayPainter(
+            accent: accent,
+            bottomSide: bottomSide,
+            scratchCount: spec.trayScratchCount,
+          ),
           child: Stack(
             clipBehavior: Clip.none,
             children: <Widget>[
@@ -737,6 +950,7 @@ class _CapturedPile extends StatelessWidget {
         bottomSide: bottomSide,
         latest: latest,
         sidePush: direction,
+        spec: spec,
       ),
     );
   }
@@ -751,6 +965,7 @@ class _CapturedPieceToken extends StatelessWidget {
     required this.bottomSide,
     required this.latest,
     required this.sidePush,
+    required this.spec,
   });
 
   final String piece;
@@ -759,20 +974,27 @@ class _CapturedPieceToken extends StatelessWidget {
   final bool bottomSide;
   final bool latest;
   final double sidePush;
+  final _BoardRenderSpec spec;
 
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
       tween: Tween<double>(begin: 0, end: 1),
-      duration: Duration(milliseconds: latest ? 720 : 280),
+      duration: Duration(
+        milliseconds: latest ? spec.captureDropMillis : spec.pileSettleMillis,
+      ),
       curve: latest ? Curves.easeOutBack : Curves.easeOutCubic,
       builder: (BuildContext context, double value, Widget? child) {
         final double fall = 1 - value;
-        final double tumble = rotation + (fall * sidePush * 2.4);
+        final double tumble =
+            rotation + (fall * sidePush * spec.captureTumbleTurns);
         final double dropY =
-            fall * (bottomSide ? -size * 2.8 : size * 2.8) -
-            math.sin(value * math.pi) * size * 0.30;
-        final double shoveX = fall * sidePush * size * 1.5;
+            fall *
+                (bottomSide
+                    ? -size * spec.captureDropDistance
+                    : size * spec.captureDropDistance) -
+            math.sin(value * math.pi) * size * spec.captureBounce;
+        final double shoveX = fall * sidePush * size * spec.captureSidePush;
         final double squash = latest
             ? 1 + (math.sin(value * math.pi) * 0.10)
             : 1;
@@ -797,6 +1019,7 @@ class _CapturedPieceToken extends StatelessWidget {
         tileSize: size * 1.18,
         selected: false,
         fallen: true,
+        spec: spec,
       ),
     );
   }
@@ -807,6 +1030,7 @@ class _PieceGlyphView extends StatelessWidget {
     required this.piece,
     required this.tileSize,
     required this.selected,
+    required this.spec,
     this.moving = false,
     this.fallen = false,
   });
@@ -814,6 +1038,7 @@ class _PieceGlyphView extends StatelessWidget {
   final String piece;
   final double tileSize;
   final bool selected;
+  final _BoardRenderSpec spec;
   final bool moving;
   final bool fallen;
 
@@ -821,7 +1046,7 @@ class _PieceGlyphView extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool white = isWhitePiece(piece);
     final String glyph = _solidPieceGlyph(piece);
-    final double size = tileSize * (fallen ? 0.72 : 0.78);
+    final double size = tileSize * (fallen ? 0.70 : spec.pieceScale);
     final Color stroke = white
         ? const Color(0xFF6F512C).withValues(alpha: 0.70)
         : const Color(0xFFE8C47F).withValues(alpha: 0.30);
@@ -893,9 +1118,9 @@ class _PieceGlyphView extends StatelessWidget {
                 ),
               ),
             ),
-            for (int i = 5; i >= 1; i--)
+            for (int i = spec.pieceDepthLayers; i >= 1; i--)
               Transform.translate(
-                offset: Offset(0, i * 0.72),
+                offset: Offset(0, i * spec.depthStep),
                 child: Text(
                   glyph,
                   style: TextStyle(
@@ -918,43 +1143,42 @@ class _PieceGlyphView extends StatelessWidget {
                   ..color = stroke,
               ),
             ),
-            ShaderMask(
-              blendMode: BlendMode.srcIn,
-              shaderCallback: (Rect bounds) {
-                return LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: material,
-                  stops: const <double>[0, 0.48, 1],
-                ).createShader(bounds);
-              },
-              child: Text(
+            if (spec.richPieceShaders)
+              ShaderMask(
+                blendMode: BlendMode.srcIn,
+                shaderCallback: (Rect bounds) {
+                  return LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: material,
+                    stops: const <double>[0, 0.48, 1],
+                  ).createShader(bounds);
+                },
+                child: Text(
+                  glyph,
+                  style: _pieceTextStyle(
+                    size: size,
+                    color: Colors.white,
+                    white: white,
+                    moving: moving,
+                    fallen: fallen,
+                  ),
+                ),
+              )
+            else
+              Text(
                 glyph,
-                style: TextStyle(
-                  fontSize: size,
-                  height: 1,
-                  fontFamily: 'serif',
-                  color: Colors.white,
-                  shadows: <Shadow>[
-                    Shadow(
-                      color: Colors.black.withValues(
-                        alpha: white ? 0.26 : 0.44,
-                      ),
-                      blurRadius: moving ? 12 : 8,
-                      offset: Offset(
-                        0,
-                        fallen
-                            ? 3
-                            : moving
-                            ? 6
-                            : 4,
-                      ),
-                    ),
-                  ],
+                style: _pieceTextStyle(
+                  size: size,
+                  color: white
+                      ? const Color(0xFFFFF3D1)
+                      : const Color(0xFF17110D),
+                  white: white,
+                  moving: moving,
+                  fallen: fallen,
                 ),
               ),
-            ),
-            if (white)
+            if (white && spec.enablePieceHighlights)
               Transform.translate(
                 offset: Offset(-tileSize * 0.045, -tileSize * 0.055),
                 child: Text(
@@ -990,6 +1214,39 @@ class _PieceGlyphView extends StatelessWidget {
     }
     return pieceGlyph(piece);
   }
+
+  TextStyle _pieceTextStyle({
+    required double size,
+    required Color color,
+    required bool white,
+    required bool moving,
+    required bool fallen,
+  }) {
+    return TextStyle(
+      fontSize: size,
+      height: 1,
+      fontFamily: 'serif',
+      color: color,
+      shadows: <Shadow>[
+        Shadow(
+          color: Colors.black.withValues(alpha: white ? 0.26 : 0.44),
+          blurRadius: fallen
+              ? spec.shadowBlur * 0.55
+              : moving
+              ? spec.shadowBlur * 1.25
+              : spec.shadowBlur,
+          offset: Offset(
+            0,
+            fallen
+                ? 3
+                : moving
+                ? 6
+                : 4,
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class _BoardLayout {
@@ -1013,9 +1270,10 @@ class _BoardLayout {
 }
 
 class _WoodFramePainter extends CustomPainter {
-  const _WoodFramePainter(this.accent);
+  const _WoodFramePainter(this.accent, {required this.grainCount});
 
   final Color accent;
+  final int grainCount;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1028,8 +1286,8 @@ class _WoodFramePainter extends CustomPainter {
       ..strokeWidth = 1.2
       ..color = accent.withValues(alpha: 0.10);
 
-    for (int i = 0; i < 13; i++) {
-      final double y = size.height * (0.08 + i * 0.07);
+    for (int i = 0; i < grainCount; i++) {
+      final double y = size.height * (0.08 + i * (0.84 / grainCount));
       final Path path = Path()
         ..moveTo(-12, y)
         ..cubicTo(
@@ -1058,15 +1316,20 @@ class _WoodFramePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _WoodFramePainter oldDelegate) {
-    return oldDelegate.accent != accent;
+    return oldDelegate.accent != accent || oldDelegate.grainCount != grainCount;
   }
 }
 
 class _CapturedTrayPainter extends CustomPainter {
-  const _CapturedTrayPainter({required this.accent, required this.bottomSide});
+  const _CapturedTrayPainter({
+    required this.accent,
+    required this.bottomSide,
+    required this.scratchCount,
+  });
 
   final Color accent;
   final bool bottomSide;
+  final int scratchCount;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1097,8 +1360,8 @@ class _CapturedTrayPainter extends CustomPainter {
       ..strokeWidth = 0.8
       ..strokeCap = StrokeCap.round
       ..color = Colors.white.withValues(alpha: 0.12);
-    for (int i = 0; i < 7; i++) {
-      final double x = size.width * (0.08 + i * 0.13);
+    for (int i = 0; i < scratchCount; i++) {
+      final double x = size.width * (0.08 + i * (0.84 / scratchCount));
       final double y = size.height * (0.38 + math.sin(i * 1.4) * 0.16);
       canvas.drawLine(
         Offset(x, y),
@@ -1119,7 +1382,9 @@ class _CapturedTrayPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _CapturedTrayPainter oldDelegate) {
-    return oldDelegate.accent != accent || oldDelegate.bottomSide != bottomSide;
+    return oldDelegate.accent != accent ||
+        oldDelegate.bottomSide != bottomSide ||
+        oldDelegate.scratchCount != scratchCount;
   }
 }
 
@@ -1130,6 +1395,7 @@ class _SquareTexturePainter extends CustomPainter {
     required this.active,
     required this.tapValue,
     required this.impactValue,
+    required this.textureLines,
   });
 
   final bool light;
@@ -1137,6 +1403,7 @@ class _SquareTexturePainter extends CustomPainter {
   final bool active;
   final double tapValue;
   final double impactValue;
+  final int textureLines;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1147,8 +1414,8 @@ class _SquareTexturePainter extends CustomPainter {
         alpha: active ? 0.12 : 0.07,
       );
 
-    for (int i = 0; i < 3; i++) {
-      final double y = size.height * (0.24 + i * 0.23);
+    for (int i = 0; i < textureLines; i++) {
+      final double y = size.height * (0.18 + i * (0.64 / textureLines));
       canvas.drawLine(
         Offset(size.width * 0.10, y),
         Offset(size.width * 0.90, y + math.sin(i + size.width) * 2),
@@ -1191,15 +1458,21 @@ class _SquareTexturePainter extends CustomPainter {
         oldDelegate.accent != accent ||
         oldDelegate.active != active ||
         oldDelegate.tapValue != tapValue ||
-        oldDelegate.impactValue != impactValue;
+        oldDelegate.impactValue != impactValue ||
+        oldDelegate.textureLines != textureLines;
   }
 }
 
 class _ImpactRingPainter extends CustomPainter {
-  const _ImpactRingPainter({required this.progress, required this.accent});
+  const _ImpactRingPainter({
+    required this.progress,
+    required this.accent,
+    required this.sparkCount,
+  });
 
   final double progress;
   final Color accent;
+  final int sparkCount;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1214,8 +1487,8 @@ class _ImpactRingPainter extends CustomPainter {
       ..color = Colors.white.withValues(alpha: 0.20 * fade);
 
     canvas.drawCircle(center, size.width * (0.18 + progress * 0.42), ring);
-    for (int i = 0; i < 6; i++) {
-      final double angle = (math.pi * 2 / 6) * i;
+    for (int i = 0; i < sparkCount; i++) {
+      final double angle = (math.pi * 2 / sparkCount) * i;
       final double radius = size.width * (0.22 + progress * 0.30);
       canvas.drawCircle(
         center + Offset(math.cos(angle), math.sin(angle)) * radius,
@@ -1227,6 +1500,8 @@ class _ImpactRingPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _ImpactRingPainter oldDelegate) {
-    return oldDelegate.progress != progress || oldDelegate.accent != accent;
+    return oldDelegate.progress != progress ||
+        oldDelegate.accent != accent ||
+        oldDelegate.sparkCount != sparkCount;
   }
 }

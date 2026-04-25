@@ -110,12 +110,63 @@ class PuzzleDefinition {
   }
 }
 
+enum GraphicsQuality { performance, balanced, high, ultra }
+
+GraphicsQuality graphicsQualityFromId(String? id) {
+  return GraphicsQuality.values.firstWhere(
+    (GraphicsQuality quality) => quality.id == id,
+    orElse: () => GraphicsQuality.high,
+  );
+}
+
+extension GraphicsQualityDetails on GraphicsQuality {
+  String get id {
+    switch (this) {
+      case GraphicsQuality.performance:
+        return 'performance';
+      case GraphicsQuality.balanced:
+        return 'balanced';
+      case GraphicsQuality.high:
+        return 'high';
+      case GraphicsQuality.ultra:
+        return 'ultra';
+    }
+  }
+
+  String get label {
+    switch (this) {
+      case GraphicsQuality.performance:
+        return 'Performance';
+      case GraphicsQuality.balanced:
+        return 'Balanced';
+      case GraphicsQuality.high:
+        return 'High';
+      case GraphicsQuality.ultra:
+        return 'Ultra';
+    }
+  }
+
+  String get targetLabel {
+    switch (this) {
+      case GraphicsQuality.performance:
+        return '60 FPS safe';
+      case GraphicsQuality.balanced:
+        return '60 FPS rich';
+      case GraphicsQuality.high:
+        return '90-120Hz ready';
+      case GraphicsQuality.ultra:
+        return '120Hz showcase';
+    }
+  }
+}
+
 class AppProfile {
   const AppProfile({
     required this.hasSeenOnboarding,
     required this.soundEnabled,
     required this.hapticsEnabled,
     required this.boardFlipped,
+    required this.graphicsQuality,
     required this.selectedThemeId,
     required this.unlockedThemeIds,
     required this.unlockedAchievementIds,
@@ -142,6 +193,7 @@ class AppProfile {
       soundEnabled: true,
       hapticsEnabled: true,
       boardFlipped: false,
+      graphicsQuality: GraphicsQuality.high,
       selectedThemeId: 'classic_ivory',
       unlockedThemeIds: const <String>{'classic_ivory', 'walnut_stone'},
       unlockedAchievementIds: const <String>{},
@@ -169,6 +221,9 @@ class AppProfile {
       soundEnabled: json['soundEnabled'] as bool? ?? true,
       hapticsEnabled: json['hapticsEnabled'] as bool? ?? true,
       boardFlipped: json['boardFlipped'] as bool? ?? false,
+      graphicsQuality: graphicsQualityFromId(
+        json['graphicsQuality'] as String?,
+      ),
       selectedThemeId: json['selectedThemeId'] as String? ?? 'classic_ivory',
       unlockedThemeIds: Set<String>.from(
         (json['unlockedThemeIds'] as List<dynamic>? ?? const <dynamic>[])
@@ -206,6 +261,7 @@ class AppProfile {
   final bool soundEnabled;
   final bool hapticsEnabled;
   final bool boardFlipped;
+  final GraphicsQuality graphicsQuality;
   final String selectedThemeId;
   final Set<String> unlockedThemeIds;
   final Set<String> unlockedAchievementIds;
@@ -232,6 +288,7 @@ class AppProfile {
     bool? soundEnabled,
     bool? hapticsEnabled,
     bool? boardFlipped,
+    GraphicsQuality? graphicsQuality,
     String? selectedThemeId,
     Set<String>? unlockedThemeIds,
     Set<String>? unlockedAchievementIds,
@@ -256,6 +313,7 @@ class AppProfile {
       soundEnabled: soundEnabled ?? this.soundEnabled,
       hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
       boardFlipped: boardFlipped ?? this.boardFlipped,
+      graphicsQuality: graphicsQuality ?? this.graphicsQuality,
       selectedThemeId: selectedThemeId ?? this.selectedThemeId,
       unlockedThemeIds: unlockedThemeIds ?? this.unlockedThemeIds,
       unlockedAchievementIds:
@@ -292,6 +350,7 @@ class AppProfile {
       'soundEnabled': soundEnabled,
       'hapticsEnabled': hapticsEnabled,
       'boardFlipped': boardFlipped,
+      'graphicsQuality': graphicsQuality.id,
       'selectedThemeId': selectedThemeId,
       'unlockedThemeIds': unlockedThemeIds.toList()..sort(),
       'unlockedAchievementIds': unlockedAchievementIds.toList()..sort(),

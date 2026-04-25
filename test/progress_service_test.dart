@@ -49,4 +49,14 @@ void main() {
     expect(next.streakDays, 1);
     expect(next.missionProgress['finish_3_days'], 1);
   });
+
+  test('graphics quality persists through profile json', () {
+    final AppProfile profile = AppProfile.initial().copyWith(
+      graphicsQuality: GraphicsQuality.ultra,
+    );
+
+    final AppProfile restored = AppProfile.fromJson(profile.toJson());
+
+    expect(restored.graphicsQuality, GraphicsQuality.ultra);
+  });
 }

@@ -259,6 +259,7 @@ class _GameTabState extends ConsumerState<_GameTab> {
               fen: game.fen,
               themePack: widget.theme,
               flipped: viewState.profile.boardFlipped,
+              graphicsQuality: viewState.profile.graphicsQuality,
               selectedSquare: selectedSquare,
               highlightedSquares: highlighted,
               hintSquares: hintSquares,
@@ -445,6 +446,7 @@ class _PuzzleTabState extends ConsumerState<_PuzzleTab> {
               fen: puzzle.fen,
               themePack: widget.theme,
               flipped: viewState.profile.boardFlipped,
+              graphicsQuality: viewState.profile.graphicsQuality,
               selectedSquare: selectedSquare,
               highlightedSquares: highlighted,
               hintSquares: hintSquares,
@@ -686,6 +688,11 @@ class _SettingsTab extends ConsumerWidget {
                 title: 'Flip Board',
                 value: viewState.profile.boardFlipped,
                 onChanged: (_) => unawaited(controller.toggleBoardFlip()),
+              ),
+              _GraphicsQualityRow(
+                value: viewState.profile.graphicsQuality,
+                onChanged: (GraphicsQuality quality) =>
+                    unawaited(controller.setGraphicsQuality(quality)),
               ),
               const _SettingsRow(
                 icon: Icons.remove_red_eye_outlined,
@@ -1984,6 +1991,77 @@ class _SettingsRow extends StatelessWidget {
             Icons.chevron_right_rounded,
             size: 18,
             color: _RefColor.muted,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _GraphicsQualityRow extends StatelessWidget {
+  const _GraphicsQualityRow({required this.value, required this.onChanged});
+
+  final GraphicsQuality value;
+  final ValueChanged<GraphicsQuality> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              const Icon(Icons.speed_rounded, size: 16, color: _RefColor.ink),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  'Graphics',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ),
+              Text(
+                value.targetLabel,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: GraphicsQuality.values.map((GraphicsQuality quality) {
+              final bool selected = quality == value;
+              return Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  child: Material(
+                    color: selected
+                        ? _RefColor.ink
+                        : _RefColor.ink.withValues(alpha: 0.06),
+                    borderRadius: BorderRadius.circular(999),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(999),
+                      onTap: selected ? null : () => onChanged(quality),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Text(
+                          quality.label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                color: selected ? Colors.white : _RefColor.ink,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 10,
+                              ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
           ),
         ],
       ),
