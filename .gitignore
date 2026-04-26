@@ -73,6 +73,25 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Unity engine workspace
+/unity/**/Library/
+/unity/**/Temp/
+/unity/**/Obj/
+/unity/**/Logs/
+/unity/**/UserSettings/
+/unity/**/MemoryCaptures/
+/unity/**/Recordings/
+/unity/**/Build/
+/unity/**/Builds/
+/unity/**/*.csproj
+/unity/**/*.sln
+/unity/**/*.user
+/unity/**/*.pidb
+/unity/**/*.booproj
+/unity/**/*.svd
+/unity/**/*.pdb
+/unity/**/*.mdb
+
 # OS/editor noise
 Thumbs.db
 Desktop.ini
