@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace DailyGambit
 {
@@ -15,6 +16,9 @@ namespace DailyGambit
         private readonly List<GameObject> capturedObjects = new();
         private readonly System.Random random = new(42);
 
+        private static DailyGambitGame instance;
+
+        private Camera mainCamera;
         private Material lightSquare;
         private Material darkSquare;
         private Material selectedSquare;
@@ -24,11 +28,18 @@ namespace DailyGambit
         private Material blackPiece;
         private Material goldTrim;
         private Material woodFrame;
+        private Material boardCore;
+        private Material boardEdge;
+        private Material feltTray;
+        private Material feltDark;
+        private Material shadowMat;
+        private Material labelMat;
 
         private Vector2Int? selected;
         private List<ChessMove> selectedMoves = new();
         private bool whiteToMove = true;
         private bool animating;
+        private bool initialized;
         private bool whiteKingMoved;
         private bool blackKingMoved;
         private bool whiteKingsideRookMoved;
@@ -41,25 +52,61 @@ namespace DailyGambit
         private int capturedByWhite;
         private int capturedByBlack;
         private string status = "Your move";
+        private string bootError;
         private GUIStyle statusStyle;
 
         [SerializeField] private int aiDepth = 3;
         [SerializeField] private float moveSeconds = 0.20f;
         [SerializeField] private float boardLift = 0.04f;
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void EnsureRuntimeExists()
+        {
+            if (FindFirstObjectByType<DailyGambitGame>() != null)
+            {
+                return;
+            }
+
+            GameObject runtime = new("Daily Gambit Runtime");
+            runtime.AddComponent<DailyGambitGame>();
+        }
+
         private void Awake()
         {
-            Application.targetFrameRate = 120;
-            QualitySettings.vSyncCount = 0;
-            QualitySettings.antiAliasing = 4;
-            CreateMaterials();
-            CreateSceneRig();
-            CreateBoard();
-            ResetGame();
+            if (instance != null && instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            instance = this;
+            try
+            {
+                Application.targetFrameRate = 120;
+                Screen.sleepTimeout = SleepTimeout.NeverSleep;
+                QualitySettings.vSyncCount = 0;
+                QualitySettings.antiAliasing = 4;
+                CreateSceneRig();
+                CreateMaterials();
+                CreateBoard();
+                ResetGame();
+                initialized = true;
+            }
+            catch (Exception ex)
+            {
+                bootError = ex.Message;
+                Debug.LogException(ex);
+                CreateEmergencyView();
+            }
         }
 
         private void Update()
         {
+            if (!initialized)
+            {
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.R))
             {
                 ResetGame();
@@ -90,7 +137,8 @@ namespace DailyGambit
             GUI.color = new Color(0.07f, 0.045f, 0.028f, 0.78f);
             GUI.DrawTexture(panel, Texture2D.whiteTexture);
             GUI.color = oldColor;
-            GUI.Label(new Rect(panel.x + 18f, panel.y + 13f, panel.width - 36f, panel.height - 16f), status.ToUpperInvariant(), statusStyle);
+            string message = string.IsNullOrEmpty(bootError) ? status.ToUpperInvariant() : $"BOOT ERROR: {bootError}";
+            GUI.Label(new Rect(panel.x + 18f, panel.y + 13f, panel.width - 36f, panel.height - 16f), message, statusStyle);
         }
 
         private static GUIStyle CreateStatusStyle()
@@ -107,7 +155,13 @@ namespace DailyGambit
 
         private void TrySelectFromScreen(Vector3 screenPosition)
         {
-            Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+            Camera cam = mainCamera != null ? mainCamera : Camera.main;
+            if (cam == null)
+            {
+                return;
+            }
+
+            Ray ray = cam.ScreenPointToRay(screenPosition);
             if (!Physics.Raycast(ray, out RaycastHit hit, 100f))
             {
                 return;
@@ -944,27 +998,92 @@ namespace DailyGambit
 
         private void CreateMaterials()
         {
-            lightSquare = NewMat("Ivory square", new Color(0.82f, 0.71f, 0.54f), 0.38f, 0.24f);
-            darkSquare = NewMat("Walnut square", new Color(0.34f, 0.21f, 0.12f), 0.28f, 0.18f);
-            selectedSquare = NewMat("Selected square", new Color(1.0f, 0.68f, 0.25f), 0.25f, 0.35f);
-            moveDot = NewMat("Move dot", new Color(0.95f, 0.67f, 0.25f), 0.18f, 0.40f);
-            captureDot = NewMat("Capture dot", new Color(1.0f, 0.26f, 0.14f), 0.22f, 0.50f);
-            ivoryPiece = NewMat("Ivory piece", new Color(1.0f, 0.86f, 0.55f), 0.62f, 0.34f);
-            blackPiece = NewMat("Obsidian piece", new Color(0.05f, 0.04f, 0.035f), 0.70f, 0.48f);
-            goldTrim = NewMat("Gold trim", new Color(1.0f, 0.64f, 0.22f), 0.45f, 0.38f);
-            woodFrame = NewMat("Wood frame", new Color(0.39f, 0.22f, 0.11f), 0.34f, 0.20f);
+            lightSquare = NewMat("polished ivory square", new Color(0.86f, 0.73f, 0.52f), 0.08f, 0.62f);
+            darkSquare = NewMat("smoked walnut square", new Color(0.24f, 0.13f, 0.065f), 0.06f, 0.55f);
+            selectedSquare = NewMat("warm selected square", new Color(1.0f, 0.55f, 0.16f), 0.04f, 0.78f, new Color(0.95f, 0.37f, 0.06f) * 0.65f);
+            moveDot = NewMat("legal move amber", new Color(1.0f, 0.69f, 0.22f), 0.03f, 0.75f, new Color(1.0f, 0.42f, 0.08f) * 0.45f);
+            captureDot = NewMat("capture ember", new Color(1.0f, 0.18f, 0.08f), 0.04f, 0.82f, new Color(1.0f, 0.08f, 0.04f) * 0.75f);
+            ivoryPiece = NewMat("solid ivory piece", new Color(0.98f, 0.84f, 0.58f), 0.12f, 0.82f);
+            blackPiece = NewMat("onyx black piece", new Color(0.028f, 0.025f, 0.023f), 0.18f, 0.86f);
+            goldTrim = NewMat("brushed gold trim", new Color(1.0f, 0.62f, 0.19f), 0.22f, 0.72f, new Color(0.72f, 0.32f, 0.06f) * 0.35f);
+            woodFrame = NewMat("carved walnut frame", new Color(0.31f, 0.16f, 0.075f), 0.05f, 0.52f);
+            boardCore = NewMat("deep board core", new Color(0.12f, 0.065f, 0.04f), 0.04f, 0.48f);
+            boardEdge = NewMat("dark beveled edge", new Color(0.055f, 0.032f, 0.022f), 0.02f, 0.50f);
+            feltTray = NewMat("green felt tray", new Color(0.045f, 0.13f, 0.095f), 0.0f, 0.45f);
+            feltDark = NewMat("studio floor", new Color(0.035f, 0.027f, 0.022f), 0.0f, 0.35f);
+            shadowMat = NewMat("soft piece shadow", new Color(0.0f, 0.0f, 0.0f, 0.34f), 0.0f, 0.15f);
+            labelMat = NewMat("engraved label", new Color(1.0f, 0.70f, 0.34f), 0.0f, 0.55f, new Color(0.7f, 0.25f, 0.04f) * 0.35f);
         }
 
-        private Material NewMat(string name, Color color, float metallic, float smoothness)
+        private Material NewMat(string name, Color color, float metallic, float smoothness, Color? emission = null)
         {
-            Material material = new(Shader.Find("Standard"))
+            Shader shader = PickRuntimeShader();
+            if (shader == null)
             {
-                name = name,
-                color = color
-            };
-            material.SetFloat("_Metallic", metallic);
-            material.SetFloat("_Glossiness", smoothness);
+                throw new InvalidOperationException("No Unity runtime shader was available for Daily Gambit materials.");
+            }
+
+            Material material = new(shader);
+            {
+                material.name = name;
+            }
+
+            SetMaterialColor(material, color);
+            if (material.HasProperty("_Metallic"))
+            {
+                material.SetFloat("_Metallic", metallic);
+            }
+            if (material.HasProperty("_Glossiness"))
+            {
+                material.SetFloat("_Glossiness", smoothness);
+            }
+            if (material.HasProperty("_Smoothness"))
+            {
+                material.SetFloat("_Smoothness", smoothness);
+            }
+            if (emission.HasValue && material.HasProperty("_EmissionColor"))
+            {
+                material.EnableKeyword("_EMISSION");
+                material.SetColor("_EmissionColor", emission.Value);
+            }
             return material;
+        }
+
+        private static Shader PickRuntimeShader()
+        {
+            string[] candidates =
+            {
+                "Standard",
+                "Universal Render Pipeline/Lit",
+                "Mobile/Diffuse",
+                "Legacy Shaders/Diffuse",
+                "Unlit/Color",
+                "Sprites/Default"
+            };
+
+            foreach (string candidate in candidates)
+            {
+                Shader shader = Shader.Find(candidate);
+                if (shader != null)
+                {
+                    return shader;
+                }
+            }
+
+            return null;
+        }
+
+        private static void SetMaterialColor(Material material, Color color)
+        {
+            if (material.HasProperty("_BaseColor"))
+            {
+                material.SetColor("_BaseColor", color);
+            }
+            if (material.HasProperty("_Color"))
+            {
+                material.SetColor("_Color", color);
+            }
+            material.color = color;
         }
 
         private void CreateSceneRig()
@@ -976,28 +1095,79 @@ namespace DailyGambit
                 cam = cameraObject.AddComponent<Camera>();
                 cameraObject.tag = "MainCamera";
             }
-            cam.transform.position = new Vector3(3.5f, 8.4f, -7.0f);
-            cam.transform.rotation = Quaternion.Euler(58f, 0f, 0f);
+            mainCamera = cam;
+            cam.transform.position = new Vector3(3.5f, 9.35f, -7.35f);
+            cam.transform.rotation = Quaternion.Euler(60.5f, 0f, 0f);
             cam.orthographic = true;
-            cam.orthographicSize = 5.25f;
+            cam.orthographicSize = 5.65f;
+            cam.nearClipPlane = 0.05f;
+            cam.farClipPlane = 80f;
             cam.clearFlags = CameraClearFlags.SolidColor;
-            cam.backgroundColor = new Color(0.055f, 0.042f, 0.032f);
+            cam.backgroundColor = new Color(0.028f, 0.022f, 0.019f);
 
-            RenderSettings.ambientLight = new Color(0.44f, 0.36f, 0.26f);
+            RenderSettings.ambientLight = new Color(0.52f, 0.43f, 0.32f);
             RenderSettings.fog = true;
-            RenderSettings.fogColor = new Color(0.055f, 0.042f, 0.032f);
-            RenderSettings.fogDensity = 0.018f;
+            RenderSettings.fogColor = new Color(0.028f, 0.022f, 0.019f);
+            RenderSettings.fogDensity = 0.012f;
 
             GameObject lightObject = new("Key Light");
             Light light = lightObject.AddComponent<Light>();
             light.type = LightType.Directional;
-            light.intensity = 1.12f;
+            light.intensity = 1.35f;
             light.shadows = LightShadows.Soft;
-            lightObject.transform.rotation = Quaternion.Euler(48f, -38f, 18f);
+            lightObject.transform.rotation = Quaternion.Euler(52f, -36f, 18f);
+
+            GameObject rimObject = new("Warm Rim Light");
+            Light rim = rimObject.AddComponent<Light>();
+            rim.type = LightType.Point;
+            rim.range = 11f;
+            rim.intensity = 2.1f;
+            rim.color = new Color(1.0f, 0.55f, 0.22f);
+            rimObject.transform.position = new Vector3(7.8f, 4.2f, -1.9f);
+
+            GameObject fillObject = new("Soft Fill Light");
+            Light fill = fillObject.AddComponent<Light>();
+            fill.type = LightType.Point;
+            fill.range = 12f;
+            fill.intensity = 1.05f;
+            fill.color = new Color(0.55f, 0.72f, 1.0f);
+            fillObject.transform.position = new Vector3(-1.6f, 3.8f, 8.4f);
+        }
+
+        private void CreateEmergencyView()
+        {
+            try
+            {
+                if (mainCamera == null)
+                {
+                    CreateSceneRig();
+                }
+
+                Material red = NewMat("emergency red", new Color(0.9f, 0.14f, 0.08f), 0f, 0.2f);
+                Material gold = NewMat("emergency gold", new Color(1.0f, 0.65f, 0.18f), 0f, 0.35f);
+                for (int file = 0; file < BoardSize; file++)
+                {
+                    for (int rank = 0; rank < BoardSize; rank++)
+                    {
+                        GameObject tile = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        tile.name = "Emergency visible square";
+                        tile.transform.SetParent(transform);
+                        tile.transform.position = new Vector3(file, 0f, rank);
+                        tile.transform.localScale = new Vector3(0.95f, 0.08f, 0.95f);
+                        tile.GetComponent<Renderer>().sharedMaterial = ((file + rank) & 1) == 0 ? red : gold;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
         }
 
         private void CreateBoard()
         {
+            CreateEnvironment();
+            CreateBoardBase();
             for (int file = 0; file < BoardSize; file++)
             {
                 for (int rank = 0; rank < BoardSize; rank++)
@@ -1019,6 +1189,39 @@ namespace DailyGambit
             CreateFramePiece("South Rail", new Vector3(3.5f, -0.02f, -1.08f), new Vector3(9.2f, 0.24f, 0.34f));
             CreateFramePiece("West Rail", new Vector3(-1.08f, -0.02f, 3.5f), new Vector3(0.34f, 0.24f, 9.2f));
             CreateFramePiece("East Rail", new Vector3(8.08f, -0.02f, 3.5f), new Vector3(0.34f, 0.24f, 9.2f));
+            CreateCaptureTray("White Capture Tray", new Vector3(-0.9f, -0.01f, 3.5f), new Vector3(0.42f, 0.075f, 7.35f));
+            CreateCaptureTray("Black Capture Tray", new Vector3(7.9f, -0.01f, 3.5f), new Vector3(0.42f, 0.075f, 7.35f));
+            CreateBoardLabels();
+        }
+
+        private void CreateEnvironment()
+        {
+            GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            floor.name = "matte studio floor";
+            floor.transform.SetParent(transform);
+            floor.transform.position = new Vector3(3.5f, -0.24f, 3.5f);
+            floor.transform.localScale = new Vector3(12.5f, 0.08f, 12.5f);
+            floor.GetComponent<Renderer>().sharedMaterial = feltDark;
+            Destroy(floor.GetComponent<Collider>());
+        }
+
+        private void CreateBoardBase()
+        {
+            GameObject baseBlock = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            baseBlock.name = "single solid chess board base";
+            baseBlock.transform.SetParent(transform);
+            baseBlock.transform.position = new Vector3(3.5f, -0.105f, 3.5f);
+            baseBlock.transform.localScale = new Vector3(9.55f, 0.22f, 9.55f);
+            baseBlock.GetComponent<Renderer>().sharedMaterial = boardCore;
+            Destroy(baseBlock.GetComponent<Collider>());
+
+            GameObject topInset = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            topInset.name = "sunken board field";
+            topInset.transform.SetParent(transform);
+            topInset.transform.position = new Vector3(3.5f, -0.035f, 3.5f);
+            topInset.transform.localScale = new Vector3(8.25f, 0.08f, 8.25f);
+            topInset.GetComponent<Renderer>().sharedMaterial = boardEdge;
+            Destroy(topInset.GetComponent<Collider>());
         }
 
         private void CreateFramePiece(string name, Vector3 position, Vector3 scale)
@@ -1031,48 +1234,119 @@ namespace DailyGambit
             rail.GetComponent<Renderer>().sharedMaterial = woodFrame;
         }
 
+        private void CreateCaptureTray(string name, Vector3 position, Vector3 scale)
+        {
+            GameObject tray = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            tray.name = name;
+            tray.transform.SetParent(transform);
+            tray.transform.position = position;
+            tray.transform.localScale = scale;
+            tray.GetComponent<Renderer>().sharedMaterial = feltTray;
+            Destroy(tray.GetComponent<Collider>());
+        }
+
+        private void CreateBoardLabels()
+        {
+            for (int i = 0; i < BoardSize; i++)
+            {
+                CreateLabel(((char)('A' + i)).ToString(), new Vector3(i, 0.065f, -0.72f), 0f);
+                CreateLabel((i + 1).ToString(), new Vector3(-0.72f, 0.065f, i), 0f);
+            }
+        }
+
+        private void CreateLabel(string text, Vector3 position, float yRotation)
+        {
+            GameObject label = new($"engraved label {text}");
+            label.transform.SetParent(transform);
+            label.transform.position = position;
+            label.transform.rotation = Quaternion.Euler(82f, yRotation, 0f);
+            TextMesh mesh = label.AddComponent<TextMesh>();
+            mesh.text = text;
+            mesh.anchor = TextAnchor.MiddleCenter;
+            mesh.alignment = TextAlignment.Center;
+            mesh.characterSize = 0.18f;
+            mesh.fontSize = 42;
+            Renderer renderer = label.GetComponent<Renderer>();
+            renderer.sharedMaterial = labelMat;
+            renderer.shadowCastingMode = ShadowCastingMode.Off;
+        }
+
         private GameObject CreatePiece(char piece, Vector2Int square)
         {
             GameObject root = new($"Piece {piece} {SquareName(square.x, square.y)}");
             root.transform.SetParent(transform);
             root.transform.position = BoardToWorld(square);
             Material material = IsWhite(piece) ? ivoryPiece : blackPiece;
-            CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.08f, 0f), new Vector3(0.44f, 0.08f, 0.44f), material);
-            CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.22f, 0f), new Vector3(0.30f, 0.18f, 0.30f), material);
+            AddPieceShadow(root);
+            CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.045f, 0f), new Vector3(0.48f, 0.035f, 0.48f), goldTrim);
+            CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.10f, 0f), new Vector3(0.42f, 0.06f, 0.42f), material);
+            CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.205f, 0f), new Vector3(0.31f, 0.12f, 0.31f), material);
+            CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.345f, 0f), new Vector3(0.24f, 0.055f, 0.24f), goldTrim);
 
             switch (char.ToLowerInvariant(piece))
             {
                 case 'p':
-                    CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(0f, 0.48f, 0f), new Vector3(0.33f, 0.33f, 0.33f), material);
+                    CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.43f, 0f), new Vector3(0.18f, 0.11f, 0.18f), material);
+                    CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(0f, 0.62f, 0f), new Vector3(0.31f, 0.31f, 0.31f), material);
+                    CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(0f, 0.76f, -0.05f), new Vector3(0.10f, 0.08f, 0.05f), goldTrim);
                     break;
                 case 'n':
-                    GameObject knight = CreatePrimitive(root, PrimitiveType.Capsule, new Vector3(0.02f, 0.48f, 0.02f), new Vector3(0.28f, 0.38f, 0.24f), material);
-                    knight.transform.localRotation = Quaternion.Euler(18f, 0f, -20f);
-                    CreatePrimitive(root, PrimitiveType.Cube, new Vector3(0.11f, 0.66f, -0.04f), new Vector3(0.20f, 0.16f, 0.18f), material);
+                    GameObject neck = CreatePrimitive(root, PrimitiveType.Capsule, new Vector3(-0.02f, 0.55f, 0.03f), new Vector3(0.19f, 0.30f, 0.17f), material);
+                    neck.transform.localRotation = Quaternion.Euler(12f, 0f, -13f);
+                    GameObject head = CreatePrimitive(root, PrimitiveType.Capsule, new Vector3(0.10f, 0.78f, -0.08f), new Vector3(0.18f, 0.22f, 0.15f), material);
+                    head.transform.localRotation = Quaternion.Euler(66f, 0f, -19f);
+                    CreatePrimitive(root, PrimitiveType.Cube, new Vector3(0.18f, 0.86f, -0.20f), new Vector3(0.10f, 0.12f, 0.05f), goldTrim);
+                    CreatePrimitive(root, PrimitiveType.Cube, new Vector3(-0.02f, 0.80f, 0.12f), new Vector3(0.05f, 0.28f, 0.07f), goldTrim);
                     break;
                 case 'b':
-                    CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(0f, 0.50f, 0f), new Vector3(0.34f, 0.42f, 0.34f), material);
-                    CreatePrimitive(root, PrimitiveType.Cube, new Vector3(0f, 0.72f, 0f), new Vector3(0.07f, 0.24f, 0.07f), goldTrim);
+                    CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(0f, 0.55f, 0f), new Vector3(0.30f, 0.42f, 0.30f), material);
+                    GameObject slit = CreatePrimitive(root, PrimitiveType.Cube, new Vector3(0.08f, 0.69f, -0.05f), new Vector3(0.035f, 0.26f, 0.055f), goldTrim);
+                    slit.transform.localRotation = Quaternion.Euler(0f, 0f, 24f);
+                    CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(0f, 0.88f, 0f), new Vector3(0.12f, 0.12f, 0.12f), goldTrim);
                     break;
                 case 'r':
-                    CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.52f, 0f), new Vector3(0.34f, 0.30f, 0.34f), material);
-                    CreatePrimitive(root, PrimitiveType.Cube, new Vector3(0f, 0.74f, 0f), new Vector3(0.48f, 0.12f, 0.48f), material);
-                    break;
-                case 'q':
-                    CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(0f, 0.52f, 0f), new Vector3(0.38f, 0.38f, 0.38f), material);
-                    for (int i = 0; i < 5; i++)
+                    CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.55f, 0f), new Vector3(0.30f, 0.24f, 0.30f), material);
+                    CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.81f, 0f), new Vector3(0.36f, 0.08f, 0.36f), material);
+                    for (int i = 0; i < 4; i++)
                     {
-                        float angle = i * Mathf.PI * 2f / 5f;
-                        CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(Mathf.Cos(angle) * 0.20f, 0.79f, Mathf.Sin(angle) * 0.20f), new Vector3(0.11f, 0.11f, 0.11f), goldTrim);
+                        float angle = i * Mathf.PI * 0.5f;
+                        CreatePrimitive(root, PrimitiveType.Cube, new Vector3(Mathf.Cos(angle) * 0.25f, 0.94f, Mathf.Sin(angle) * 0.25f), new Vector3(0.14f, 0.13f, 0.14f), goldTrim);
                     }
                     break;
+                case 'q':
+                    CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(0f, 0.58f, 0f), new Vector3(0.34f, 0.34f, 0.34f), material);
+                    CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.81f, 0f), new Vector3(0.27f, 0.06f, 0.27f), goldTrim);
+                    for (int i = 0; i < 6; i++)
+                    {
+                        float angle = i * Mathf.PI * 2f / 6f;
+                        CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(Mathf.Cos(angle) * 0.22f, 0.98f, Mathf.Sin(angle) * 0.22f), new Vector3(0.105f, 0.105f, 0.105f), goldTrim);
+                    }
+                    CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(0f, 1.06f, 0f), new Vector3(0.085f, 0.085f, 0.085f), goldTrim);
+                    break;
                 case 'k':
-                    CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(0f, 0.50f, 0f), new Vector3(0.36f, 0.36f, 0.36f), material);
-                    CreatePrimitive(root, PrimitiveType.Cube, new Vector3(0f, 0.80f, 0f), new Vector3(0.08f, 0.34f, 0.08f), goldTrim);
-                    CreatePrimitive(root, PrimitiveType.Cube, new Vector3(0f, 0.88f, 0f), new Vector3(0.28f, 0.07f, 0.07f), goldTrim);
+                    CreatePrimitive(root, PrimitiveType.Sphere, new Vector3(0f, 0.58f, 0f), new Vector3(0.33f, 0.33f, 0.33f), material);
+                    CreatePrimitive(root, PrimitiveType.Cylinder, new Vector3(0f, 0.81f, 0f), new Vector3(0.22f, 0.065f, 0.22f), goldTrim);
+                    CreatePrimitive(root, PrimitiveType.Cube, new Vector3(0f, 1.02f, 0f), new Vector3(0.065f, 0.36f, 0.065f), goldTrim);
+                    CreatePrimitive(root, PrimitiveType.Cube, new Vector3(0f, 1.12f, 0f), new Vector3(0.28f, 0.065f, 0.065f), goldTrim);
                     break;
             }
             return root;
+        }
+
+        private void AddPieceShadow(GameObject root)
+        {
+            GameObject shadow = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            shadow.name = "painted contact shadow";
+            shadow.transform.SetParent(root.transform);
+            shadow.transform.localPosition = new Vector3(0f, -0.026f, 0f);
+            shadow.transform.localScale = new Vector3(0.52f, 0.006f, 0.52f);
+            shadow.GetComponent<Renderer>().sharedMaterial = shadowMat;
+            shadow.GetComponent<Renderer>().shadowCastingMode = ShadowCastingMode.Off;
+            Collider collider = shadow.GetComponent<Collider>();
+            if (collider != null)
+            {
+                Destroy(collider);
+            }
         }
 
         private GameObject CreatePrimitive(GameObject parent, PrimitiveType type, Vector3 localPosition, Vector3 localScale, Material material)
@@ -1081,7 +1355,10 @@ namespace DailyGambit
             child.transform.SetParent(parent.transform);
             child.transform.localPosition = localPosition;
             child.transform.localScale = localScale;
-            child.GetComponent<Renderer>().sharedMaterial = material;
+            Renderer renderer = child.GetComponent<Renderer>();
+            renderer.sharedMaterial = material;
+            renderer.shadowCastingMode = ShadowCastingMode.On;
+            renderer.receiveShadows = true;
             Collider collider = child.GetComponent<Collider>();
             if (collider != null)
             {
