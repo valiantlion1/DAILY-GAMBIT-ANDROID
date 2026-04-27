@@ -22,6 +22,10 @@ namespace DailyGambit
         private static DailyGambitGame instance;
 
         private Camera mainCamera;
+        private Rect safeBoardRect;
+        private GUIStyle safeStatusStyle;
+        private GUIStyle safePieceStyle;
+        private GUIStyle safeFooterStyle;
         private Material lightSquare;
         private Material darkSquare;
         private Material selectedSquare;
@@ -43,6 +47,7 @@ namespace DailyGambit
         private bool whiteToMove = true;
         private bool animating;
         private bool initialized;
+        private bool useSafeUiBoard = true;
         private bool whiteKingMoved;
         private bool blackKingMoved;
         private bool whiteKingsideRookMoved;
@@ -91,9 +96,16 @@ namespace DailyGambit
                 Screen.sleepTimeout = SleepTimeout.NeverSleep;
                 QualitySettings.vSyncCount = 0;
                 QualitySettings.antiAliasing = 4;
-                CreateSceneRig();
-                CreateMaterials();
-                CreateBoard();
+                if (useSafeUiBoard)
+                {
+                    CreateSafeUiBoard();
+                }
+                else
+                {
+                    CreateSceneRig();
+                    CreateMaterials();
+                    CreateBoard();
+                }
                 ResetGame();
                 initialized = true;
             }
@@ -112,7 +124,14 @@ namespace DailyGambit
                 return;
             }
 
-            RefreshCameraForScreen();
+            if (useSafeUiBoard)
+            {
+                RefreshUiLayout();
+            }
+            else
+            {
+                RefreshCameraForScreen();
+            }
 
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -124,12 +143,12 @@ namespace DailyGambit
                 return;
             }
 
-            if (Input.GetMouseButtonUp(0))
+            if (!useSafeUiBoard && Input.GetMouseButtonUp(0))
             {
                 TrySelectFromScreen(Input.mousePosition);
             }
 
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+            if (!useSafeUiBoard && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 TrySelectFromScreen(Input.GetTouch(0).position);
             }
@@ -137,6 +156,12 @@ namespace DailyGambit
 
         private void OnGUI()
         {
+            if (useSafeUiBoard)
+            {
+                DrawSafeUiBoard();
+                return;
+            }
+
             statusStyle ??= CreateStatusStyle();
             float panelWidth = Mathf.Clamp(Screen.width - 36f, 220f, 420f);
             Rect panel = new(18f, 18f, panelWidth, 54f);
@@ -158,6 +183,120 @@ namespace DailyGambit
             };
             style.normal.textColor = new Color(1.0f, 0.84f, 0.48f);
             return style;
+        }
+
+        private void DrawSafeUiBoard()
+        {
+            RefreshUiLayout();
+            EnsureSafeGuiStyles();
+
+            Color oldColor = GUI.color;
+            GUI.color = new Color(0.035f, 0.027f, 0.022f, 1f);
+            GUI.DrawTexture(new Rect(0f, 0f, Screen.width, Screen.height), Texture2D.whiteTexture);
+
+            string message = string.IsNullOrEmpty(bootError)
+                ? status.ToUpperInvariant()
+                : $"BOOT ERROR: {bootError}";
+            Rect statusRect = new(18f, Mathf.Max(18f, safeBoardRect.y - 86f), Screen.width - 36f, 58f);
+            GUI.color = new Color(0.09f, 0.055f, 0.032f, 0.95f);
+            GUI.DrawTexture(statusRect, Texture2D.whiteTexture);
+            GUI.color = Color.white;
+            GUI.Label(statusRect, message, safeStatusStyle);
+
+            GUI.color = new Color(0.13f, 0.075f, 0.04f, 1f);
+            GUI.DrawTexture(new Rect(safeBoardRect.x - 8f, safeBoardRect.y - 8f, safeBoardRect.width + 16f, safeBoardRect.height + 16f), Texture2D.whiteTexture);
+
+            float cell = safeBoardRect.width / BoardSize;
+            safePieceStyle.fontSize = Mathf.RoundToInt(Mathf.Clamp(cell * 0.50f, 28f, 84f));
+            for (int rank = BoardSize - 1; rank >= 0; rank--)
+            {
+                for (int file = 0; file < BoardSize; file++)
+                {
+                    Vector2Int square = new(file, rank);
+                    Rect squareRect = new(
+                        safeBoardRect.x + file * cell,
+                        safeBoardRect.y + (BoardSize - 1 - rank) * cell,
+                        cell,
+                        cell);
+
+                    GUI.color = SafeSquareColor(square);
+                    GUI.DrawTexture(squareRect, Texture2D.whiteTexture);
+
+                    char piece = board[file, rank];
+                    if (piece != '\0')
+                    {
+                        Rect tokenRect = Inset(squareRect, cell * 0.14f);
+                        GUI.color = IsWhite(piece)
+                            ? new Color(0.95f, 0.81f, 0.53f, 1f)
+                            : new Color(0.055f, 0.043f, 0.036f, 1f);
+                        GUI.DrawTexture(tokenRect, Texture2D.whiteTexture);
+
+                        safePieceStyle.normal.textColor = IsWhite(piece)
+                            ? new Color(0.08f, 0.05f, 0.028f)
+                            : new Color(1.0f, 0.77f, 0.36f);
+                        GUI.Label(squareRect, PieceGlyph(piece), safePieceStyle);
+                    }
+
+                    GUI.color = new Color(1f, 1f, 1f, 0f);
+                    if (GUI.Button(squareRect, GUIContent.none, GUIStyle.none))
+                    {
+                        HandleSquare(square);
+                    }
+                }
+            }
+
+            GUI.color = new Color(0.86f, 0.66f, 0.38f, 1f);
+            string footer = whiteToMove ? "Tap a white piece, then tap a target square" : "Engine is thinking";
+            GUI.Label(new Rect(18f, safeBoardRect.yMax + 18f, Screen.width - 36f, 54f), footer, safeFooterStyle);
+            GUI.color = oldColor;
+        }
+
+        private void EnsureSafeGuiStyles()
+        {
+            safeStatusStyle ??= new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                fontStyle = FontStyle.Bold,
+                fontSize = Mathf.RoundToInt(Mathf.Clamp(Screen.width * 0.044f, 26f, 44f))
+            };
+            safeStatusStyle.normal.textColor = new Color(1f, 0.78f, 0.38f);
+
+            safePieceStyle ??= new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                fontStyle = FontStyle.Bold
+            };
+
+            safeFooterStyle ??= new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                fontSize = Mathf.RoundToInt(Mathf.Clamp(Screen.width * 0.030f, 20f, 32f))
+            };
+            safeFooterStyle.normal.textColor = new Color(0.86f, 0.66f, 0.38f);
+        }
+
+        private Color SafeSquareColor(Vector2Int square)
+        {
+            bool light = ((square.x + square.y) & 1) != 0;
+            Color color = light ? new Color(0.74f, 0.58f, 0.35f) : new Color(0.32f, 0.18f, 0.10f);
+            if (selected.HasValue && selected.Value == square)
+            {
+                return new Color(0.98f, 0.58f, 0.14f);
+            }
+
+            ChessMove? move = selectedMoves.Find(m => m.To == square);
+            if (move.HasValue)
+            {
+                bool capture = move.Value.EnPassant || board[square.x, square.y] != '\0';
+                return capture ? new Color(0.72f, 0.20f, 0.13f) : new Color(0.46f, 0.56f, 0.25f);
+            }
+
+            return color;
+        }
+
+        private static Rect Inset(Rect rect, float amount)
+        {
+            return new Rect(rect.x + amount, rect.y + amount, rect.width - amount * 2f, rect.height - amount * 2f);
         }
 
         private void TrySelectFromScreen(Vector3 screenPosition)
@@ -203,6 +342,11 @@ namespace DailyGambit
 
         private void HandleSquare(Vector2Int square)
         {
+            if (animating || !whiteToMove)
+            {
+                return;
+            }
+
             char piece = board[square.x, square.y];
             if (selected.HasValue)
             {
@@ -251,6 +395,7 @@ namespace DailyGambit
             if (IsCheckmate(!whiteToMove))
             {
                 status = playerMove ? "Checkmate secured" : "Checkmated";
+                RefreshUiBoard();
                 animating = false;
                 yield break;
             }
@@ -258,6 +403,7 @@ namespace DailyGambit
             if (GenerateLegalMoves(!whiteToMove).Count == 0)
             {
                 status = "Stalemate";
+                RefreshUiBoard();
                 animating = false;
                 yield break;
             }
@@ -265,12 +411,14 @@ namespace DailyGambit
             if (IsDrawByRule())
             {
                 status = "Draw";
+                RefreshUiBoard();
                 animating = false;
                 yield break;
             }
 
             whiteToMove = !whiteToMove;
             status = whiteToMove ? "Your move" : "Engine thinking";
+            RefreshUiBoard();
             animating = false;
 
             if (!whiteToMove)
@@ -283,6 +431,13 @@ namespace DailyGambit
 
         private IEnumerator AnimateMove(ChessMove move, MoveResult result)
         {
+            if (useSafeUiBoard)
+            {
+                yield return new WaitForSeconds(0.08f);
+                RefreshUiBoard();
+                yield break;
+            }
+
             if (!pieceObjects.TryGetValue(move.From, out GameObject mover))
             {
                 yield break;
@@ -981,6 +1136,12 @@ namespace DailyGambit
 
         private void RebuildPiecesFromBoard()
         {
+            if (useSafeUiBoard)
+            {
+                RefreshUiBoard();
+                return;
+            }
+
             foreach (GameObject piece in pieceObjects.Values)
             {
                 Destroy(piece);
@@ -1004,6 +1165,11 @@ namespace DailyGambit
 
         private void ClearCapturedObjects()
         {
+            if (useSafeUiBoard)
+            {
+                return;
+            }
+
             foreach (GameObject captured in capturedObjects)
             {
                 Destroy(captured);
@@ -1013,6 +1179,12 @@ namespace DailyGambit
 
         private void ReplacePromotedPiece(ChessMove move)
         {
+            if (useSafeUiBoard)
+            {
+                RefreshUiBoard();
+                return;
+            }
+
             if (pieceObjects.TryGetValue(move.To, out GameObject pawn))
             {
                 Destroy(pawn);
@@ -1108,6 +1280,39 @@ namespace DailyGambit
                 material.SetColor("_Color", color);
             }
             material.color = color;
+        }
+
+        private void CreateSafeUiBoard()
+        {
+            safeStatusStyle = null;
+            safePieceStyle = null;
+            safeFooterStyle = null;
+            RefreshUiLayout(true);
+        }
+
+        private void RefreshUiLayout(bool force = false)
+        {
+            int width = Mathf.Max(1, Screen.width);
+            int height = Mathf.Max(1, Screen.height);
+            if (!force && width == lastScreenWidth && height == lastScreenHeight)
+            {
+                return;
+            }
+
+            lastScreenWidth = width;
+            lastScreenHeight = height;
+            float boardSize = Mathf.Min(width - 36f, height - 270f);
+            boardSize = Mathf.Clamp(boardSize, 300f, Mathf.Min(width - 16f, height - 120f));
+            safeBoardRect = new Rect((width - boardSize) * 0.5f, (height - boardSize) * 0.5f + 18f, boardSize, boardSize);
+        }
+
+        private void RefreshUiBoard()
+        {
+            RefreshUiLayout();
+        }
+
+        private void RefreshUiStatus()
+        {
         }
 
         private void CreateSceneRig()
@@ -1413,6 +1618,12 @@ namespace DailyGambit
 
         private void RefreshTileSelection()
         {
+            if (useSafeUiBoard)
+            {
+                RefreshUiBoard();
+                return;
+            }
+
             foreach ((Vector2Int square, Renderer renderer) in tileRenderers)
             {
                 renderer.sharedMaterial = selected.HasValue && selected.Value == square
@@ -1423,6 +1634,12 @@ namespace DailyGambit
 
         private void DrawMoveMarkers(List<ChessMove> moves)
         {
+            if (useSafeUiBoard)
+            {
+                RefreshUiBoard();
+                return;
+            }
+
             foreach (ChessMove move in moves)
             {
                 bool capture = move.EnPassant || board[move.To.x, move.To.y] != '\0';
@@ -1439,6 +1656,11 @@ namespace DailyGambit
 
         private void ClearMoveMarkers()
         {
+            if (useSafeUiBoard)
+            {
+                return;
+            }
+
             foreach (GameObject marker in moveMarkers)
             {
                 Destroy(marker);
