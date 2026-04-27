@@ -37,11 +37,16 @@ namespace DailyGambit.Editor
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android);
             PlayerSettings.productName = "Daily Gambit";
             PlayerSettings.companyName = "Valiantlion Apps";
-            PlayerSettings.bundleVersion = "1.0.14";
+            PlayerSettings.bundleVersion = "1.0.15";
             PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.valiantlion.dailygambit.unity");
-            PlayerSettings.Android.bundleVersionCode = 14;
+            PlayerSettings.Android.bundleVersionCode = 15;
             PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel25;
             PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
+            PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
+            PlayerSettings.allowedAutorotateToPortrait = true;
+            PlayerSettings.allowedAutorotateToPortraitUpsideDown = false;
+            PlayerSettings.allowedAutorotateToLandscapeLeft = false;
+            PlayerSettings.allowedAutorotateToLandscapeRight = false;
             EditorUserBuildSettings.androidBuildSystem = AndroidBuildSystem.Gradle;
             ConfigureAndroidToolchain();
 
