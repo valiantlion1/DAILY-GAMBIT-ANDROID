@@ -1,6 +1,8 @@
+using System;
 using System.IO;
 using DailyGambit;
 using UnityEditor;
+using UnityEditor.Android;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -38,9 +40,10 @@ namespace DailyGambit.Editor
             PlayerSettings.bundleVersion = "0.1.0";
             PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.valiantlion.dailygambit");
             PlayerSettings.Android.bundleVersionCode = 1;
-            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel23;
+            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel25;
             PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
             EditorUserBuildSettings.androidBuildSystem = AndroidBuildSystem.Gradle;
+            ConfigureAndroidToolchain();
 
             BuildPlayerOptions options = new()
             {
@@ -50,6 +53,52 @@ namespace DailyGambit.Editor
                 options = BuildOptions.None
             };
             BuildPipeline.BuildPlayer(options);
+        }
+
+        private static void ConfigureAndroidToolchain()
+        {
+            string androidSdk = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Android",
+                "Sdk");
+            string androidNdk = LatestDirectory(Path.Combine(androidSdk, "ndk"));
+            string jdk = FirstExistingDirectory(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Eclipse Adoptium", "jdk-17.0.18.8-hotspot"),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Java", "jdk-24"));
+
+            if (!Directory.Exists(androidSdk) || string.IsNullOrEmpty(androidNdk) || string.IsNullOrEmpty(jdk))
+            {
+                throw new DirectoryNotFoundException($"Android toolchain missing. SDK={androidSdk}, NDK={androidNdk}, JDK={jdk}");
+            }
+
+            AndroidExternalToolsSettings.sdkRootPath = androidSdk;
+            AndroidExternalToolsSettings.ndkRootPath = androidNdk;
+            AndroidExternalToolsSettings.jdkRootPath = jdk;
+        }
+
+        private static string LatestDirectory(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                return null;
+            }
+
+            string[] directories = Directory.GetDirectories(path);
+            Array.Sort(directories, StringComparer.OrdinalIgnoreCase);
+            return directories.Length == 0 ? null : directories[^1];
+        }
+
+        private static string FirstExistingDirectory(params string[] paths)
+        {
+            foreach (string path in paths)
+            {
+                if (Directory.Exists(path))
+                {
+                    return path;
+                }
+            }
+
+            return null;
         }
     }
 }

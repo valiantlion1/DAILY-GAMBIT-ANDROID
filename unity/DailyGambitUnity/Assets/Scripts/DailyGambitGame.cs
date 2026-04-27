@@ -29,6 +29,15 @@ namespace DailyGambit
         private List<ChessMove> selectedMoves = new();
         private bool whiteToMove = true;
         private bool animating;
+        private bool whiteKingMoved;
+        private bool blackKingMoved;
+        private bool whiteKingsideRookMoved;
+        private bool whiteQueensideRookMoved;
+        private bool blackKingsideRookMoved;
+        private bool blackQueensideRookMoved;
+        private Vector2Int? enPassantSquare;
+        private int halfMoveClock;
+        private int fullMoveNumber = 1;
         private int capturedByWhite;
         private int capturedByBlack;
         private string status = "Your move";
@@ -153,9 +162,9 @@ namespace DailyGambit
             selectedMoves.Clear();
             RefreshTileSelection();
 
-            char captured = ApplyMoveToBoard(move);
-            RecordCapture(captured);
-            yield return AnimateMove(move, captured);
+            MoveResult result = ApplyMoveToBoard(move);
+            RecordCapture(result.CapturedPiece);
+            yield return AnimateMove(move, result);
             if (move.Promotion)
             {
                 ReplacePromotedPiece(move);
@@ -175,6 +184,13 @@ namespace DailyGambit
                 yield break;
             }
 
+            if (IsDrawByRule())
+            {
+                status = "Draw";
+                animating = false;
+                yield break;
+            }
+
             whiteToMove = !whiteToMove;
             status = whiteToMove ? "Your move" : "Engine thinking";
             animating = false;
@@ -187,7 +203,7 @@ namespace DailyGambit
             }
         }
 
-        private IEnumerator AnimateMove(ChessMove move, char captured)
+        private IEnumerator AnimateMove(ChessMove move, MoveResult result)
         {
             if (!pieceObjects.TryGetValue(move.From, out GameObject mover))
             {
@@ -195,9 +211,9 @@ namespace DailyGambit
             }
 
             GameObject capturedObject = null;
-            if (captured != '\0' && pieceObjects.TryGetValue(move.To, out capturedObject))
+            if (result.CapturedPiece != '\0' && pieceObjects.TryGetValue(result.CapturedSquare, out capturedObject))
             {
-                pieceObjects.Remove(move.To);
+                pieceObjects.Remove(result.CapturedSquare);
             }
 
             Vector3 from = BoardToWorld(move.From);
@@ -220,11 +236,45 @@ namespace DailyGambit
             pieceObjects.Remove(move.From);
             pieceObjects[move.To] = mover;
 
+            if (move.Castle)
+            {
+                yield return AnimateCastleRook(move);
+            }
+
             if (capturedObject != null)
             {
-                Vector3 tray = CaptureTrayPosition(IsWhite(captured));
+                Vector3 tray = CaptureTrayPosition(IsWhite(result.CapturedPiece));
                 yield return AnimateCapture(capturedObject, tray);
             }
+        }
+
+        private IEnumerator AnimateCastleRook(ChessMove kingMove)
+        {
+            int rank = kingMove.From.y;
+            bool kingside = kingMove.To.x > kingMove.From.x;
+            Vector2Int rookFrom = new(kingside ? 7 : 0, rank);
+            Vector2Int rookTo = new(kingside ? 5 : 3, rank);
+            if (!pieceObjects.TryGetValue(rookFrom, out GameObject rook))
+            {
+                yield break;
+            }
+
+            Vector3 from = BoardToWorld(rookFrom);
+            Vector3 to = BoardToWorld(rookTo);
+            float elapsed = 0f;
+            const float duration = 0.14f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                float eased = 1f - Mathf.Pow(1f - t, 3f);
+                rook.transform.position = Vector3.Lerp(from, to, eased);
+                yield return null;
+            }
+
+            rook.transform.position = to;
+            pieceObjects.Remove(rookFrom);
+            pieceObjects[rookTo] = rook;
         }
 
         private IEnumerator AnimateCapture(GameObject capturedObject, Vector3 tray)
@@ -257,9 +307,10 @@ namespace DailyGambit
             int bestScore = int.MinValue;
             foreach (ChessMove move in OrderMoves(moves))
             {
-                char captured = ApplyMoveToBoard(move);
+                GameSnapshot snapshot = CaptureSnapshot();
+                ApplyMoveToBoard(move);
                 int score = -Search(aiDepth - 1, int.MinValue + 1, int.MaxValue - 1, true);
-                UndoMove(move, captured);
+                RestoreSnapshot(snapshot);
                 if (score > bestScore)
                 {
                     bestScore = score;
@@ -284,9 +335,10 @@ namespace DailyGambit
             int best = int.MinValue + 1;
             foreach (ChessMove move in OrderMoves(moves))
             {
-                char captured = ApplyMoveToBoard(move);
+                GameSnapshot snapshot = CaptureSnapshot();
+                ApplyMoveToBoard(move);
                 int score = -Search(depth - 1, -beta, -alpha, !white);
-                UndoMove(move, captured);
+                RestoreSnapshot(snapshot);
                 best = Mathf.Max(best, score);
                 alpha = Mathf.Max(alpha, score);
                 if (alpha >= beta)
@@ -311,11 +363,57 @@ namespace DailyGambit
                     }
                     int value = PieceValue(piece);
                     int center = 14 - Mathf.RoundToInt((Mathf.Abs(file - 3.5f) + Mathf.Abs(rank - 3.5f)) * 3f);
+                    int positional = PositionalBonus(piece, file, rank);
                     int sign = IsWhite(piece) == forWhite ? 1 : -1;
-                    score += sign * (value + center);
+                    score += sign * (value + center + positional);
                 }
             }
             return score;
+        }
+
+        private int PositionalBonus(char piece, int file, int rank)
+        {
+            bool white = IsWhite(piece);
+            int forward = white ? rank : 7 - rank;
+            int center = 14 - Mathf.RoundToInt((Mathf.Abs(file - 3.5f) + Mathf.Abs(rank - 3.5f)) * 3f);
+            return char.ToLowerInvariant(piece) switch
+            {
+                'p' => forward * 9 + (file >= 2 && file <= 5 ? 8 : 0),
+                'n' => center * 5 - (forward == 0 ? 18 : 0),
+                'b' => center * 4,
+                'r' => forward * 3 + (IsOpenFile(file) ? 18 : 0),
+                'q' => center * 2,
+                'k' => KingSafetyBonus(white, file, rank),
+                _ => 0
+            };
+        }
+
+        private bool IsOpenFile(int file)
+        {
+            for (int rank = 0; rank < BoardSize; rank++)
+            {
+                if (IsPawn(board[file, rank]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private int KingSafetyBonus(bool white, int file, int rank)
+        {
+            int homeRank = white ? 0 : 7;
+            int safety = rank == homeRank ? 20 : 0;
+            int pawnRank = white ? rank + 1 : rank - 1;
+            for (int dx = -1; dx <= 1; dx++)
+            {
+                Vector2Int shield = new(file + dx, pawnRank);
+                if (InBoard(shield) && board[shield.x, shield.y] == (white ? 'P' : 'p'))
+                {
+                    safety += 12;
+                }
+            }
+            return safety;
         }
 
         private List<ChessMove> GenerateLegalMoves(bool white)
@@ -336,9 +434,10 @@ namespace DailyGambit
 
             moves.RemoveAll(move =>
             {
-                char captured = ApplyMoveToBoard(move);
+                GameSnapshot snapshot = CaptureSnapshot();
+                ApplyMoveToBoard(move);
                 bool illegal = IsKingInCheck(white);
-                UndoMove(move, captured);
+                RestoreSnapshot(snapshot);
                 return illegal;
             });
             return moves;
@@ -368,10 +467,7 @@ namespace DailyGambit
                     GenerateSlides(from, white, moves, QueenDirs);
                     break;
                 case 'k':
-                    foreach (Vector2Int step in KingSteps)
-                    {
-                        TryAddMove(from, from + step, white, moves);
-                    }
+                    GenerateKingMoves(from, white, moves);
                     break;
             }
         }
@@ -398,7 +494,69 @@ namespace DailyGambit
                 {
                     moves.Add(new ChessMove(from, target, target.y == (white ? 7 : 0)));
                 }
+                else if (enPassantSquare.HasValue && target == enPassantSquare.Value)
+                {
+                    moves.Add(new ChessMove(from, target, false, false, true));
+                }
             }
+        }
+
+        private void GenerateKingMoves(Vector2Int from, bool white, List<ChessMove> moves)
+        {
+            foreach (Vector2Int step in KingSteps)
+            {
+                TryAddMove(from, from + step, white, moves);
+            }
+
+            TryAddCastle(from, white, true, moves);
+            TryAddCastle(from, white, false, moves);
+        }
+
+        private void TryAddCastle(Vector2Int from, bool white, bool kingside, List<ChessMove> moves)
+        {
+            int rank = white ? 0 : 7;
+            if (from != new Vector2Int(4, rank) || IsKingInCheck(white))
+            {
+                return;
+            }
+
+            if (white)
+            {
+                if (whiteKingMoved || (kingside ? whiteKingsideRookMoved : whiteQueensideRookMoved))
+                {
+                    return;
+                }
+            }
+            else if (blackKingMoved || (kingside ? blackKingsideRookMoved : blackQueensideRookMoved))
+            {
+                return;
+            }
+
+            int rookFile = kingside ? 7 : 0;
+            int throughFile = kingside ? 5 : 3;
+            int targetFile = kingside ? 6 : 2;
+            char rook = board[rookFile, rank];
+            if (rook != (white ? 'R' : 'r'))
+            {
+                return;
+            }
+
+            int start = Mathf.Min(rookFile, from.x) + 1;
+            int end = Mathf.Max(rookFile, from.x) - 1;
+            for (int file = start; file <= end; file++)
+            {
+                if (board[file, rank] != '\0')
+                {
+                    return;
+                }
+            }
+
+            if (IsSquareAttacked(new Vector2Int(throughFile, rank), !white) || IsSquareAttacked(new Vector2Int(targetFile, rank), !white))
+            {
+                return;
+            }
+
+            moves.Add(new ChessMove(from, new Vector2Int(targetFile, rank), false, true, false));
         }
 
         private void GenerateSlides(Vector2Int from, bool white, List<ChessMove> moves, Vector2Int[] dirs)
@@ -452,6 +610,55 @@ namespace DailyGambit
         private bool IsCheckmate(bool white)
         {
             return IsKingInCheck(white) && GenerateLegalMoves(white).Count == 0;
+        }
+
+        private bool IsDrawByRule()
+        {
+            return halfMoveClock >= 100 || IsInsufficientMaterial();
+        }
+
+        private bool IsInsufficientMaterial()
+        {
+            int minorPieces = 0;
+            int bishopsOnLight = 0;
+            int bishopsOnDark = 0;
+            for (int file = 0; file < BoardSize; file++)
+            {
+                for (int rank = 0; rank < BoardSize; rank++)
+                {
+                    char piece = board[file, rank];
+                    if (piece == '\0' || IsKing(piece))
+                    {
+                        continue;
+                    }
+
+                    char lower = char.ToLowerInvariant(piece);
+                    if (lower == 'p' || lower == 'r' || lower == 'q')
+                    {
+                        return false;
+                    }
+
+                    minorPieces++;
+                    if (lower == 'b')
+                    {
+                        if (((file + rank) & 1) == 0)
+                        {
+                            bishopsOnDark++;
+                        }
+                        else
+                        {
+                            bishopsOnLight++;
+                        }
+                    }
+                }
+            }
+
+            if (minorPieces <= 1)
+            {
+                return true;
+            }
+
+            return minorPieces == bishopsOnLight + bishopsOnDark && (bishopsOnLight == 0 || bishopsOnDark == 0);
         }
 
         private bool IsSquareAttacked(Vector2Int square, bool byWhite)
@@ -518,20 +725,121 @@ namespace DailyGambit
             return false;
         }
 
-        private char ApplyMoveToBoard(ChessMove move)
+        private MoveResult ApplyMoveToBoard(ChessMove move)
         {
             char piece = board[move.From.x, move.From.y];
-            char captured = board[move.To.x, move.To.y];
+            bool white = IsWhite(piece);
+            Vector2Int capturedSquare = move.EnPassant ? new Vector2Int(move.To.x, move.From.y) : move.To;
+            char captured = board[capturedSquare.x, capturedSquare.y];
+
             board[move.From.x, move.From.y] = '\0';
-            board[move.To.x, move.To.y] = move.Promotion ? (IsWhite(piece) ? 'Q' : 'q') : piece;
-            return captured;
+            if (move.EnPassant)
+            {
+                board[capturedSquare.x, capturedSquare.y] = '\0';
+            }
+
+            board[move.To.x, move.To.y] = move.Promotion ? (white ? 'Q' : 'q') : piece;
+            if (move.Castle)
+            {
+                int rank = move.From.y;
+                bool kingside = move.To.x > move.From.x;
+                int rookFrom = kingside ? 7 : 0;
+                int rookTo = kingside ? 5 : 3;
+                board[rookTo, rank] = board[rookFrom, rank];
+                board[rookFrom, rank] = '\0';
+            }
+
+            UpdateCastlingRights(move, piece, captured, capturedSquare);
+            enPassantSquare = IsPawn(piece) && Mathf.Abs(move.To.y - move.From.y) == 2
+                ? new Vector2Int(move.From.x, (move.From.y + move.To.y) / 2)
+                : null;
+            halfMoveClock = IsPawn(piece) || captured != '\0' ? 0 : halfMoveClock + 1;
+            if (!white)
+            {
+                fullMoveNumber++;
+            }
+
+            return new MoveResult(captured, capturedSquare);
         }
 
-        private void UndoMove(ChessMove move, char captured)
+        private GameSnapshot CaptureSnapshot()
         {
-            char piece = board[move.To.x, move.To.y];
-            board[move.To.x, move.To.y] = captured;
-            board[move.From.x, move.From.y] = move.Promotion ? (IsWhite(piece) ? 'P' : 'p') : piece;
+            return new GameSnapshot
+            {
+                Board = (char[,])board.Clone(),
+                WhiteKingMoved = whiteKingMoved,
+                BlackKingMoved = blackKingMoved,
+                WhiteKingsideRookMoved = whiteKingsideRookMoved,
+                WhiteQueensideRookMoved = whiteQueensideRookMoved,
+                BlackKingsideRookMoved = blackKingsideRookMoved,
+                BlackQueensideRookMoved = blackQueensideRookMoved,
+                EnPassantSquare = enPassantSquare,
+                HalfMoveClock = halfMoveClock,
+                FullMoveNumber = fullMoveNumber
+            };
+        }
+
+        private void RestoreSnapshot(GameSnapshot snapshot)
+        {
+            for (int file = 0; file < BoardSize; file++)
+            {
+                for (int rank = 0; rank < BoardSize; rank++)
+                {
+                    board[file, rank] = snapshot.Board[file, rank];
+                }
+            }
+
+            whiteKingMoved = snapshot.WhiteKingMoved;
+            blackKingMoved = snapshot.BlackKingMoved;
+            whiteKingsideRookMoved = snapshot.WhiteKingsideRookMoved;
+            whiteQueensideRookMoved = snapshot.WhiteQueensideRookMoved;
+            blackKingsideRookMoved = snapshot.BlackKingsideRookMoved;
+            blackQueensideRookMoved = snapshot.BlackQueensideRookMoved;
+            enPassantSquare = snapshot.EnPassantSquare;
+            halfMoveClock = snapshot.HalfMoveClock;
+            fullMoveNumber = snapshot.FullMoveNumber;
+        }
+
+        private void UpdateCastlingRights(ChessMove move, char piece, char captured, Vector2Int capturedSquare)
+        {
+            switch (piece)
+            {
+                case 'K':
+                    whiteKingMoved = true;
+                    break;
+                case 'k':
+                    blackKingMoved = true;
+                    break;
+                case 'R' when move.From == new Vector2Int(7, 0):
+                    whiteKingsideRookMoved = true;
+                    break;
+                case 'R' when move.From == new Vector2Int(0, 0):
+                    whiteQueensideRookMoved = true;
+                    break;
+                case 'r' when move.From == new Vector2Int(7, 7):
+                    blackKingsideRookMoved = true;
+                    break;
+                case 'r' when move.From == new Vector2Int(0, 7):
+                    blackQueensideRookMoved = true;
+                    break;
+            }
+
+            if (captured == 'R' && capturedSquare == new Vector2Int(7, 0))
+            {
+                whiteKingsideRookMoved = true;
+            }
+            else if (captured == 'R' && capturedSquare == new Vector2Int(0, 0))
+            {
+                whiteQueensideRookMoved = true;
+            }
+            else if (captured == 'r' && capturedSquare == new Vector2Int(7, 7))
+            {
+                blackKingsideRookMoved = true;
+            }
+            else if (captured == 'r' && capturedSquare == new Vector2Int(0, 7))
+            {
+                blackQueensideRookMoved = true;
+            }
         }
 
         private void RecordCapture(char captured)
@@ -573,6 +881,15 @@ namespace DailyGambit
             }
             whiteToMove = true;
             animating = false;
+            whiteKingMoved = false;
+            blackKingMoved = false;
+            whiteKingsideRookMoved = false;
+            whiteQueensideRookMoved = false;
+            blackKingsideRookMoved = false;
+            blackQueensideRookMoved = false;
+            enPassantSquare = null;
+            halfMoveClock = 0;
+            fullMoveNumber = 1;
             capturedByWhite = 0;
             capturedByBlack = 0;
             status = "Your move";
@@ -787,7 +1104,7 @@ namespace DailyGambit
         {
             foreach (ChessMove move in moves)
             {
-                bool capture = board[move.To.x, move.To.y] != '\0';
+                bool capture = move.EnPassant || board[move.To.x, move.To.y] != '\0';
                 GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 marker.name = capture ? "Capture marker" : "Move marker";
                 marker.transform.SetParent(transform);
@@ -847,7 +1164,8 @@ namespace DailyGambit
         private int MoveScore(ChessMove move)
         {
             int score = 0;
-            char captured = board[move.To.x, move.To.y];
+            Vector2Int capturedSquare = move.EnPassant ? new Vector2Int(move.To.x, move.From.y) : move.To;
+            char captured = board[capturedSquare.x, capturedSquare.y];
             if (captured != '\0')
             {
                 score += 1000 + PieceValue(captured) * 8 - PieceValue(board[move.From.x, move.From.y]);
@@ -855,6 +1173,10 @@ namespace DailyGambit
             if (move.Promotion)
             {
                 score += 900;
+            }
+            if (move.Castle)
+            {
+                score += 120;
             }
             score += 14 - Mathf.RoundToInt((Mathf.Abs(move.To.x - 3.5f) + Mathf.Abs(move.To.y - 3.5f)) * 3f);
             return score;
@@ -873,6 +1195,11 @@ namespace DailyGambit
         private static bool IsKing(char piece)
         {
             return char.ToLowerInvariant(piece) == 'k';
+        }
+
+        private static bool IsPawn(char piece)
+        {
+            return char.ToLowerInvariant(piece) == 'p';
         }
 
         private static int PieceValue(char piece)
@@ -931,15 +1258,45 @@ namespace DailyGambit
 
     public readonly struct ChessMove
     {
-        public ChessMove(Vector2Int from, Vector2Int to, bool promotion)
+        public ChessMove(Vector2Int from, Vector2Int to, bool promotion, bool castle = false, bool enPassant = false)
         {
             From = from;
             To = to;
             Promotion = promotion;
+            Castle = castle;
+            EnPassant = enPassant;
         }
 
         public Vector2Int From { get; }
         public Vector2Int To { get; }
         public bool Promotion { get; }
+        public bool Castle { get; }
+        public bool EnPassant { get; }
+    }
+
+    public readonly struct MoveResult
+    {
+        public MoveResult(char capturedPiece, Vector2Int capturedSquare)
+        {
+            CapturedPiece = capturedPiece;
+            CapturedSquare = capturedSquare;
+        }
+
+        public char CapturedPiece { get; }
+        public Vector2Int CapturedSquare { get; }
+    }
+
+    public struct GameSnapshot
+    {
+        public char[,] Board;
+        public bool WhiteKingMoved;
+        public bool BlackKingMoved;
+        public bool WhiteKingsideRookMoved;
+        public bool WhiteQueensideRookMoved;
+        public bool BlackKingsideRookMoved;
+        public bool BlackQueensideRookMoved;
+        public Vector2Int? EnPassantSquare;
+        public int HalfMoveClock;
+        public int FullMoveNumber;
     }
 }

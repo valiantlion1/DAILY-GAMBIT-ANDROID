@@ -81,6 +81,7 @@ app.*.map.json
 /unity/**/UserSettings/
 /unity/**/MemoryCaptures/
 /unity/**/Recordings/
+/unity/**/.utmp/
 /unity/**/Build/
 /unity/**/Builds/
 /unity/**/*.csproj
